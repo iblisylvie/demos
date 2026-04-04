@@ -1,0 +1,1059 @@
+import React, { useState, useRef, useEffect } from "react";
+
+// 初始静态数据
+const demoThumbs = [
+  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80",
+];
+
+// --- 首页项目列表数据 (评审报告) ---
+const projectsData = [
+  {
+    id: 1,
+    title: "2026 夏季首批评款",
+    status: "已完成",
+    deadline: "昨天 18:00 结束",
+    styleCount: 6,
+    raters: 128,
+    avgScore: 4.2,
+    thumbs: [demoThumbs[0], demoThumbs[1], demoThumbs[2], demoThumbs[3], demoThumbs[4], demoThumbs[5]]
+  },
+  {
+    id: 2,
+    title: "轻运动系列补充评审",
+    status: "评定中",
+    deadline: "今天 12:00 截止",
+    styleCount: 12,
+    raters: 45,
+    targetRaters: 70,
+    progress: 64,
+    thumbs: [demoThumbs[5], demoThumbs[2], demoThumbs[4], demoThumbs[1], demoThumbs[0], demoThumbs[3]]
+  }
+];
+
+// --- 评审报告详情数据 (已完整恢复 6 款) ---
+const initialReportData = [
+  {
+    id: 1,
+    code: "IM-SU26-DR-001",
+    images: [demoThumbs[0], demoThumbs[1], demoThumbs[2]],
+    designerTags: ["显瘦版型", "适合通勤", "高复购潜力"],
+    ranks: { "全部": 1, "华东": 1, "华北": 1, "华南": 2 },
+    stats: {
+      "全部": { avg: 4.8, raters: 128, dist: { 5: 108, 4: 15, 3: 5, 2: 0, 1: 0 } },
+      "华东": { avg: 4.9, raters: 56, dist: { 5: 50, 4: 6, 3: 0, 2: 0, 1: 0 } },
+      "华北": { avg: 4.8, raters: 42, dist: { 5: 35, 4: 6, 3: 1, 2: 0, 1: 0 } },
+      "华南": { avg: 4.6, raters: 30, dist: { 5: 23, 4: 3, 3: 4, 2: 0, 1: 0 } },
+    },
+    aiSummary: "绝大多数门店认为版型极佳，销售话术容易触达通勤客群，强烈建议作为S级主推款加大首批备货。极少数反馈腰部偏紧。",
+    rejected: false,
+    suggestion: "",
+    comments: [
+      { region: "华东", store: "上海恒隆店", name: "李小冉", score: 5, text: "上身效果比挂拍好太多，客人试穿转化率会很高。" },
+      { region: "华北", store: "北京三里屯店", name: "王店长", score: 5, text: "版型利落，销售话术清晰，适合主推。" },
+      { region: "华南", store: "深圳万象城店", name: "张婷", score: 4, text: "面料质感不错，但对南方略显厚重。" },
+    ],
+  },
+  {
+    id: 2,
+    code: "IM-SU26-TP-002",
+    images: [demoThumbs[1], demoThumbs[3], demoThumbs[0]],
+    designerTags: ["颜色接受度高", "适合陈列", "引流款"],
+    ranks: { "全部": 2, "华南": 1, "西南": 1, "华东": 2 },
+    stats: {
+      "全部": { avg: 4.5, raters: 115, dist: { 5: 75, 4: 30, 3: 10, 2: 0, 1: 0 } },
+      "华东": { avg: 4.3, raters: 40, dist: { 5: 20, 4: 15, 3: 5, 2: 0, 1: 0 } },
+      "华南": { avg: 4.8, raters: 45, dist: { 5: 38, 4: 7, 3: 0, 2: 0, 1: 0 } },
+      "西南": { avg: 4.7, raters: 30, dist: { 5: 17, 4: 8, 3: 5, 2: 0, 1: 0 } },
+    },
+    aiSummary: "属于安全牌，颜色讨喜，特别受南方市场欢迎。适合做门店的主视觉陈列搭配。建议作为A级款备货。",
+    rejected: false,
+    suggestion: "",
+    comments: [
+      { region: "华南", store: "广州天环店", name: "陈哥", score: 5, text: "颜色很亮眼，特别符合我们这边的客群审美，引流款首选。" },
+      { region: "西南", store: "成都太古里店", name: "周星星", score: 4, text: "好搭配，随便穿个牛仔裤就能出效果。" },
+      { region: "华东", store: "杭州万象城店", name: "林欣", score: 4, text: "颜色安全，但款式略微普通了一点。" },
+    ],
+  },
+  {
+    id: 3,
+    code: "IM-SU26-OT-015",
+    images: [demoThumbs[2], demoThumbs[4], demoThumbs[1]],
+    designerTags: ["面料升级", "廓形感", "职场进阶"],
+    ranks: { "全部": 3, "华中": 1, "华东": 3, "华北": 2 },
+    stats: {
+      "全部": { avg: 4.2, raters: 98, dist: { 5: 45, 4: 35, 3: 12, 2: 5, 1: 1 } },
+      "华东": { avg: 4.1, raters: 48, dist: { 5: 20, 4: 18, 3: 6, 2: 3, 1: 1 } },
+      "华北": { avg: 4.4, raters: 30, dist: { 5: 16, 4: 11, 3: 2, 2: 1, 1: 0 } },
+      "华中": { avg: 4.5, raters: 20, dist: { 5: 9, 4: 6, 3: 4, 2: 1, 1: 0 } },
+    },
+    aiSummary: "质感较强，在一二线城市接受度高，特别是职场高管客群。但面料护理成本较高，部分下沉市场门店反馈有销售阻力。",
+    rejected: false,
+    suggestion: "",
+    comments: [
+      { region: "华中", store: "武汉国际广场店", name: "赵雷", score: 5, text: "非常有质感，适合推给我们的VIP老客。" },
+      { region: "华北", store: "天津大悦城店", name: "刘梅", score: 4, text: "衣服很好，但洗护说明要跟客人重点强调。" },
+      { region: "华东", store: "南京德基店", name: "吴桐", score: 3, text: "稍微有点挑身高，小个子穿不起来。" },
+    ],
+  },
+  {
+    id: 4,
+    code: "IM-SU26-SK-022",
+    images: [demoThumbs[3], demoThumbs[0], demoThumbs[2]],
+    designerTags: ["基础百搭", "性价比", "无龄感"],
+    ranks: { "全部": 4, "西南": 3, "华北": 4, "华南": 4 },
+    stats: {
+      "全部": { avg: 3.8, raters: 105, dist: { 5: 20, 4: 55, 3: 20, 2: 8, 1: 2 } },
+      "西南": { avg: 3.9, raters: 35, dist: { 5: 8, 4: 20, 3: 5, 2: 2, 1: 0 } },
+      "华北": { avg: 3.7, raters: 40, dist: { 5: 6, 4: 20, 3: 10, 2: 3, 1: 1 } },
+      "华南": { avg: 3.8, raters: 30, dist: { 5: 6, 4: 15, 3: 5, 2: 3, 1: 1 } },
+    },
+    aiSummary: "标准的凑单款/基础款，店员普遍反馈缺乏亮点，但属于必不可少的品类。建议维持常规备货，不需过度营销。",
+    rejected: false,
+    suggestion: "",
+    comments: [
+      { region: "西南", store: "重庆IFS店", name: "王琦", score: 4, text: "很普通的基础款，适合给客人拿去搭上衣。" },
+      { region: "华北", store: "青岛万象城店", name: "孙悦", score: 3, text: "没有记忆点，全靠我们推销凑单。" },
+    ],
+  },
+  {
+    id: 5,
+    code: "IM-SU26-DR-003",
+    images: [demoThumbs[4], demoThumbs[2], demoThumbs[3]],
+    designerTags: ["成套潜力", "个性剪裁", "年轻感强"],
+    ranks: { "全部": 5, "华南": 3, "华东": 5, "华北": 6 },
+    stats: {
+      "全部": { avg: 3.1, raters: 86, dist: { 5: 10, 4: 15, 3: 40, 2: 15, 1: 6 } },
+      "华南": { avg: 4.1, raters: 26, dist: { 5: 8, 4: 14, 3: 3, 2: 1, 1: 0 } },
+      "华东": { avg: 3.0, raters: 40, dist: { 5: 2, 4: 1, 3: 25, 2: 8, 1: 4 } },
+      "华北": { avg: 2.1, raters: 20, dist: { 5: 0, 4: 0, 3: 12, 2: 6, 1: 2 } },
+    },
+    aiSummary: "区域争议极大。华南地区认为年轻有活力易出单；而华北、华东门店普遍反馈剪裁太夸张、受众面窄。建议采用区域化差异配货策略。",
+    rejected: false,
+    suggestion: "",
+    comments: [
+      { region: "华南", store: "深圳万象天地", name: "陈菲", score: 5, text: "很有设计感，这边的年轻女孩很吃这一套。" },
+      { region: "华北", store: "哈尔滨远大店", name: "赵雪", score: 2, text: "剪裁太碎了，我们这的客人偏好大气一点的款式。" },
+      { region: "华东", store: "宁波天一店", name: "徐丽", score: 3, text: "试穿率挺高，但转化极低，客人觉得难驾驭。" },
+    ],
+  },
+  {
+    id: 6,
+    code: "IM-SU26-BT-041",
+    images: [demoThumbs[1], demoThumbs[4], demoThumbs[0]],
+    designerTags: ["复古色系", "肌理感面料", "特殊工艺"],
+    ranks: { "全部": 6, "华中": 5, "西南": 6, "华南": 6 },
+    stats: {
+      "全部": { avg: 2.5, raters: 72, dist: { 5: 2, 4: 8, 3: 25, 2: 25, 1: 12 } },
+      "华中": { avg: 2.8, raters: 20, dist: { 5: 1, 4: 4, 3: 8, 2: 5, 1: 2 } },
+      "西南": { avg: 2.4, raters: 25, dist: { 5: 1, 4: 2, 3: 10, 2: 8, 1: 4 } },
+      "华南": { avg: 2.3, raters: 27, dist: { 5: 0, 4: 2, 3: 7, 2: 12, 1: 6 } },
+    },
+    aiSummary: "全大区反馈不佳。主要槽点集中在颜色显旧、面料手感扎人。销售抗拒情绪较高，建议取消该款或重新打样调整面料。",
+    rejected: true, 
+    suggestion: "建议更改面料配色，当前颜色过于显旧，并且需要优化手感。",
+    comments: [
+      { region: "华南", store: "福州万象城店", name: "阿敏", score: 1, text: "颜色看着像旧衣服，面料贴肉穿还有点扎。" },
+      { region: "西南", store: "贵阳喷水池店", name: "吴洁", score: 2, text: "工艺是复杂，但客人不买单，觉得性价比低。" },
+      { region: "华中", store: "长沙IFS店", name: "周扬", score: 3, text: "勉强能陈列用，真正卖很难。" },
+    ],
+  }
+].sort((a, b) => a.ranks["全部"] - b.ranks["全部"]);
+
+// --- 研发进度款式数据 (时间轴结构) ---
+const rdStylesData = [
+  {
+    id: 101,
+    wave: "2026 夏季首批",
+    brand: "Imuse 主线",
+    code: "IM-SU26-DR-001",
+    name: "法式复古收腰连衣裙",
+    category: "连衣裙",
+    status: "已提交市场评审",
+    designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" },
+    images: [demoThumbs[0], demoThumbs[1]],
+    timeline: [
+      { 
+        id: "t1", date: "10月12日 10:30", role: "designer", name: "林芷欣", action: "上传了初版设计稿", 
+        text: "初版提交，侧边隐形拉链设计，强调收腰比例。", 
+        images: [demoThumbs[0]] 
+      },
+      { 
+        id: "t2", date: "10月13日 14:15", role: "supervisor", name: "王总监", action: "提出了修改意见", 
+        text: "腰部过于紧绷，面料看起来有点厚重，建议放宽1.5cm并尝试更换轻薄面料重新打版。", 
+        images: [demoThumbs[2]] 
+      },
+      { 
+        id: "t3", date: "10月20日 09:40", role: "designer", name: "林芷欣", action: "更新了设计并重新提交", 
+        text: "腰部已按要求放宽1.5cm，面料更换为100D雪纺，改善了垂坠感。", 
+        images: [demoThumbs[1], demoThumbs[4]] 
+      },
+      { 
+        id: "t4", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", 
+        text: "版型通过，准许转入市场评审环节。", 
+        images: [] 
+      }
+    ]
+  },
+  {
+    id: 102,
+    wave: "2026 夏季首批",
+    brand: "Imuse 支线",
+    code: "IM-SU26-TP-012",
+    name: "无缝肌理感针织短袖",
+    category: "上衣",
+    status: "已通过审核",
+    designer: { brand: "Imuse 支线", position: "针织品类设计师", name: "张雨杰", avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=150&q=80" },
+    images: [demoThumbs[2], demoThumbs[3]],
+    timeline: [
+      { 
+        id: "t1", date: "10月18日 11:00", role: "designer", name: "张雨杰", action: "上传了初版设计稿", 
+        text: "第一版样衣提交，选用新型肌理纱线，弹性很好。", 
+        images: [demoThumbs[2], demoThumbs[3]] 
+      },
+      { 
+        id: "t2", date: "10月18日 16:20", role: "supervisor", name: "刘主管", action: "通过了审核", 
+        text: "面料选择不错，颜色符合当季流行色，批准进入下一环节。", 
+        images: [] 
+      }
+    ]
+  },
+  {
+    id: 103,
+    wave: "轻运动补充",
+    brand: "Imuse 主线",
+    code: "IM-SU26-WT-005",
+    name: "防晒超轻薄风衣",
+    category: "外套",
+    status: "已提交审核",
+    designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" },
+    images: [demoThumbs[4], demoThumbs[5]],
+    timeline: [
+      { 
+        id: "t1", date: "10月22日 18:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", 
+        text: "采用了新型抗UV防晒面料，测试版样衣，增强了背部透气孔设计。", 
+        images: [demoThumbs[4], demoThumbs[5]] 
+      }
+    ]
+  },
+  {
+    id: 104,
+    wave: "轻运动补充",
+    brand: "Imuse 支线",
+    code: "IM-SU26-PT-022",
+    name: "弹力空气感运动裤",
+    category: "裤装",
+    status: "已提交审核",
+    designer: { brand: "Imuse 支线", position: "下装设计师", name: "王心怡", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" },
+    images: [demoThumbs[5], demoThumbs[1]],
+    timeline: [
+      { 
+        id: "t1", date: "10月15日 09:00", role: "designer", name: "王心怡", action: "上传了初版设计稿", 
+        text: "", 
+        images: [demoThumbs[5]] 
+      },
+      { 
+        id: "t2", date: "10月16日 10:30", role: "supervisor", name: "刘主管", action: "退回修改", 
+        text: "口袋拉链不够顺滑，严重影响运动体验，必须更换拉链供应商重新打版。", 
+        images: [] 
+      },
+      { 
+        id: "t3", date: "10月24日 14:00", role: "designer", name: "王心怡", action: "更新了设计并重新提交", 
+        text: "已全面更换为YKK定制拉链，拉合体验显著提升。", 
+        images: [demoThumbs[1]] 
+      }
+    ]
+  }
+];
+
+// --- 动态调整了目标数据，以展示红/黄/绿三种效果 ---
+const RD_STATUS_CONFIG = [
+  { label: "已提交审核", value: "已提交审核", target: 8, bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", iconColor: "text-violet-500", icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+  )},
+  // 将通过审核的目标下调，使得 1款 / 2款 = 50%（触发橙黄色的稳步推进状态）
+  { label: "已通过审核", value: "已通过审核", target: 2, bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", iconColor: "text-blue-500", icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  )},
+  // 将市场评审的目标下调，使得 1款 / 1款 = 100%（触发翠绿色的达标状态）
+  { label: "市场评审中", value: "已提交市场评审", target: 1, bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", iconColor: "text-cyan-500", icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+  )}
+];
+
+const BRUSH_COLORS = ["#EF4444", "#EAB308", "#22C55E", "#3B82F6", "#FFFFFF"];
+
+export default function App() {
+  // 全局状态
+  const [currentTab, setCurrentTab] = useState("review");
+  const [page, setPage] = useState("home"); 
+  
+  // 评审报告状态
+  const [projectFilter, setProjectFilter] = useState("全部");
+  const [reportData, setReportData] = useState(initialReportData);
+  const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
+  const [scoreSortOrder, setScoreSortOrder] = useState('desc'); 
+  
+  // 研发进度状态
+  const [rdBrandFilter, setRdBrandFilter] = useState("全部品牌");
+  const [rdWaveFilter, setRdWaveFilter] = useState("全部波段");
+  const [selectedRdStatus, setSelectedRdStatus] = useState("");
+  const [selectedRdStyle, setSelectedRdStyle] = useState(null);
+
+  // 共享详细页状态
+  const [imageIndex, setImageIndex] = useState(0);
+  const [selectedRegion, setSelectedRegion] = useState("全部");
+  
+  // 画板及弹窗状态
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [showSuggestModal, setShowSuggestModal] = useState(false);
+  const [suggestionText, setSuggestionText] = useState("");
+  const [showDrawingPad, setShowDrawingPad] = useState(false);
+  const [strokesDataUrl, setStrokesDataUrl] = useState(null); 
+  const [brushColor, setBrushColor] = useState(BRUSH_COLORS[0]);
+  
+  const canvasRef = useRef(null);
+  const isDrawing = useRef(false);
+  const lastPos = useRef({ x: 0, y: 0 });
+
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 50;
+
+  // 提取选项数据
+  const rdBrands = ["全部品牌", ...Array.from(new Set(rdStylesData.map(s => s.brand)))];
+  const rdWaves = ["全部波段", ...Array.from(new Set(rdStylesData.map(s => s.wave)))];
+
+  const globalFilteredRdStyles = rdStylesData.filter(s => 
+    (rdBrandFilter === "全部品牌" || s.brand === rdBrandFilter) &&
+    (rdWaveFilter === "全部波段" || s.wave === rdWaveFilter)
+  );
+
+  const currentListRdStyles = globalFilteredRdStyles.filter(s => s.status === selectedRdStatus);
+  const currentStyle = reportData[selectedStyleIndex];
+
+  // 路由跳转
+  const goBackToHome = () => setPage("home");
+  const openProjectReport = (projectId) => setPage("project");
+  const goBackToProject = () => setPage("project");
+  
+  const openStyleReport = (index) => {
+    setSelectedStyleIndex(index); 
+    setImageIndex(0); 
+    setSelectedRegion("全部");
+    setStrokesDataUrl(reportData[index].strokesDataUrl || null);
+    setSuggestionText(reportData[index].suggestion || ""); 
+    setPage("style");
+  };
+  
+  const openRdList = (status) => { setSelectedRdStatus(status); setPage("rd_list"); };
+  const goBackToRdList = () => setPage("rd_list");
+  const openRdStyleDetail = (style) => { setSelectedRdStyle(style); setImageIndex(0); setPage("rd_style"); };
+
+  // 滑动控制
+  const onTouchStartSlider = (e) => { setTouchEnd(null); setTouchStart(e.targetTouches[0].clientX); };
+  const onTouchMoveSlider = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchEndSlider = (totalImages) => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) setImageIndex((prev) => Math.min(totalImages - 1, prev + 1));
+    if (distance < -minSwipeDistance) setImageIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const getRdStatusBadgeColor = (status) => {
+    switch(status) {
+      case "已提交审核": return "bg-violet-50 text-violet-600 border-violet-100";
+      case "已通过审核": return "bg-blue-50 text-blue-600 border-blue-100";
+      case "已提交市场评审": return "bg-cyan-50 text-cyan-600 border-cyan-100";
+      default: return "bg-neutral-100 text-neutral-600 border-neutral-200";
+    }
+  };
+
+  // 画板效果
+  useEffect(() => {
+    if (showDrawingPad && canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d");
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      if (strokesDataUrl) {
+        const img = new Image(); img.src = strokesDataUrl; img.onload = () => ctx.drawImage(img, 0, 0);
+      }
+    }
+  }, [showDrawingPad, strokesDataUrl]);
+
+  // 画板逻辑
+  const handleConfirmReject = () => {
+    const newData = [...reportData]; newData[selectedStyleIndex] = { ...newData[selectedStyleIndex], rejected: true };
+    setReportData(newData); setShowRejectModal(false);
+  };
+  const handleConfirmSuggestion = () => {
+    const newData = [...reportData]; newData[selectedStyleIndex] = { ...newData[selectedStyleIndex], suggestion: suggestionText.trim(), strokesDataUrl: strokesDataUrl };
+    setReportData(newData); setShowSuggestModal(false);
+  };
+  const getCanvasCoordinates = (e) => {
+    const canvas = canvasRef.current; const rect = canvas.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX); const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
+  };
+  const startDrawing = (e) => {
+    e.preventDefault(); isDrawing.current = true; const pos = getCanvasCoordinates(e); lastPos.current = pos;
+    const ctx = canvasRef.current.getContext("2d"); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x, pos.y); ctx.strokeStyle = brushColor; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.stroke();
+  };
+  const draw = (e) => {
+    e.preventDefault(); if (!isDrawing.current) return; const pos = getCanvasCoordinates(e);
+    const ctx = canvasRef.current.getContext("2d"); ctx.beginPath(); ctx.moveTo(lastPos.current.x, lastPos.current.y); ctx.lineTo(pos.x, pos.y); ctx.strokeStyle = brushColor; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.stroke(); lastPos.current = pos;
+  };
+  const stopDrawing = (e) => { e.preventDefault(); isDrawing.current = false; };
+  const saveDrawing = () => { if (canvasRef.current) setStrokesDataUrl(canvasRef.current.toDataURL("image/png")); setShowDrawingPad(false); };
+  const cancelDrawing = () => setShowDrawingPad(false);
+
+  // 公用 ScoreBar 组件
+  const ScoreBar = ({ star, count, total }) => {
+    const percentage = total === 0 ? 0 : (count / total) * 100;
+    return (
+      <div className="flex items-center gap-3 text-sm">
+        <span className="w-6 font-medium text-neutral-500 text-right">{star}星</span>
+        <div className="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
+          <div className="h-full rounded-full bg-violet-500 transition-all duration-500" style={{ width: `${percentage}%` }} />
+        </div>
+        <span className="w-8 text-neutral-500 text-right">{count}</span>
+      </div>
+    );
+  };
+
+  // ==========================================
+  // 1. 首页 大厅
+  // ==========================================
+  if (page === "home") {
+    return (
+      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
+        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
+          
+          <div className="px-5 pt-8 pb-28 bg-gradient-to-b from-violet-50 to-white flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold text-neutral-900 tracking-tight">
+                {currentTab === 'review' ? '市场评审' : '研发进度'}
+              </h1>
+            </div>
+
+            {/* --- 评审报告 Tab 内容 --- */}
+            {currentTab === 'review' && (
+              <>
+                <div className="flex p-1 bg-neutral-200/50 rounded-xl mb-6">
+                  {["全部", "评定中", "已完成"].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setProjectFilter(tab)}
+                      className={`flex-1 py-1.5 text-sm rounded-lg transition-all duration-300 ${
+                        projectFilter === tab 
+                          ? "bg-white text-neutral-900 font-semibold shadow-md" 
+                          : "text-neutral-500 font-medium hover:text-neutral-700"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="space-y-4">
+                  {projectsData.filter(p => projectFilter === "全部" || p.status === projectFilter).map((project) => (
+                    <button
+                      key={project.id}
+                      onClick={() => openProjectReport(project.id)}
+                      className="w-full bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 text-left relative hover:bg-neutral-50 transition-colors block"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="pr-2">
+                          <h3 className="text-lg font-bold text-neutral-900 leading-snug">{project.title}</h3>
+                          <p className="text-xs text-neutral-400 mt-1.5">{project.deadline}</p>
+                        </div>
+                        <span className={`shrink-0 text-xs px-2 py-1 rounded-full border font-medium ${
+                          project.status === '已完成' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-sky-50 text-sky-600 border-sky-100'
+                        }`}>
+                          {project.status}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-6 mt-4 mb-4 bg-neutral-50 rounded-2xl p-3 border border-neutral-100">
+                        <div>
+                          <p className="text-xs text-neutral-500 mb-0.5">款式</p>
+                          <p className="text-base font-bold text-neutral-900">{project.styleCount}<span className="text-xs font-normal text-neutral-500"> 款</span></p>
+                        </div>
+                        <div className="w-px h-8 bg-neutral-200" />
+                        <div>
+                          <p className="text-xs text-neutral-500 mb-0.5">参与人数</p>
+                          <p className="text-base font-bold text-neutral-900">{project.raters}<span className="text-xs font-normal text-neutral-500"> 人</span></p>
+                        </div>
+                        <div className="w-px h-8 bg-neutral-200" />
+                        <div className="flex-1">
+                          {project.status === "已完成" ? (
+                            <div>
+                              <p className="text-xs text-neutral-500 mb-0.5">综合均分</p>
+                              <p className="text-base font-bold text-violet-600">{project.avgScore}<span className="text-xs font-normal text-neutral-500"> 分</span></p>
+                            </div>
+                          ) : (
+                            <div>
+                              <div className="flex justify-between items-end mb-1">
+                                <p className="text-xs text-neutral-500">收集进度</p>
+                                <p className="text-[11px] font-bold text-neutral-700 leading-none">
+                                  {project.raters}<span className="text-neutral-400 font-normal">/{project.targetRaters || 100}</span>
+                                </p>
+                              </div>
+                              <div className="h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                                <div className="h-full bg-violet-500 rounded-full" style={{ width: `${project.progress}%` }} />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 w-full">
+                        {project.thumbs.slice(0, 6).map((src, idx) => (
+                          <div key={idx} className="flex-1 aspect-square rounded-xl overflow-hidden bg-neutral-100 border border-neutral-100 relative shadow-sm">
+                            <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                          </div>
+                        ))}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* --- 研发进度 Tab 内容 --- */}
+            {currentTab === 'rd' && (
+              <>
+                <div className="flex gap-3 mb-6">
+                  <div className="relative flex-1">
+                    <select
+                      value={rdBrandFilter}
+                      onChange={(e) => setRdBrandFilter(e.target.value)}
+                      className="w-full appearance-none bg-white border border-neutral-200 text-neutral-700 text-sm font-medium rounded-xl px-4 py-2.5 pr-8 outline-none shadow-sm focus:ring-2 focus:ring-violet-500/20 transition-all"
+                    >
+                      {rdBrands.map(b => <option key={b} value={b}>{b}</option>)}
+                    </select>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                  </div>
+                  <div className="relative flex-1">
+                    <select
+                      value={rdWaveFilter}
+                      onChange={(e) => setRdWaveFilter(e.target.value)}
+                      className="w-full appearance-none bg-white border border-neutral-200 text-neutral-700 text-sm font-medium rounded-xl px-4 py-2.5 pr-8 outline-none shadow-sm focus:ring-2 focus:ring-violet-500/20 transition-all"
+                    >
+                      {rdWaves.map(w => <option key={w} value={w}>{w}</option>)}
+                    </select>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {RD_STATUS_CONFIG.map((config) => {
+                    const stylesInStatus = globalFilteredRdStyles.filter(s => s.status === config.value);
+                    const count = stylesInStatus.length;
+                    const completionRate = Math.min(100, Math.round((count / config.target) * 100));
+                    
+                    const rateColor = completionRate >= 80 
+                      ? "text-emerald-500" 
+                      : completionRate >= 40 
+                        ? "text-amber-500" 
+                        : "text-red-500";
+
+                    return (
+                      <button
+                        key={config.value}
+                        onClick={() => openRdList(config.value)}
+                        className={`w-full rounded-3xl p-5 border text-left flex items-center justify-between transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm bg-white ${config.border}`}
+                      >
+                        <div>
+                          <div className={`flex items-center gap-2 mb-2 ${config.iconColor}`}>
+                            {config.icon}
+                            <span className="text-base font-bold text-neutral-900">{config.label}</span>
+                          </div>
+                          <div className="flex items-baseline gap-1 mt-3">
+                            <span className="text-3xl font-black text-neutral-900">{count}</span>
+                            <span className="text-sm font-medium text-neutral-500">款</span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col items-end justify-center">
+                          <span className="text-xs font-medium mb-1.5 text-neutral-500">目标 {config.target} 款</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-50 text-neutral-500 border border-neutral-100">完成率</span>
+                            <span className={`text-xl font-bold ${rateColor}`}>{completionRate}%</span>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 bg-white/85 backdrop-blur-xl border-t border-neutral-200 flex items-center justify-around px-6 pt-3 pb-6 z-30">
+            <button onClick={() => setCurrentTab('review')} className={`flex flex-col items-center gap-1 transition-colors w-1/2 ${currentTab === 'review' ? 'text-violet-600' : 'text-neutral-400 hover:text-neutral-600'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span className="text-[11px] font-semibold mt-0.5">评审报告</span>
+            </button>
+            <button onClick={() => setCurrentTab('rd')} className={`flex flex-col items-center gap-1 transition-colors w-1/2 ${currentTab === 'rd' ? 'text-violet-600' : 'text-neutral-400 hover:text-neutral-600'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <span className="text-[11px] font-semibold mt-0.5">研发进度</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // 2. 研发进度：具体状态的款式列表页
+  // ==========================================
+  if (page === "rd_list") {
+    const config = RD_STATUS_CONFIG.find(c => c.value === selectedRdStatus) || RD_STATUS_CONFIG[0];
+
+    return (
+      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans">
+        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 flex flex-col h-[85vh] min-h-[700px]">
+          <div className="px-5 pt-4 pb-6 bg-gradient-to-b from-neutral-50 to-white flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="mb-4">
+              <button onClick={goBackToHome} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5 -ml-2">
+                <span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回
+              </button>
+            </div>
+            <div className="mb-6 flex items-center justify-between">
+              <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">{config.label}</h1>
+              <span className={`text-sm font-bold px-3 py-1 rounded-lg ${config.bg} ${config.text}`}>
+                {currentListRdStyles.length} 款
+              </span>
+            </div>
+            <div className="space-y-4">
+              {currentListRdStyles.map(style => (
+                <button
+                  key={style.id}
+                  onClick={() => openRdStyleDetail(style)}
+                  className="w-full bg-white rounded-2xl p-4 shadow-sm border border-neutral-100 flex items-start gap-4 hover:bg-neutral-50 transition-colors text-left relative"
+                >
+                  <img src={style.images[0]} alt="" className="w-24 h-28 rounded-xl object-cover border border-neutral-100 shrink-0 shadow-sm" />
+                  <div className="flex-1 min-w-0 py-1">
+                    <h3 className="text-base font-bold text-neutral-900 truncate">{style.code}</h3>
+                    <p className="text-xs text-neutral-500 mt-1 truncate">{style.name}</p>
+                    <div className="mt-4 flex items-center gap-2">
+                      <img src={style.designer.avatar} alt="" className="w-6 h-6 rounded-full object-cover shadow-sm bg-neutral-200" />
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold text-neutral-700">{style.designer.name}</span>
+                        <span className="text-[10px] text-neutral-400">{style.designer.brand}</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+              {currentListRdStyles.length === 0 && (
+                <div className="py-16 text-center text-neutral-400 text-sm">该分类下暂无款式</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // 3. 研发进度：单款详情页 (时间轴)
+  // ==========================================
+  if (page === "rd_style" && selectedRdStyle) {
+    const style = selectedRdStyle;
+    return (
+      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
+        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
+          <div className="px-5 pt-4 pb-12 bg-neutral-50 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="sticky top-0 z-20 bg-neutral-50/80 backdrop-blur-md pb-3 pt-2 flex items-start justify-between">
+              <button onClick={goBackToRdList} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5">
+                <span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回
+              </button>
+              <span className={`text-xs px-2.5 py-1.5 rounded-full border font-medium mt-1 ${getRdStatusBadgeColor(style.status)}`}>{style.status}</span>
+            </div>
+
+            <div className="mt-2 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 relative">
+              <div className="relative" onTouchStart={onTouchStartSlider} onTouchMove={onTouchMoveSlider} onTouchEnd={() => onTouchEndSlider(style.images.length)}>
+                <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-neutral-100 border border-neutral-200 relative">
+                  <img src={style.images[imageIndex]} alt="" className="h-full w-full object-cover transition-opacity duration-300" />
+                </div>
+                <div className="absolute bottom-4 left-0 w-full flex justify-center gap-2 px-4 pointer-events-none">
+                  {style.images.map((_, idx) => (
+                    <div key={idx} className={`h-2 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 ${idx === imageIndex ? "w-6 bg-white" : "w-2 bg-white/60"}`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5">
+              <h2 className="text-xl font-bold text-neutral-900 tracking-tight">{style.name}</h2>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-neutral-600">
+                <p><span className="text-neutral-400 mr-2">款号</span>{style.code}</p>
+                <p><span className="text-neutral-400 mr-2">品类</span>{style.category}</p>
+                <p><span className="text-neutral-400 mr-2">波段</span>{style.wave}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 flex items-center gap-4">
+              <img src={style.designer.avatar} alt="Avatar" className="w-14 h-14 rounded-full object-cover shadow-sm bg-neutral-100" />
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-base font-semibold text-neutral-900">{style.designer.name}</h3>
+                  <span className="text-[10px] bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">{style.designer.brand}</span>
+                </div>
+                <p className="text-sm text-neutral-500">{style.designer.position}</p>
+              </div>
+            </div>
+
+            {style.timeline && style.timeline.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-sm font-bold text-neutral-900 mb-4 px-1">动态记录</h3>
+                <div className="relative border-l-2 border-neutral-200 ml-3 pb-2 space-y-6">
+                  {style.timeline.map((record) => {
+                    const isDesigner = record.role === 'designer';
+                    return (
+                      <div key={record.id} className="relative pl-6">
+                        <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-4 border-white shadow-sm flex items-center justify-center ${isDesigner ? 'bg-violet-500' : 'bg-amber-500'}`} />
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-sm font-bold text-neutral-900">{record.name}</span>
+                            <span className="text-[13px] text-neutral-500">{record.action}</span>
+                          </div>
+                          <span className="text-[11px] text-neutral-400 font-medium">{record.date}</span>
+                        </div>
+                        <div className={`rounded-2xl p-3 border shadow-sm ${isDesigner ? 'bg-white border-neutral-100' : 'bg-amber-50/50 border-amber-100'}`}>
+                          {record.text && (
+                            <p className={`text-[13px] leading-relaxed ${isDesigner ? 'text-neutral-700' : 'text-amber-900'}`}>{record.text}</p>
+                          )}
+                          {record.images && record.images.length > 0 && (
+                            <div className={`flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden pb-1 ${record.text ? 'mt-2' : ''}`}>
+                              {record.images.map((img, i) => (
+                                <img key={i} src={img} alt="附件" className="h-20 w-auto object-cover rounded-xl border border-neutral-200 shrink-0 shadow-sm" />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // 4. 评审报告：项目款式列表
+  // ==========================================
+  if (page === "project") {
+    const sortedReportData = [...reportData].sort((a, b) => scoreSortOrder === 'desc' ? b.stats["全部"].avg - a.stats["全部"].avg : a.stats["全部"].avg - b.stats["全部"].avg);
+    return (
+      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans">
+        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200">
+          <div className="px-5 pt-4 pb-6 bg-gradient-to-b from-violet-50 to-white min-h-screen">
+            <div className="mb-3">
+              <button onClick={goBackToHome} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors"><span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回</button>
+            </div>
+            <div className="mb-6 flex items-end justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">2026 夏季首批评款</h1>
+                <p className="text-sm text-neutral-500 mt-2">共 6 款 · 128 人参与评分</p>
+              </div>
+              <button onClick={() => setScoreSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')} className="flex items-center justify-center w-[34px] h-[34px] bg-white border border-neutral-200 shadow-sm rounded-full transition-colors shrink-0 hover:bg-neutral-50 active:bg-neutral-100 text-neutral-600">
+                {scoreSortOrder === 'desc' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5h10"></path><path d="M11 9h7"></path><path d="M11 13h4"></path><path d="M4 5v14"></path><path d="m7 16-3 3-3-3"></path></svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 15h10"></path><path d="M11 11h7"></path><path d="M11 7h4"></path><path d="M4 19V5"></path><path d="m1 8 3-3 3 3"></path></svg>
+                )}
+              </button>
+            </div>
+            <div className="space-y-4">
+              {sortedReportData.map((style) => {
+                const originalIndex = reportData.findIndex(r => r.id === style.id);
+                const rank = style.ranks["全部"];
+                return (
+                  <button key={style.id} onClick={() => openStyleReport(originalIndex)} className={`w-full bg-white rounded-3xl p-5 shadow-sm border text-left relative overflow-hidden flex items-start gap-4 hover:bg-neutral-50 transition-colors ${style.rejected ? 'border-red-100 bg-red-50/30' : 'border-neutral-100'}`}>
+                    <div className={`absolute top-0 left-0 w-11 h-11 rounded-br-2xl flex items-center justify-center text-sm font-bold text-white z-10 ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-slate-300" : rank === 3 ? "bg-orange-300" : "bg-neutral-200 text-neutral-500"}`}>{rank}</div>
+                    <div className="relative shrink-0 mt-1">
+                      <img src={style.images[0]} alt="" className={`w-28 h-32 rounded-2xl object-cover border border-neutral-100 shadow-sm ${style.rejected ? 'grayscale-[40%]' : ''}`} />
+                    </div>
+                    <div className="flex-1 min-w-0 pt-1">
+                      <h3 className={`text-lg font-bold truncate ${style.rejected ? 'text-neutral-500 line-through decoration-neutral-300' : 'text-neutral-900'}`}>{style.code}</h3>
+                      
+                      {(style.rejected || style.suggestion || style.strokesDataUrl) && (
+                        <div className="mt-1 flex flex-wrap gap-1.5">
+                          {style.rejected && <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-600 border border-red-200 text-[10px] font-bold">不合格</span>}
+                          {(style.suggestion || style.strokesDataUrl) && (
+                            <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-100 text-[10px] font-medium">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> 已评论
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className={`flex items-baseline gap-2 ${style.rejected || style.suggestion || style.strokesDataUrl ? 'mt-1.5' : 'mt-2'}`}>
+                        <span className={`text-2xl font-black tracking-tight ${style.rejected ? 'text-neutral-400' : 'text-violet-600'}`}>{style.stats["全部"].avg.toFixed(1)}<span className="text-xs font-normal text-neutral-500 ml-0.5">分</span></span>
+                        <span className="text-xs text-neutral-400">{style.stats["全部"].raters}人评分</span>
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {Object.entries(style.ranks).filter(([region]) => region !== "全部").map(([region, rank]) => (
+                          <span key={region} className="px-2 py-1 text-xs rounded bg-neutral-100 text-neutral-600 font-medium whitespace-nowrap">{region}第{rank}</span>
+                        ))}
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {style.designerTags.slice(0, 2).map((tag, i) => (
+                          <span key={i} className="px-2 py-1 text-xs rounded border border-neutral-200 text-neutral-500 whitespace-nowrap bg-white">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // 5. 评审报告：单款评审详情页 (含画笔涂鸦及所有统计)
+  // ==========================================
+  if (page === "style") {
+    const availableRegions = Object.keys(currentStyle.stats);
+    const currentStats = currentStyle.stats[selectedRegion];
+    const filteredComments = selectedRegion === "全部" 
+      ? currentStyle.comments 
+      : currentStyle.comments.filter(c => c.region === selectedRegion);
+
+    return (
+      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
+        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
+          <div className="px-5 pt-4 pb-28 bg-neutral-50 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="sticky top-0 z-20 bg-neutral-50/80 backdrop-blur-md pb-3 pt-2 flex items-start justify-between">
+              <button onClick={goBackToProject} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5"><span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回</button>
+              <div className="text-right">
+                <div className="text-sm font-medium text-neutral-900">总排名 第 {currentStyle.ranks["全部"]} 名</div>
+                <div className="flex flex-wrap items-center gap-1.5 mt-1 justify-end max-w-[160px]">
+                  {Object.entries(currentStyle.ranks).filter(([region]) => region !== "全部").map(([region, rank]) => (
+                    <span key={region} className="text-xs text-neutral-500 leading-none">{region}第{rank}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-2 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 relative">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-lg font-semibold text-neutral-900">{currentStyle.code}</h2>
+                {currentStyle.rejected && <span className="px-2 py-1 rounded-md bg-red-50 text-red-600 border border-red-100 text-xs font-bold">已标为不合格</span>}
+              </div>
+              <div className="relative" onTouchStart={onTouchStartSlider} onTouchMove={onTouchMoveSlider} onTouchEnd={() => onTouchEndSlider(currentStyle.images.length)}>
+                <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-neutral-100 border border-neutral-200 relative">
+                  <img src={currentStyle.images[imageIndex]} alt="" className={`h-full w-full object-cover transition-opacity duration-300 ${currentStyle.rejected ? 'grayscale-[30%]' : ''}`} />
+                  {imageIndex === 0 && strokesDataUrl && <img src={strokesDataUrl} alt="涂抹" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />}
+                </div>
+                <div className="absolute bottom-4 left-0 w-full flex justify-center gap-2 px-4 pointer-events-none">
+                  {currentStyle.images.map((_, idx) => (
+                    <div key={idx} className={`h-2 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 ${idx === imageIndex ? "w-6 bg-white" : "w-2 bg-white/60"}`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden scroll-smooth">
+              {availableRegions.map(region => (
+                <button
+                  key={region}
+                  onClick={() => setSelectedRegion(region)}
+                  className={`px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap transition-colors border ${
+                    selectedRegion === region ? "bg-violet-600 text-white border-violet-600 shadow-sm" : "bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50"
+                  }`}
+                >
+                  {region}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-3 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5 transition-all">
+              <div className="flex items-center justify-between border-b border-neutral-100 pb-5">
+                <div>
+                  <p className="text-sm text-neutral-500 mb-1">{selectedRegion === "全部" ? "综合" : selectedRegion}平均分</p>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-neutral-900">{currentStats.avg.toFixed(1)}</span>
+                    <span className="text-sm text-neutral-500">/ 5.0</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-neutral-500 mb-1">参与评分</p>
+                  <p className="text-2xl font-semibold text-neutral-900">{currentStats.raters}<span className="text-sm text-neutral-500 font-normal"> 人</span></p>
+                </div>
+              </div>
+              <div className="pt-5 space-y-2.5">
+                {[5, 4, 3, 2, 1].map(star => <ScoreBar key={star} star={star} count={currentStats.dist[star]} total={currentStats.raters} />)}
+              </div>
+            </div>
+
+            {(currentStyle.suggestion || currentStyle.strokesDataUrl) && (
+              <div className="mt-4 bg-sky-50 rounded-3xl border border-sky-100 shadow-sm p-5 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-base font-semibold text-sky-900 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> 我的改款建议
+                  </h3>
+                  <button onClick={() => setShowSuggestModal(true)} className="text-xs text-sky-600 font-medium bg-white px-3 py-1.5 rounded-full shadow-sm border border-sky-100 hover:bg-sky-100 transition-colors">修改</button>
+                </div>
+                <div className="flex gap-3 items-start">
+                  {currentStyle.strokesDataUrl && (
+                    <div className="w-16 h-20 shrink-0 rounded-2xl overflow-hidden bg-white border border-sky-200 relative shadow-sm">
+                      <img src={currentStyle.images[0]} alt="底图" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+                      <img src={currentStyle.strokesDataUrl} alt="涂抹" className="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                  )}
+                  {currentStyle.suggestion ? (
+                    <p className="text-sm text-sky-800 leading-relaxed flex-1 mt-1">{currentStyle.suggestion}</p>
+                  ) : (
+                    <p className="text-sm text-sky-600/80 leading-relaxed flex-1 mt-1 italic">(仅包含图片标记)</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-4 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-3xl border border-violet-100 shadow-sm p-5 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl">✨</div>
+              <h3 className="text-base font-semibold text-violet-900 flex items-center gap-2">综合智能提炼</h3>
+              <p className="mt-3 text-sm text-violet-800 leading-relaxed font-medium">"{currentStyle.aiSummary}"</p>
+            </div>
+
+            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base font-semibold text-neutral-900">{selectedRegion === "全部" ? "精选门店评价" : `${selectedRegion}门店评价`}</h3>
+                <span className="text-sm text-neutral-400">{filteredComments.length}条</span>
+              </div>
+              <div className="space-y-4">
+                {filteredComments.length > 0 ? (
+                  filteredComments.map((comment, idx) => (
+                    <div key={idx} className="border-b border-neutral-50 last:border-0 pb-4 last:pb-0">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-neutral-900">{comment.store}</span>
+                          <span className="text-xs text-neutral-400">{comment.name}</span>
+                        </div>
+                        <div className="flex items-center bg-amber-50 px-2 py-0.5 rounded text-xs font-bold text-amber-600">★ {comment.score}</div>
+                      </div>
+                      <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{comment.text}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="py-6 text-center text-sm text-neutral-400">该地区暂无精选评价</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 底部操作栏 */}
+          <div className="absolute bottom-0 left-0 right-0 bg-white/85 backdrop-blur-xl border-t border-neutral-200 p-4 pb-6 flex gap-3 z-30">
+            <button 
+              onClick={() => !currentStyle.rejected && setShowRejectModal(true)}
+              disabled={currentStyle.rejected}
+              className={`w-14 h-12 shrink-0 flex items-center justify-center rounded-2xl border transition-colors ${currentStyle.rejected ? 'bg-red-50 border-red-100 text-red-500 opacity-50 cursor-not-allowed' : 'bg-red-50/60 border-red-100 text-red-400 hover:bg-red-100 active:bg-red-200 shadow-sm'}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            </button>
+            <button 
+              onClick={() => setShowSuggestModal(true)}
+              className={`flex-1 h-12 rounded-2xl font-medium text-sm flex items-center justify-center gap-2 shadow-sm transition-colors ${currentStyle.suggestion || currentStyle.strokesDataUrl ? 'bg-sky-50 text-sky-600 border border-sky-100 hover:bg-sky-100' : 'bg-violet-500 text-white hover:bg-violet-600 shadow-sm'}`}
+            >
+              {currentStyle.suggestion || currentStyle.strokesDataUrl ? (
+                <><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> 修改建议</>
+              ) : (
+                <><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg> 输入改款建议</>
+              )}
+            </button>
+          </div>
+
+          {/* 填写建议弹窗 */}
+          {showSuggestModal && (
+            <>
+              <div className="absolute inset-0 bg-black/10 z-40 rounded-3xl transition-opacity" onClick={() => setShowSuggestModal(false)} />
+              <div className="absolute bottom-[92px] left-4 right-4 bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-neutral-200 p-4 z-50">
+                <div className="flex items-center justify-between mb-3"><h3 className="text-sm font-semibold text-neutral-900">填写改款建议</h3></div>
+                <div className="flex gap-3 mb-3">
+                  <div onClick={() => setShowDrawingPad(true)} className="relative w-24 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-100 cursor-pointer group border border-neutral-200 shadow-sm">
+                    <img src={currentStyle.images[0]} alt="缩略图" className="w-full h-full object-cover" />
+                    {strokesDataUrl && <img src={strokesDataUrl} alt="涂抹痕迹" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />}
+                    <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white mb-1"><path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="m14 2-8 8"></path></svg>
+                      <span className="text-[10px] text-white font-medium">点击标记</span>
+                    </div>
+                  </div>
+                  <textarea autoFocus value={suggestionText} onChange={(e) => setSuggestionText(e.target.value)} placeholder="可点击左侧图片涂抹标记，或在此输入文字建议..." className="flex-1 h-32 bg-neutral-100/50 rounded-2xl p-3 text-sm text-neutral-800 outline-none resize-none border border-neutral-200 focus:border-violet-400 focus:bg-white transition-all placeholder:text-neutral-400" />
+                </div>
+                <div className="flex justify-end gap-3">
+                  <button onClick={() => setShowSuggestModal(false)} className="px-5 py-2.5 text-sm font-medium text-neutral-600 bg-neutral-100 hover:bg-neutral-200 rounded-xl transition-colors">取消</button>
+                  <button onClick={handleConfirmSuggestion} disabled={!suggestionText.trim() && !strokesDataUrl} className="px-5 py-2.5 text-sm font-medium text-white bg-violet-500 hover:bg-violet-600 rounded-xl shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">保存</button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* 独立画板 */}
+        {showDrawingPad && (
+          <div className="fixed inset-0 z-[60] bg-neutral-900 flex flex-col items-center justify-between pb-6">
+            <div className="flex-1 w-full flex items-center justify-center p-4">
+              <div className="relative w-full max-w-sm aspect-[4/5] bg-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+                <img src={currentStyle.images[0]} alt="背景图" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <canvas ref={canvasRef} width={800} height={1000} onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing} onTouchStart={startDrawing} onTouchMove={draw} onTouchEnd={stopDrawing} onTouchCancel={stopDrawing} className="absolute inset-0 w-full h-full touch-none cursor-crosshair z-10" />
+              </div>
+            </div>
+            <div className="w-full h-24 bg-neutral-900 border-t border-neutral-800 flex items-center justify-between px-6 pb-4">
+              <button onClick={cancelDrawing} className="w-12 h-12 rounded-full bg-neutral-800 text-neutral-400 flex items-center justify-center hover:bg-neutral-700 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+              <div className="flex gap-3 bg-neutral-800 p-2 rounded-full">
+                {BRUSH_COLORS.map(color => (
+                  <button key={color} onClick={() => setBrushColor(color)} className={`w-8 h-8 rounded-full border-2 transition-transform ${brushColor === color ? 'scale-110 border-white shadow-md' : 'border-transparent opacity-80'}`} style={{ backgroundColor: color }} />
+                ))}
+              </div>
+              <button onClick={saveDrawing} className="w-12 h-12 rounded-full bg-violet-600 text-white flex items-center justify-center hover:bg-violet-500 transition-colors shadow-lg shadow-violet-900/50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 确认不合格弹窗 */}
+        {showRejectModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm">
+            <div className="w-full max-w-xs bg-white rounded-3xl overflow-hidden shadow-2xl transform transition-all">
+              <div className="p-6 text-center">
+                <div className="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">确认不合格？</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">该款式审核结果将标记为不合格，并同步给所有相关人员。</p>
+              </div>
+              <div className="flex border-t border-neutral-100 bg-neutral-50">
+                <button onClick={() => setShowRejectModal(false)} className="flex-1 py-4 text-sm font-medium text-neutral-600 border-r border-neutral-100 hover:bg-neutral-100 transition-colors">取消</button>
+                <button onClick={handleConfirmReject} className="flex-1 py-4 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors">确认</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return null;
+}
