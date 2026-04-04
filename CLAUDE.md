@@ -12,9 +12,9 @@ This is a **研发进度可视面板** (R&D Progress Visualization Dashboard) - 
 
 This project uses an unconventional architecture where React code is compiled and executed at runtime in the browser:
 
-1. **Source Code Location**: The main React application code lives in `研发进度初始版.txt` (a text file containing JSX/React code)
-2. **Entry Points**: `index.html` and `preview.html` are identical entry points that:
-   - Fetch `研发进度初始版.txt` via HTTP request
+1. **Source Code Location**: The main React application code lives in `app.jsx`
+2. **Entry Points**: `index.html` is the entry point that:
+   - Fetch `app.jsx` via HTTP request
    - Transform ES6 imports to use global `React` object (`const { useState, useRef, useEffect } = React`)
    - Compile JSX using Babel standalone at runtime
    - Mount the app to the DOM
@@ -67,4 +67,4 @@ vercel --prod
 - **Transform rules**: The HTML entry points perform regex transforms on the source code:
   - `import React, { useState, useRef, useEffect } from "react"` → `const { useState, useRef, useEffect } = React`
   - `export default function App()` → `function App()`
-- When modifying `研发进度初始版.txt`, maintain these export/import patterns so the runtime transformation continues to work
+- When modifying `app.jsx`, maintain these export/import patterns so the runtime transformation continues to work

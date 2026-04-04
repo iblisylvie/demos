@@ -19,9 +19,9 @@
     <div id="root"></div>
     <script>
       async function boot() {
-        const response = await fetch("./研发进度初始版.txt");
+        const response = await fetch("./app.jsx");
         if (!response.ok) {
-          throw new Error("无法读取 研发进度初始版.txt");
+          throw new Error("无法读取 app.jsx");
         }
 
         let source = await response.text();
