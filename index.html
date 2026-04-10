@@ -18,6 +18,12 @@
   <body>
     <div id="root"></div>
     <script>
+      window.onerror = function(msg, url, line) {
+        document.getElementById("root").innerHTML =
+          '<div style="padding:24px;font:14px/1.6 sans-serif;color:#b91c1c;">全局错误：' +
+          msg + " (行 " + line + ")</div>";
+      };
+
       async function boot() {
         const response = await fetch("./app.jsx");
         if (!response.ok) {
@@ -26,8 +32,8 @@
 
         let source = await response.text();
         source = source.replace(
-          /^import React, \{ useState, useRef, useEffect \} from "react";\s*/m,
-          "const { useState, useRef, useEffect } = React;\n"
+          /^import React, \{ useState, useMemo, useRef, useEffect \} from "react";?\s*/m,
+          "const { useState, useMemo, useRef, useEffect } = React;\n"
         );
         source = source.replace("export default function App()", "function App()");
         source += "\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(<App />);\n";

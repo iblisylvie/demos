@@ -1,6 +1,124 @@
-import React, { useState, useRef, useEffect } from "react";
+const { useState, useMemo, useRef, useEffect } = React;
 
-// 初始静态数据
+const ChevronLeft = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m15 18-6-6 6-6" key="1wnfg3" />
+  </svg>
+);
+const ChevronDown = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m6 9 6 6 6-6" key="qrunsl" />
+  </svg>
+);
+const ArrowDownWideNarrow = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m3 16 4 4 4-4" key="1co6wj" /><path d="M7 20V4" key="1yoxec" /><path d="M11 4h10" key="1w87gc" /><path d="M11 8h7" key="djye34" /><path d="M11 12h4" key="q8tih4" />
+  </svg>
+);
+const ArrowUpNarrowWide = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m3 8 4-4 4 4" key="11wl7u" /><path d="M7 4v16" key="1glfcx" /><path d="M11 12h4" key="q8tih4" /><path d="M11 16h7" key="uosisv" /><path d="M11 20h10" key="jvxblo" />
+  </svg>
+);
+const CheckCircle2 = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" key="1mglay" /><path d="m9 12 2 2 4-4" key="dzmm74" />
+  </svg>
+);
+const XCircle = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" key="1mglay" /><path d="m15 9-6 6" key="1uzhvr" /><path d="m9 9 6 6" key="z0biqf" />
+  </svg>
+);
+const LayoutGrid = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect width="7" height="7" x="3" y="3" rx="1" key="1g98yp" /><rect width="7" height="7" x="14" y="3" rx="1" key="6d4xhi" /><rect width="7" height="7" x="14" y="14" rx="1" key="nxv5o0" /><rect width="7" height="7" x="3" y="14" rx="1" key="1bb6yr" />
+  </svg>
+);
+const TrendingUp = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" key="126l90" /><polyline points="16 7 22 7 22 13" key="kwv8wd" />
+  </svg>
+);
+const Check = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M20 6 9 17l-5-5" key="1gmf2c" />
+  </svg>
+);
+const BarChart2 = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" x2="18" y1="20" y2="10" key="1xfpm4" /><line x1="12" x2="12" y1="20" y2="4" key="be30l9" /><line x1="6" x2="6" y1="20" y2="14" key="1r4le6" />
+  </svg>
+);
+const Target = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" key="1mglay" /><circle cx="12" cy="12" r="6" key="1vlfrh" /><circle cx="12" cy="12" r="2" key="1c9p78" />
+  </svg>
+);
+const AlertTriangle = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" key="wmoenq" /><path d="M12 9v4" key="juzpu7" /><path d="M12 17h.01" key="p32p05" />
+  </svg>
+);
+const Clock = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" key="1mglay" /><polyline points="12 6 12 12 16 14" key="68esgv" />
+  </svg>
+);
+const Briefcase = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" key="jecpp" /><rect width="20" height="14" x="2" y="6" rx="2" key="i6l2r4" />
+  </svg>
+);
+const Activity = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" key="169zse" />
+  </svg>
+);
+const Table = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3v18" key="108xh3" /><rect width="18" height="18" x="3" y="3" rx="2" key="afitv7" /><path d="M3 9h18" key="1pudct" /><path d="M3 15h18" key="5xshup" />
+  </svg>
+);
+const RefreshCcw = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" key="14sxne" /><path d="M3 3v5h5" key="1xhq8a" /><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" key="1hlbsb" /><path d="M16 16h5v5" key="ccwih5" />
+  </svg>
+);
+const ArrowRight = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M5 12h14" key="1ays0h" /><path d="m12 5 7 7-7 7" key="xquz4c" />
+  </svg>
+);
+const Layers = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" key="8b97xw" /><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" key="dd6zsq" /><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" key="ep9fru" />
+  </svg>
+);
+
+// ==========================================
+// 核心 UI 常量与公用组件
+// ==========================================
+const brandGradient = "bg-gradient-to-r from-[#8B9DFE] via-[#85B5FF] to-[#7DE0EF]";
+const brandGradientPrimary = "bg-gradient-to-r from-[#8B9DFE] to-[#7DE0EF]";
+const actionGradient = "linear-gradient(135deg, #7289FF 0%, #8B9DFE 100%)";
+
+const BottomNav = ({ currentTab, setCurrentTab }) => (
+  <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-neutral-200 flex items-center justify-around px-6 pt-3 pb-6 z-40">
+    <button onClick={() => setCurrentTab('progress')} className={`flex flex-col items-center gap-1 transition-colors w-1/2 ${currentTab === 'progress' ? 'text-[#5B73E8]' : 'text-neutral-400 hover:text-neutral-600'}`}>
+      <Briefcase className="w-5 h-5" />
+      <span className="text-[11px] font-bold mt-0.5">研发进度</span>
+    </button>
+    <button onClick={() => setCurrentTab('efficiency')} className={`flex flex-col items-center gap-1 transition-colors w-1/2 ${currentTab === 'efficiency' ? 'text-[#5B73E8]' : 'text-neutral-400 hover:text-neutral-600'}`}>
+      <Activity className="w-5 h-5" />
+      <span className="text-[11px] font-bold mt-0.5">效能评定</span>
+    </button>
+  </div>
+);
+
+// ==========================================
+// [模块 A] 研发进度相关数据与新增多选组件
+// ==========================================
 const demoThumbs = [
   "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
@@ -10,651 +128,462 @@ const demoThumbs = [
   "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80",
 ];
 
-// --- 首页项目列表数据 (评审报告) ---
-const projectsData = [
-  {
-    id: 1,
-    title: "2026 夏季首批评款",
-    status: "已完成",
-    deadline: "昨天 18:00 结束",
-    styleCount: 6,
-    raters: 128,
-    avgScore: 4.2,
-    thumbs: [demoThumbs[0], demoThumbs[1], demoThumbs[2], demoThumbs[3], demoThumbs[4], demoThumbs[5]]
-  },
-  {
-    id: 2,
-    title: "轻运动系列补充评审",
-    status: "评定中",
-    deadline: "今天 12:00 截止",
-    styleCount: 12,
-    raters: 45,
-    targetRaters: 70,
-    progress: 64,
-    thumbs: [demoThumbs[5], demoThumbs[2], demoThumbs[4], demoThumbs[1], demoThumbs[0], demoThumbs[3]]
-  }
-];
-
-// --- 评审报告详情数据 (已完整恢复 6 款) ---
-const initialReportData = [
-  {
-    id: 1,
-    code: "IM-SU26-DR-001",
-    images: [demoThumbs[0], demoThumbs[1], demoThumbs[2]],
-    designerTags: ["显瘦版型", "适合通勤", "高复购潜力"],
-    ranks: { "全部": 1, "华东": 1, "华北": 1, "华南": 2 },
-    stats: {
-      "全部": { avg: 4.8, raters: 128, dist: { 5: 108, 4: 15, 3: 5, 2: 0, 1: 0 } },
-      "华东": { avg: 4.9, raters: 56, dist: { 5: 50, 4: 6, 3: 0, 2: 0, 1: 0 } },
-      "华北": { avg: 4.8, raters: 42, dist: { 5: 35, 4: 6, 3: 1, 2: 0, 1: 0 } },
-      "华南": { avg: 4.6, raters: 30, dist: { 5: 23, 4: 3, 3: 4, 2: 0, 1: 0 } },
-    },
-    aiSummary: "绝大多数门店认为版型极佳，销售话术容易触达通勤客群，强烈建议作为S级主推款加大首批备货。极少数反馈腰部偏紧。",
-    rejected: false,
-    suggestion: "",
-    comments: [
-      { region: "华东", store: "上海恒隆店", name: "李小冉", score: 5, text: "上身效果比挂拍好太多，客人试穿转化率会很高。" },
-      { region: "华北", store: "北京三里屯店", name: "王店长", score: 5, text: "版型利落，销售话术清晰，适合主推。" },
-      { region: "华南", store: "深圳万象城店", name: "张婷", score: 4, text: "面料质感不错，但对南方略显厚重。" },
-    ],
-  },
-  {
-    id: 2,
-    code: "IM-SU26-TP-002",
-    images: [demoThumbs[1], demoThumbs[3], demoThumbs[0]],
-    designerTags: ["颜色接受度高", "适合陈列", "引流款"],
-    ranks: { "全部": 2, "华南": 1, "西南": 1, "华东": 2 },
-    stats: {
-      "全部": { avg: 4.5, raters: 115, dist: { 5: 75, 4: 30, 3: 10, 2: 0, 1: 0 } },
-      "华东": { avg: 4.3, raters: 40, dist: { 5: 20, 4: 15, 3: 5, 2: 0, 1: 0 } },
-      "华南": { avg: 4.8, raters: 45, dist: { 5: 38, 4: 7, 3: 0, 2: 0, 1: 0 } },
-      "西南": { avg: 4.7, raters: 30, dist: { 5: 17, 4: 8, 3: 5, 2: 0, 1: 0 } },
-    },
-    aiSummary: "属于安全牌，颜色讨喜，特别受南方市场欢迎。适合做门店的主视觉陈列搭配。建议作为A级款备货。",
-    rejected: false,
-    suggestion: "",
-    comments: [
-      { region: "华南", store: "广州天环店", name: "陈哥", score: 5, text: "颜色很亮眼，特别符合我们这边的客群审美，引流款首选。" },
-      { region: "西南", store: "成都太古里店", name: "周星星", score: 4, text: "好搭配，随便穿个牛仔裤就能出效果。" },
-      { region: "华东", store: "杭州万象城店", name: "林欣", score: 4, text: "颜色安全，但款式略微普通了一点。" },
-    ],
-  },
-  {
-    id: 3,
-    code: "IM-SU26-OT-015",
-    images: [demoThumbs[2], demoThumbs[4], demoThumbs[1]],
-    designerTags: ["面料升级", "廓形感", "职场进阶"],
-    ranks: { "全部": 3, "华中": 1, "华东": 3, "华北": 2 },
-    stats: {
-      "全部": { avg: 4.2, raters: 98, dist: { 5: 45, 4: 35, 3: 12, 2: 5, 1: 1 } },
-      "华东": { avg: 4.1, raters: 48, dist: { 5: 20, 4: 18, 3: 6, 2: 3, 1: 1 } },
-      "华北": { avg: 4.4, raters: 30, dist: { 5: 16, 4: 11, 3: 2, 2: 1, 1: 0 } },
-      "华中": { avg: 4.5, raters: 20, dist: { 5: 9, 4: 6, 3: 4, 2: 1, 1: 0 } },
-    },
-    aiSummary: "质感较强，在一二线城市接受度高，特别是职场高管客群。但面料护理成本较高，部分下沉市场门店反馈有销售阻力。",
-    rejected: false,
-    suggestion: "",
-    comments: [
-      { region: "华中", store: "武汉国际广场店", name: "赵雷", score: 5, text: "非常有质感，适合推给我们的VIP老客。" },
-      { region: "华北", store: "天津大悦城店", name: "刘梅", score: 4, text: "衣服很好，但洗护说明要跟客人重点强调。" },
-      { region: "华东", store: "南京德基店", name: "吴桐", score: 3, text: "稍微有点挑身高，小个子穿不起来。" },
-    ],
-  },
-  {
-    id: 4,
-    code: "IM-SU26-SK-022",
-    images: [demoThumbs[3], demoThumbs[0], demoThumbs[2]],
-    designerTags: ["基础百搭", "性价比", "无龄感"],
-    ranks: { "全部": 4, "西南": 3, "华北": 4, "华南": 4 },
-    stats: {
-      "全部": { avg: 3.8, raters: 105, dist: { 5: 20, 4: 55, 3: 20, 2: 8, 1: 2 } },
-      "西南": { avg: 3.9, raters: 35, dist: { 5: 8, 4: 20, 3: 5, 2: 2, 1: 0 } },
-      "华北": { avg: 3.7, raters: 40, dist: { 5: 6, 4: 20, 3: 10, 2: 3, 1: 1 } },
-      "华南": { avg: 3.8, raters: 30, dist: { 5: 6, 4: 15, 3: 5, 2: 3, 1: 1 } },
-    },
-    aiSummary: "标准的凑单款/基础款，店员普遍反馈缺乏亮点，但属于必不可少的品类。建议维持常规备货，不需过度营销。",
-    rejected: false,
-    suggestion: "",
-    comments: [
-      { region: "西南", store: "重庆IFS店", name: "王琦", score: 4, text: "很普通的基础款，适合给客人拿去搭上衣。" },
-      { region: "华北", store: "青岛万象城店", name: "孙悦", score: 3, text: "没有记忆点，全靠我们推销凑单。" },
-    ],
-  },
-  {
-    id: 5,
-    code: "IM-SU26-DR-003",
-    images: [demoThumbs[4], demoThumbs[2], demoThumbs[3]],
-    designerTags: ["成套潜力", "个性剪裁", "年轻感强"],
-    ranks: { "全部": 5, "华南": 3, "华东": 5, "华北": 6 },
-    stats: {
-      "全部": { avg: 3.1, raters: 86, dist: { 5: 10, 4: 15, 3: 40, 2: 15, 1: 6 } },
-      "华南": { avg: 4.1, raters: 26, dist: { 5: 8, 4: 14, 3: 3, 2: 1, 1: 0 } },
-      "华东": { avg: 3.0, raters: 40, dist: { 5: 2, 4: 1, 3: 25, 2: 8, 1: 4 } },
-      "华北": { avg: 2.1, raters: 20, dist: { 5: 0, 4: 0, 3: 12, 2: 6, 1: 2 } },
-    },
-    aiSummary: "区域争议极大。华南地区认为年轻有活力易出单；而华北、华东门店普遍反馈剪裁太夸张、受众面窄。建议采用区域化差异配货策略。",
-    rejected: false,
-    suggestion: "",
-    comments: [
-      { region: "华南", store: "深圳万象天地", name: "陈菲", score: 5, text: "很有设计感，这边的年轻女孩很吃这一套。" },
-      { region: "华北", store: "哈尔滨远大店", name: "赵雪", score: 2, text: "剪裁太碎了，我们这的客人偏好大气一点的款式。" },
-      { region: "华东", store: "宁波天一店", name: "徐丽", score: 3, text: "试穿率挺高，但转化极低，客人觉得难驾驭。" },
-    ],
-  },
-  {
-    id: 6,
-    code: "IM-SU26-BT-041",
-    images: [demoThumbs[1], demoThumbs[4], demoThumbs[0]],
-    designerTags: ["复古色系", "肌理感面料", "特殊工艺"],
-    ranks: { "全部": 6, "华中": 5, "西南": 6, "华南": 6 },
-    stats: {
-      "全部": { avg: 2.5, raters: 72, dist: { 5: 2, 4: 8, 3: 25, 2: 25, 1: 12 } },
-      "华中": { avg: 2.8, raters: 20, dist: { 5: 1, 4: 4, 3: 8, 2: 5, 1: 2 } },
-      "西南": { avg: 2.4, raters: 25, dist: { 5: 1, 4: 2, 3: 10, 2: 8, 1: 4 } },
-      "华南": { avg: 2.3, raters: 27, dist: { 5: 0, 4: 2, 3: 7, 2: 12, 1: 6 } },
-    },
-    aiSummary: "全大区反馈不佳。主要槽点集中在颜色显旧、面料手感扎人。销售抗拒情绪较高，建议取消该款或重新打样调整面料。",
-    rejected: true, 
-    suggestion: "建议更改面料配色，当前颜色过于显旧，并且需要优化手感。",
-    comments: [
-      { region: "华南", store: "福州万象城店", name: "阿敏", score: 1, text: "颜色看着像旧衣服，面料贴肉穿还有点扎。" },
-      { region: "西南", store: "贵阳喷水池店", name: "吴洁", score: 2, text: "工艺是复杂，但客人不买单，觉得性价比低。" },
-      { region: "华中", store: "长沙IFS店", name: "周扬", score: 3, text: "勉强能陈列用，真正卖很难。" },
-    ],
-  }
-].sort((a, b) => a.ranks["全部"] - b.ranks["全部"]);
-
-// --- 研发进度款式数据 (时间轴结构) ---
 const rdStylesData = [
-  {
-    id: 101,
-    wave: "2026 夏季首批",
-    brand: "Imuse 主线",
-    code: "IM-SU26-DR-001",
-    name: "法式复古收腰连衣裙",
-    category: "连衣裙",
-    status: "已提交市场评审",
-    designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" },
-    images: [demoThumbs[0], demoThumbs[1]],
-    timeline: [
-      { 
-        id: "t1", date: "10月12日 10:30", role: "designer", name: "林芷欣", action: "上传了初版设计稿", 
-        text: "初版提交，侧边隐形拉链设计，强调收腰比例。", 
-        images: [demoThumbs[0]] 
-      },
-      { 
-        id: "t2", date: "10月13日 14:15", role: "supervisor", name: "王总监", action: "提出了修改意见", 
-        text: "腰部过于紧绷，面料看起来有点厚重，建议放宽1.5cm并尝试更换轻薄面料重新打版。", 
-        images: [demoThumbs[2]] 
-      },
-      { 
-        id: "t3", date: "10月20日 09:40", role: "designer", name: "林芷欣", action: "更新了设计并重新提交", 
-        text: "腰部已按要求放宽1.5cm，面料更换为100D雪纺，改善了垂坠感。", 
-        images: [demoThumbs[1], demoThumbs[4]] 
-      },
-      { 
-        id: "t4", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", 
-        text: "版型通过，准许转入市场评审环节。", 
-        images: [] 
-      }
-    ]
-  },
-  {
-    id: 102,
-    wave: "2026 夏季首批",
-    brand: "Imuse 支线",
-    code: "IM-SU26-TP-012",
-    name: "无缝肌理感针织短袖",
-    category: "上衣",
-    status: "已通过审核",
-    designer: { brand: "Imuse 支线", position: "针织品类设计师", name: "张雨杰", avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=150&q=80" },
-    images: [demoThumbs[2], demoThumbs[3]],
-    timeline: [
-      { 
-        id: "t1", date: "10月18日 11:00", role: "designer", name: "张雨杰", action: "上传了初版设计稿", 
-        text: "第一版样衣提交，选用新型肌理纱线，弹性很好。", 
-        images: [demoThumbs[2], demoThumbs[3]] 
-      },
-      { 
-        id: "t2", date: "10月18日 16:20", role: "supervisor", name: "刘主管", action: "通过了审核", 
-        text: "面料选择不错，颜色符合当季流行色，批准进入下一环节。", 
-        images: [] 
-      }
-    ]
-  },
-  {
-    id: 103,
-    wave: "轻运动补充",
-    brand: "Imuse 主线",
-    code: "IM-SU26-WT-005",
-    name: "防晒超轻薄风衣",
-    category: "外套",
-    status: "已提交审核",
-    designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" },
-    images: [demoThumbs[4], demoThumbs[5]],
-    timeline: [
-      { 
-        id: "t1", date: "10月22日 18:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", 
-        text: "采用了新型抗UV防晒面料，测试版样衣，增强了背部透气孔设计。", 
-        images: [demoThumbs[4], demoThumbs[5]] 
-      }
-    ]
-  },
-  {
-    id: 104,
-    wave: "轻运动补充",
-    brand: "Imuse 支线",
-    code: "IM-SU26-PT-022",
-    name: "弹力空气感运动裤",
-    category: "裤装",
-    status: "已提交审核",
-    designer: { brand: "Imuse 支线", position: "下装设计师", name: "王心怡", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" },
-    images: [demoThumbs[5], demoThumbs[1]],
-    timeline: [
-      { 
-        id: "t1", date: "10月15日 09:00", role: "designer", name: "王心怡", action: "上传了初版设计稿", 
-        text: "", 
-        images: [demoThumbs[5]] 
-      },
-      { 
-        id: "t2", date: "10月16日 10:30", role: "supervisor", name: "刘主管", action: "退回修改", 
-        text: "口袋拉链不够顺滑，严重影响运动体验，必须更换拉链供应商重新打版。", 
-        images: [] 
-      },
-      { 
-        id: "t3", date: "10月24日 14:00", role: "designer", name: "王心怡", action: "更新了设计并重新提交", 
-        text: "已全面更换为YKK定制拉链，拉合体验显著提升。", 
-        images: [demoThumbs[1]] 
-      }
-    ]
+  { id: 101, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-001", name: "法式复古收腰连衣裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[0], demoThumbs[1]], timeline: [{ id: "t1", date: "10月12日 10:30", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "初版提交，侧边隐形拉链设计，强调收腰比例。", images: [demoThumbs[0]] }, { id: "t2", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "版型通过，准许转入大货企划环节。", images: [] }] },
+  { id: 105, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-SK-002", name: "法式高腰百褶半裙", category: "半身裙", status: "修改中", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月14日 09:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "百褶裙初版，使用雪纺面料。", images: [demoThumbs[2]] }, { id: "t2", date: "10月15日 14:00", role: "supervisor", name: "王总监", action: "退回修改", text: "褶皱不够硬挺，建议更换面料克重。", images: [] }] },
+  { id: 106, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-BL-003", name: "醋酸缎面通勤衬衫", category: "衬衫", status: "已提交", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月22日 11:30", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "高阶通勤款，手感极佳。", images: [demoThumbs[4], demoThumbs[5]] }] },
+  { id: 107, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-CT-004", name: "亚麻阔版西装外套", category: "外套", status: "已删除", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[1], demoThumbs[2]], timeline: [{ id: "t1", date: "10月10日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "初版样衣。", images: [demoThumbs[1]] }, { id: "t2", date: "10月12日 16:00", role: "supervisor", name: "王总监", action: "废弃该款", text: "成本核算超标，且容易起皱，直接砍掉。", images: [] }] },
+  { id: 108, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-005", name: "V领碎花茶歇裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[3], demoThumbs[4]], timeline: [{ id: "t1", date: "10月15日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "度假风。", images: [] }, { id: "t2", date: "10月16日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "花型很好，直接过。", images: [] }] },
+  { id: 109, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-TR-006", name: "天丝垂坠阔腿裤", category: "裤装", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[5], demoThumbs[0]], timeline: [{ id: "t1", date: "10月16日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "垂坠感很好。", images: [] }, { id: "t2", date: "10月17日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "版型优秀。", images: [] }] },
+  { id: 110, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-JK-007", name: "轻薄透气肌理小香风", category: "外套", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[0], demoThumbs[1]], timeline: [{ id: "t1", date: "10月18日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "夏季薄款小香。", images: [] }, { id: "t2", date: "10月19日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "可以加入主推。", images: [] }] },
+  { id: 111, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-SH-008", name: "法式方领泡泡袖上衣", category: "上衣", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月19日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "复古显瘦。", images: [] }, { id: "t2", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "通过。", images: [] }] },
+  { id: 112, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-009", name: "假两件拼接吊带裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月20日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "层次感强。", images: [] }, { id: "t2", date: "10月21日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "OK。", images: [] }] },
+
+  // --- Imuse 支线数据 ---
+  { id: 102, wave: "2026 夏季首批", brand: "Imuse 支线", code: "IM-SU26-TP-012", name: "无缝肌理感针织短袖", category: "上衣", status: "修改中", designer: { brand: "Imuse 支线", position: "针织品类设计师", name: "张雨杰", avatar: "张" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月18日 11:00", role: "designer", name: "张雨杰", action: "上传了初版设计稿", text: "第一版样衣提交，选用新型肌理纱线，弹性很好。", images: [demoThumbs[2], demoThumbs[3]] }, { id: "t2", date: "10月19日 16:20", role: "supervisor", name: "刘主管", action: "退回修改", text: "领口弧度不够自然，需要再微调版型。", images: [] }] },
+  { id: 104, wave: "轻运动补充", brand: "Imuse 支线", code: "IM-SU26-PT-022", name: "弹力空气感运动裤", category: "裤装", status: "已删除", designer: { brand: "Imuse 支线", position: "下装设计师", name: "王心怡", avatar: "王" }, images: [demoThumbs[5], demoThumbs[1]], timeline: [{ id: "t1", date: "10月15日 09:00", role: "designer", name: "王心怡", action: "上传了初版设计稿", text: "", images: [demoThumbs[5]] }, { id: "t2", date: "10月25日 10:30", role: "supervisor", name: "刘主管", action: "废弃该款", text: "面料缩水率不达标，供应商无法解决，决定直接删减该SKU。", images: [] }] },
+  { id: 103, wave: "轻运动补充", brand: "Imuse 主线", code: "IM-SU26-WT-005", name: "防晒超轻薄风衣", category: "外套", status: "已提交", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月22日 18:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "采用了新型抗UV防晒面料，测试版样衣，增强了背部透气孔设计。", images: [demoThumbs[4], demoThumbs[5]] }] },
+];
+
+const CATEGORIES = ["上衣", "外套", "下装", "连衣裙", "配饰"];
+const MULTI_WAVE_DATA = {
+  waves: {
+    "2026 夏季首批": { gap: -7, days: 41, status: "safe", items: { "上衣": -2, "外套": -1, "下装": -3, "连衣裙": 0, "配饰": -1 } },
+    "轻运动补充": { gap: -14, days: 31, status: "risk", items: { "上衣": -5, "外套": -2, "下装": -4, "连衣裙": -2, "配饰": -1 } },
   }
-];
+};
 
-// --- 动态调整了目标数据，以展示红/黄/绿三种效果 ---
-const RD_STATUS_CONFIG = [
-  { label: "已提交审核", value: "已提交审核", target: 8, bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", iconColor: "text-violet-500", icon: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-  )},
-  // 将通过审核的目标下调，使得 1款 / 2款 = 50%（触发橙黄色的稳步推进状态）
-  { label: "已通过审核", value: "已通过审核", target: 2, bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", iconColor: "text-blue-500", icon: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-  )},
-  // 将市场评审的目标下调，使得 1款 / 1款 = 100%（触发翠绿色的达标状态）
-  { label: "市场评审中", value: "已提交市场评审", target: 1, bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", iconColor: "text-cyan-500", icon: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-  )}
-];
+const PillSelect = ({ value, options, onChange, activeMenu, setActiveMenu, menuId, variant }) => {
+  const isOpen = activeMenu === menuId;
+  const baseClasses = "flex items-center gap-1 font-medium py-1 pl-3 pr-2.5 rounded-full outline-none cursor-pointer transition-all whitespace-nowrap";
+  const variantClasses = variant === 'primary'
+    ? `${brandGradientPrimary} text-white shadow-[0_2px_8px_rgba(139,157,254,0.35)] hover:opacity-90 text-[12px] border-none`
+    : "bg-white border border-neutral-200 shadow-sm hover:bg-neutral-50 text-[11px] text-neutral-700";
 
-const BRUSH_COLORS = ["#EF4444", "#EAB308", "#22C55E", "#3B82F6", "#FFFFFF"];
+  return (
+    <div className="relative shrink-0">
+      <button onClick={() => setActiveMenu(isOpen ? null : menuId)} className={`${baseClasses} ${variantClasses}`}>
+        <span className="truncate max-w-[100px]">{value}</span>
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isOpen ? 'rotate-180' : ''} ${variant === 'primary' ? 'text-white' : 'text-neutral-400'}`} />
+      </button>
+      {isOpen && (
+        <div className="absolute top-[calc(100%+6px)] left-0 min-w-[130px] bg-white rounded-2xl shadow-xl border border-neutral-100 z-50 overflow-hidden py-1 animate-pop-in">
+          {options.map(opt => (
+            <div key={opt} onClick={() => { onChange(opt); setActiveMenu(null); }} className={`px-3 py-2 text-[12px] flex items-center justify-between cursor-pointer transition-colors ${value === opt ? 'bg-[#EBF0FF] font-bold text-[#5B73E8]' : 'hover:bg-neutral-50 text-neutral-700 font-medium'}`}>
+              {opt} {value === opt && <Check className="w-3.5 h-3.5 text-[#5B73E8]" />}
+            </div>
+          ))}
+        </div>
+      )}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)}></div>}
+    </div>
+  );
+};
 
-export default function App() {
-  // 全局状态
-  const [currentTab, setCurrentTab] = useState("rd");
-  const [page, setPage] = useState("home"); 
-  
-  // 评审报告状态
-  const [projectFilter, setProjectFilter] = useState("全部");
-  const [reportData, setReportData] = useState(initialReportData);
-  const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
-  const [scoreSortOrder, setScoreSortOrder] = useState('desc'); 
-  
-  // 研发进度状态
-  const [rdBrandFilter, setRdBrandFilter] = useState("全部品牌");
-  const [rdWaveFilter, setRdWaveFilter] = useState("全部波段");
-  const [selectedRdStatus, setSelectedRdStatus] = useState("");
+// ------------------------------------------
+// 多选下拉组件 (支持多选波段)
+// ------------------------------------------
+const RefinedMultiSelect = ({ values, options, onChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) setIsOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleOption = (opt) => {
+    if (values.includes(opt)) {
+      if (values.length > 1) onChange(values.filter(v => v !== opt));
+    } else {
+      onChange([...values, opt]);
+    }
+  };
+
+  const displayText = values.length === options.length
+    ? "全选波段"
+    : (values.length > 1 ? `${values[0]}等 ${values.length}个` : values[0]);
+
+  return (
+    <div className="relative shrink-0" ref={containerRef}>
+      <button onClick={() => setIsOpen(!isOpen)} className={`flex items-center gap-1 py-1 pl-3 pr-2.5 rounded-full transition-all duration-300 border whitespace-nowrap ${isOpen ? 'bg-white border-[#7289FF] shadow-[0_4px_12px_rgba(114,137,255,0.15)]' : 'bg-white border-neutral-200 shadow-sm hover:bg-neutral-50'}`}>
+        <span className={`text-[11px] font-semibold tracking-tight ${isOpen ? 'text-[#7289FF]' : 'text-neutral-700'}`}>{displayText}</span>
+        <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#7289FF]' : 'text-neutral-400'}`} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-[calc(100%+6px)] right-0 min-w-[150px] bg-white rounded-2xl shadow-xl border border-neutral-100 z-[60] overflow-hidden animate-pop-in">
+          <div className="p-2 border-b border-neutral-50 flex items-center justify-between px-3">
+            <span className="text-[10px] font-bold text-neutral-400">选择波段</span>
+            <span className="text-[10px] font-bold text-[#7289FF] bg-[#F1F3FF] px-1.5 py-0.5 rounded-md">{`${values.length}/${options.length}`}</span>
+          </div>
+          <div className="max-h-[240px] overflow-y-auto py-1 custom-scrollbar">
+            {options.map(opt => {
+              const isSelected = values.includes(opt);
+              return (
+                <div key={opt} onClick={() => toggleOption(opt)} className="px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-[#F8F9FF] transition-colors">
+                  <span className={`text-[12px] transition-colors ${isSelected ? 'text-[#7289FF] font-bold' : 'text-neutral-600 font-medium'}`}>{opt}</span>
+                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-[#7289FF] border-[#7289FF]' : 'bg-white border-neutral-200 opacity-40 group-hover:opacity-100'}`}>
+                    {isSelected && <Check className="w-2.5 h-2.5 text-white" strokeWidth={4} />}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="p-2 bg-neutral-50/50 flex gap-2 border-t border-neutral-50">
+             <button onClick={(e) => { e.stopPropagation(); onChange(options); }} className="flex-1 py-1.5 text-[11px] font-bold text-neutral-500 hover:text-[#7289FF] hover:bg-white rounded-lg transition-all">全选</button>
+             <button onClick={(e) => { e.stopPropagation(); onChange([options[0]]); }} className="flex-1 py-1.5 text-[11px] font-bold text-neutral-500 hover:text-[#FF5C5C] hover:bg-white rounded-lg transition-all">重置</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- 多选波段专属子组件 ---
+const PlanningStructureTable = ({ selectedWaves }) => (
+  <div className="mx-4 mt-4 bg-white rounded-3xl p-4 shadow-[0_2px_16px_rgba(0,0,0,0.03)] border border-neutral-100">
+    <div className="flex items-center gap-2 mb-4 px-1">
+      <div className="w-7 h-7 bg-[#F4F7FF] rounded-lg flex items-center justify-center"><Table className="w-3.5 h-3.5 text-[#7289FF]" /></div>
+      <h3 className="text-[14px] font-bold text-neutral-800 tracking-tight">企划结构还原表</h3>
+    </div>
+    <div className="relative rounded-2xl overflow-hidden border border-neutral-100 bg-white">
+      <div className="overflow-x-auto scrollbar-hide">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-neutral-50/80">
+              <th className="sticky left-0 z-10 bg-neutral-50/80 py-2 px-3 text-[11px] font-bold text-neutral-400 text-left min-w-[60px] border-r border-neutral-100">品类</th>
+              {selectedWaves.map(wave => <th key={wave} className="py-2 px-3 text-[11px] font-bold text-neutral-400 text-center min-w-[90px]">{wave}</th>)}
+              <th className="sticky right-0 z-10 bg-neutral-50/80 py-2 px-3 text-[11px] font-bold text-neutral-400 text-right min-w-[60px] border-l border-neutral-100">合计</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CATEGORIES.map(cat => {
+              let total = 0;
+              return (
+                <tr key={cat} className="border-t border-neutral-100/60 group hover:bg-neutral-50/50 transition-colors">
+                  <td className="sticky left-0 z-10 bg-white group-hover:bg-neutral-50/50 py-3 px-3 text-[12px] font-bold text-neutral-600 border-r border-neutral-100/60">{cat}</td>
+                  {selectedWaves.map(wave => {
+                    const val = MULTI_WAVE_DATA.waves[wave]?.items[cat] || 0;
+                    total += val;
+                    return <td key={wave} className={`py-3 px-3 text-[12px] font-bold text-center ${val < 0 ? 'text-[#7289FF]' : 'text-neutral-300'}`}>{val}</td>;
+                  })}
+                  <td className="sticky right-0 z-10 bg-white group-hover:bg-neutral-50/50 py-3 px-3 text-[12px] font-bold text-right border-l border-neutral-100/60 text-[#5B73E8]">{total}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+);
+
+const PredictionList = ({ selectedWaves }) => (
+  <div className="mx-4 mt-6 space-y-4">
+    <div className="flex items-center gap-2 px-1">
+      <RefreshCcw className="w-4 h-4 text-[#8B9DFE]" />
+      <h3 className="text-[14px] font-bold text-neutral-800 tracking-tight">研发补款预测与调配</h3>
+    </div>
+    {selectedWaves.map(wave => {
+      const info = MULTI_WAVE_DATA.waves[wave];
+      if (!info) return null;
+      const isRisk = info.status === "risk";
+      return (
+        <div key={wave} className="bg-white rounded-3xl p-5 border border-neutral-100 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h4 className="text-[14px] font-bold text-neutral-800">{wave}</h4>
+              <p className="text-[11px] text-neutral-400 font-medium mt-1">剩余 {info.days} 天 | 缺款 {Math.abs(info.gap)} 款</p>
+            </div>
+            <span className={`text-[10px] font-bold px-2 py-1 rounded-md border ${isRisk ? 'bg-[#FFF2F2] text-[#FF5C5C] border-[#FF5C5C]/10' : 'bg-emerald-50 text-emerald-600 border-emerald-100'}`}>
+              {isRisk ? "风险预警" : "进度安全"}
+            </span>
+          </div>
+          {isRisk ? (
+            <div className="bg-[#F8F9FF] p-3.5 rounded-xl border border-[#7289FF]/10">
+              <p className="text-[12px] text-[#7289FF] leading-snug">当前速度不足，预计产生 <span className="font-black underline decoration-2">{Math.abs(info.gap)} 款</span> 缺口。</p>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50/50 p-3.5 rounded-xl border border-dashed border-emerald-200">
+              <Check className="w-4 h-4" />
+              <span className="text-[12px] font-bold">资源充足，预期可按时交付</span>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+);
+
+const getStatusStyles = (status) => {
+  switch (status) {
+    case '已通过': return 'bg-emerald-50 text-emerald-600 border-emerald-100';
+    case '修改中': return 'bg-amber-50 text-amber-600 border-amber-100';
+    case '已删除': return 'bg-neutral-100 text-neutral-500 border-neutral-200';
+    case '已提交':
+    default: return 'bg-[#EBF0FF] text-[#5B73E8] border-[#D6E0FF]';
+  }
+};
+
+const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
+  const [page, setPage] = useState("home");
+  const uniqueBrands = Array.from(new Set(rdStylesData.map(s => s.brand)));
+  const [brandFilter, setBrandFilter] = useState(uniqueBrands[0]);
+
+  const initialWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === uniqueBrands[0]).map(s => s.wave)));
+  const [waveFilters, setWaveFilters] = useState([initialWaves[0]]);
+  const isMultiWave = waveFilters.length > 1;
+  const singleWaveFilter = waveFilters[0] || initialWaves[0];
+
+  const [rdListFilter, setRdListFilter] = useState("全部状态");
+  const [activeMenu, setActiveMenu] = useState(null);
   const [selectedRdStyle, setSelectedRdStyle] = useState(null);
-
-  // 共享详细页状态
   const [imageIndex, setImageIndex] = useState(0);
-  const [selectedRegion, setSelectedRegion] = useState("全部");
-  
-  // 画板及弹窗状态
-  const [showRejectModal, setShowRejectModal] = useState(false);
-  const [showSuggestModal, setShowSuggestModal] = useState(false);
-  const [suggestionText, setSuggestionText] = useState("");
-  const [showDrawingPad, setShowDrawingPad] = useState(false);
-  const [strokesDataUrl, setStrokesDataUrl] = useState(null); 
-  const [brushColor, setBrushColor] = useState(BRUSH_COLORS[0]);
-  
-  const canvasRef = useRef(null);
-  const isDrawing = useRef(false);
-  const lastPos = useRef({ x: 0, y: 0 });
-
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const minSwipeDistance = 50;
 
-  // 提取选项数据
-  const rdBrands = ["全部品牌", ...Array.from(new Set(rdStylesData.map(s => s.brand)))];
-  const rdWaves = ["全部波段", ...Array.from(new Set(rdStylesData.map(s => s.wave)))];
+  const availableWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brandFilter).map(s => s.wave)));
 
-  const globalFilteredRdStyles = rdStylesData.filter(s => 
-    (rdBrandFilter === "全部品牌" || s.brand === rdBrandFilter) &&
-    (rdWaveFilter === "全部波段" || s.wave === rdWaveFilter)
-  );
-
-  const currentListRdStyles = globalFilteredRdStyles.filter(s => s.status === selectedRdStatus);
-  const currentStyle = reportData[selectedStyleIndex];
-
-  // 路由跳转
-  const goBackToHome = () => setPage("home");
-  const openProjectReport = (projectId) => setPage("project");
-  const goBackToProject = () => setPage("project");
-  
-  const openStyleReport = (index) => {
-    setSelectedStyleIndex(index); 
-    setImageIndex(0); 
-    setSelectedRegion("全部");
-    setStrokesDataUrl(reportData[index].strokesDataUrl || null);
-    setSuggestionText(reportData[index].suggestion || ""); 
-    setPage("style");
+  const handleBrandChange = (brand) => {
+    setBrandFilter(brand);
+    const newWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brand).map(s => s.wave)));
+    setWaveFilters([newWaves[0]]);
   };
-  
-  const openRdList = (status) => { setSelectedRdStatus(status); setPage("rd_list"); };
-  const goBackToRdList = () => setPage("rd_list");
-  const openRdStyleDetail = (style) => { setSelectedRdStyle(style); setImageIndex(0); setPage("rd_style"); };
 
-  // 滑动控制
-  const onTouchStartSlider = (e) => { setTouchEnd(null); setTouchStart(e.targetTouches[0].clientX); };
-  const onTouchMoveSlider = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const filteredRdStyles = rdStylesData.filter(s => s.brand === brandFilter && s.wave === singleWaveFilter);
+  const displayStyles = filteredRdStyles.filter(s => rdListFilter === "全部状态" || s.status === rdListFilter);
+
+  const dashboardStats = useMemo(() => {
+    let target = singleWaveFilter === "2026 夏季首批" ? 8 : 4;
+    const submitted = filteredRdStyles.filter(s => s.status !== '已删除').length;
+    const approved = filteredRdStyles.filter(s => s.status === "已通过").length;
+    const progress = target === 0 ? 0 : Math.round((approved / target) * 100);
+    const timeProgress = singleWaveFilter === '2026 夏季首批' ? 85 : 45;
+    return { target, submitted, approved, progress, timeProgress };
+  }, [filteredRdStyles, singleWaveFilter]);
+
   const onTouchEndSlider = (totalImages) => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    if (distance > minSwipeDistance) setImageIndex((prev) => Math.min(totalImages - 1, prev + 1));
-    if (distance < -minSwipeDistance) setImageIndex((prev) => Math.max(0, prev - 1));
+    if (distance > 50) setImageIndex((prev) => Math.min(totalImages - 1, prev + 1));
+    if (distance < -50) setImageIndex((prev) => Math.max(0, prev - 1));
   };
 
-  const getRdStatusBadgeColor = (status) => {
-    switch(status) {
-      case "已提交审核": return "bg-violet-50 text-violet-600 border-violet-100";
-      case "已通过审核": return "bg-blue-50 text-blue-600 border-blue-100";
-      case "已提交市场评审": return "bg-cyan-50 text-cyan-600 border-cyan-100";
-      default: return "bg-neutral-100 text-neutral-600 border-neutral-200";
-    }
-  };
-
-  // 画板效果
-  useEffect(() => {
-    if (showDrawingPad && canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d");
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-      if (strokesDataUrl) {
-        const img = new Image(); img.src = strokesDataUrl; img.onload = () => ctx.drawImage(img, 0, 0);
-      }
-    }
-  }, [showDrawingPad, strokesDataUrl]);
-
-  // 画板逻辑
-  const handleConfirmReject = () => {
-    const newData = [...reportData]; newData[selectedStyleIndex] = { ...newData[selectedStyleIndex], rejected: true };
-    setReportData(newData); setShowRejectModal(false);
-  };
-  const handleConfirmSuggestion = () => {
-    const newData = [...reportData]; newData[selectedStyleIndex] = { ...newData[selectedStyleIndex], suggestion: suggestionText.trim(), strokesDataUrl: strokesDataUrl };
-    setReportData(newData); setShowSuggestModal(false);
-  };
-  const getCanvasCoordinates = (e) => {
-    const canvas = canvasRef.current; const rect = canvas.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX); const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-    return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
-  };
-  const startDrawing = (e) => {
-    e.preventDefault(); isDrawing.current = true; const pos = getCanvasCoordinates(e); lastPos.current = pos;
-    const ctx = canvasRef.current.getContext("2d"); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x, pos.y); ctx.strokeStyle = brushColor; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.stroke();
-  };
-  const draw = (e) => {
-    e.preventDefault(); if (!isDrawing.current) return; const pos = getCanvasCoordinates(e);
-    const ctx = canvasRef.current.getContext("2d"); ctx.beginPath(); ctx.moveTo(lastPos.current.x, lastPos.current.y); ctx.lineTo(pos.x, pos.y); ctx.strokeStyle = brushColor; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.stroke(); lastPos.current = pos;
-  };
-  const stopDrawing = (e) => { e.preventDefault(); isDrawing.current = false; };
-  const saveDrawing = () => { if (canvasRef.current) setStrokesDataUrl(canvasRef.current.toDataURL("image/png")); setShowDrawingPad(false); };
-  const cancelDrawing = () => setShowDrawingPad(false);
-
-  // 公用 ScoreBar 组件
-  const ScoreBar = ({ star, count, total }) => {
-    const percentage = total === 0 ? 0 : (count / total) * 100;
-    return (
-      <div className="flex items-center gap-3 text-sm">
-        <span className="w-6 font-medium text-neutral-500 text-right">{star}星</span>
-        <div className="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
-          <div className="h-full rounded-full bg-violet-500 transition-all duration-500" style={{ width: `${percentage}%` }} />
-        </div>
-        <span className="w-8 text-neutral-500 text-right">{count}</span>
-      </div>
-    );
-  };
-
-  // ==========================================
-  // 1. 首页 大厅
-  // ==========================================
   if (page === "home") {
     return (
-      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
-        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
-          
-          <div className="px-5 pt-8 pb-28 bg-gradient-to-b from-violet-50 to-white flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-neutral-900 tracking-tight">研发进度</h1>
-            </div>
-
-            <div className="flex gap-3 mb-6">
-              <div className="relative flex-1">
-                <select
-                  value={rdBrandFilter}
-                  onChange={(e) => setRdBrandFilter(e.target.value)}
-                  className="w-full appearance-none bg-white border border-neutral-200 text-neutral-700 text-sm font-medium rounded-xl px-4 py-2.5 pr-8 outline-none shadow-sm focus:ring-2 focus:ring-violet-500/20 transition-all"
-                >
-                  {rdBrands.map(b => <option key={b} value={b}>{b}</option>)}
-                </select>
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
+      <div className="flex items-center justify-center min-h-screen bg-neutral-200 font-sans sm:p-6">
+        <div className="w-full sm:max-w-[414px] h-[100dvh] sm:h-[850px] bg-white sm:rounded-[40px] sm:shadow-2xl sm:border-[8px] sm:border-white overflow-hidden relative flex flex-col">
+          <div className="flex-1 overflow-y-auto relative z-10 pb-28 bg-white hide-scrollbar">
+            <div className="bg-white px-5 pt-14 pb-4 relative z-40">
+              <div className="flex items-center justify-between mb-4">
+                <h1 className="text-[28px] font-black text-neutral-900 tracking-tight">研发进度</h1>
               </div>
-              <div className="relative flex-1">
-                <select
-                  value={rdWaveFilter}
-                  onChange={(e) => setRdWaveFilter(e.target.value)}
-                  className="w-full appearance-none bg-white border border-neutral-200 text-neutral-700 text-sm font-medium rounded-xl px-4 py-2.5 pr-8 outline-none shadow-sm focus:ring-2 focus:ring-violet-500/20 transition-all"
-                >
-                  {rdWaves.map(w => <option key={w} value={w}>{w}</option>)}
-                </select>
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
+              <div className="flex items-center">
+                <span className="text-[12px] text-neutral-500 font-medium mr-2 whitespace-nowrap">当前品牌：</span>
+                <PillSelect variant="primary" value={brandFilter} options={uniqueBrands} onChange={handleBrandChange} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="brandFilterRd" />
               </div>
             </div>
 
-            <div className="space-y-4">
-              {RD_STATUS_CONFIG.map((config) => {
-                const stylesInStatus = globalFilteredRdStyles.filter(s => s.status === config.value);
-                const count = stylesInStatus.length;
-                const completionRate = Math.min(100, Math.round((count / config.target) * 100));
+            <div className="bg-neutral-50 rounded-t-[32px] min-h-full pt-1 pb-10 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] border-t border-neutral-100/50">
+              <div className="sticky top-0 z-30 bg-neutral-50/90 backdrop-blur-md px-5 py-3 flex items-center justify-between border-b border-neutral-200/60 rounded-t-[32px]">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-4 bg-[#85B5FF] rounded-full"></div>
+                  <h2 className="text-[17px] font-bold text-neutral-900 tracking-tight whitespace-nowrap">{isMultiWave ? '多波段分析' : '波段整体进度'}</h2>
+                </div>
+                <RefinedMultiSelect values={waveFilters} options={availableWaves} onChange={setWaveFilters} />
+              </div>
 
-                const rateColor = completionRate >= 80
-                  ? "text-emerald-500"
-                  : completionRate >= 40
-                    ? "text-amber-500"
-                    : "text-red-500";
-
-                return (
-                  <button
-                    key={config.value}
-                    onClick={() => openRdList(config.value)}
-                    className={`w-full rounded-3xl p-5 border text-left flex items-center justify-between transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm bg-white ${config.border}`}
-                  >
-                    <div>
-                      <div className={`flex items-center gap-2 mb-2 ${config.iconColor}`}>
-                        {config.icon}
-                        <span className="text-base font-bold text-neutral-900">{config.label}</span>
+              {isMultiWave ? (
+                <div className="animate-pop-in pb-10">
+                  <PlanningStructureTable selectedWaves={waveFilters} />
+                  <PredictionList selectedWaves={waveFilters} />
+                </div>
+              ) : (
+                <>
+                  <div className="px-5 pt-4 pb-2">
+                    <div className="bg-white p-4 sm:p-5 rounded-[24px] shadow-sm border border-neutral-200/60">
+                      <div className="flex items-center justify-between px-1 mb-5">
+                        <div className="flex flex-col items-center flex-1">
+                          <span className="text-[11px] text-neutral-500 font-medium mb-1 whitespace-nowrap flex items-center gap-1">
+                            <Target className="w-3 h-3 text-neutral-400" /> 企划款数
+                          </span>
+                          <div className="flex items-baseline gap-0.5">
+                            <span className="text-[24px] font-bold text-neutral-900">{dashboardStats.target}</span>
+                            <span className="text-[10px] text-neutral-400">款</span>
+                          </div>
+                        </div>
+                        <div className="w-px h-8 bg-neutral-100"></div>
+                        <div className="flex flex-col items-center flex-1">
+                          <span className="text-[11px] text-neutral-500 font-medium mb-1 whitespace-nowrap">初稿已出</span>
+                          <div className="flex items-baseline gap-0.5">
+                            <span className="text-[24px] font-bold text-neutral-900">{dashboardStats.submitted}</span>
+                            <span className="text-[10px] text-neutral-400">款</span>
+                          </div>
+                        </div>
+                        <div className="w-px h-8 bg-neutral-100"></div>
+                        <div className="flex flex-col items-center flex-1">
+                          <span className="text-[11px] text-neutral-500 font-medium mb-1 whitespace-nowrap">审版通过</span>
+                          <div className="flex items-baseline gap-0.5">
+                            <span className="text-[24px] font-bold text-[#5B73E8]">{dashboardStats.approved}</span>
+                            <span className="text-[10px] text-[#5B73E8]/80 font-medium">款</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-baseline gap-1 mt-3">
-                        <span className="text-3xl font-black text-neutral-900">{count}</span>
-                        <span className="text-sm font-medium text-neutral-500">款</span>
-                      </div>
-                    </div>
 
-                    <div className="flex flex-col items-end justify-center">
-                      <span className="text-xs font-medium mb-1.5 text-neutral-500">目标 {config.target} 款</span>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-50 text-neutral-500 border border-neutral-100">完成率</span>
-                        <span className={`text-xl font-bold ${rateColor}`}>{completionRate}%</span>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ==========================================
-  // 2. 研发进度：具体状态的款式列表页
-  // ==========================================
-  if (page === "rd_list") {
-    const config = RD_STATUS_CONFIG.find(c => c.value === selectedRdStatus) || RD_STATUS_CONFIG[0];
-
-    return (
-      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans">
-        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 flex flex-col h-[85vh] min-h-[700px]">
-          <div className="px-5 pt-4 pb-6 bg-gradient-to-b from-neutral-50 to-white flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="mb-4">
-              <button onClick={goBackToHome} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5 -ml-2">
-                <span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回
-              </button>
-            </div>
-            <div className="mb-6 flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">{config.label}</h1>
-              <span className={`text-sm font-bold px-3 py-1 rounded-lg ${config.bg} ${config.text}`}>
-                {currentListRdStyles.length} 款
-              </span>
-            </div>
-            <div className="space-y-4">
-              {currentListRdStyles.map(style => (
-                <button
-                  key={style.id}
-                  onClick={() => openRdStyleDetail(style)}
-                  className="w-full bg-white rounded-2xl p-4 shadow-sm border border-neutral-100 flex items-start gap-4 hover:bg-neutral-50 transition-colors text-left relative"
-                >
-                  <img src={style.images[0]} alt="" className="w-24 h-28 rounded-xl object-cover border border-neutral-100 shrink-0 shadow-sm" />
-                  <div className="flex-1 min-w-0 py-1">
-                    <h3 className="text-base font-bold text-neutral-900 truncate">{style.code}</h3>
-                    <p className="text-xs text-neutral-500 mt-1 truncate">{style.name}</p>
-                    <div className="mt-4 flex items-center gap-2">
-                      <img src={style.designer.avatar} alt="" className="w-6 h-6 rounded-full object-cover shadow-sm bg-neutral-200" />
-                      <div className="flex flex-col">
-                        <span className="text-xs font-semibold text-neutral-700">{style.designer.name}</span>
-                        <span className="text-[10px] text-neutral-400">{style.designer.brand}</span>
+                      <div className="bg-neutral-50 border border-neutral-100/80 p-4 rounded-[16px] space-y-4">
+                        <div>
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-[11px] font-medium text-neutral-500 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-neutral-400"/>波段时间进度</span>
+                            <span className="text-[13px] font-bold text-neutral-800">{dashboardStats.timeProgress}%</span>
+                          </div>
+                          <div className="h-1.5 w-full bg-slate-300 rounded-full overflow-hidden">
+                            <div className="h-full bg-[#85B5FF] rounded-full transition-all duration-500" style={{ width: `${dashboardStats.timeProgress}%` }}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-[11px] font-medium text-neutral-500 flex items-center gap-1.5"><BarChart2 className="w-3.5 h-3.5 text-[#5B73E8]"/>过审完成进度</span>
+                            <span className={`text-[13px] font-bold ${dashboardStats.progress < dashboardStats.timeProgress ? 'text-amber-600' : 'text-neutral-900'}`}>{dashboardStats.progress}%</span>
+                          </div>
+                          <div className="h-1.5 w-full bg-neutral-200 rounded-full overflow-hidden">
+                            <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.progress, 100)}%` }}></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </button>
-              ))}
-              {currentListRdStyles.length === 0 && (
-                <div className="py-16 text-center text-neutral-400 text-sm">该分类下暂无款式</div>
+
+                  <div className="px-5 pt-6 flex items-center justify-between mb-4 relative z-20">
+                    <h2 className="text-[17px] font-bold text-neutral-900 tracking-tight whitespace-nowrap">款式信息</h2>
+                    <div className="flex items-center bg-white border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)] rounded-full h-[28px]">
+                      <div className="relative h-full">
+                        <button onClick={() => setActiveMenu(activeMenu === 'rdFilter' ? null : 'rdFilter')} className="flex items-center gap-1 h-full pl-3 pr-2.5 rounded-full text-[11px] font-semibold text-neutral-600 hover:bg-neutral-50 transition-colors whitespace-nowrap">
+                          <span className="text-neutral-400 font-normal">状态</span><span>{rdListFilter}</span><ChevronDown className={`w-3.5 h-3.5 text-neutral-400 transition-transform ${activeMenu === 'rdFilter' ? 'rotate-180' : ''}`} />
+                        </button>
+                        {activeMenu === 'rdFilter' && (
+                          <>
+                            <div className="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-white rounded-2xl shadow-xl border border-neutral-100 z-50 overflow-hidden py-1.5 animate-pop-in">
+                              {["全部状态", "已提交", "已通过", "修改中", "已删除"].map(opt => (
+                                <div key={opt} onClick={() => { setRdListFilter(opt); setActiveMenu(null); }} className={`px-4 py-2.5 text-[13px] flex items-center justify-between cursor-pointer transition-colors ${rdListFilter === opt ? 'bg-[#EBF0FF] text-[#5B73E8] font-bold' : 'hover:bg-neutral-50 text-neutral-700 font-medium'}`}>
+                                  {opt} {rdListFilter === opt && <Check className="w-3.5 h-3.5 text-[#5B73E8]" />}
+                                </div>
+                              ))}
+                            </div>
+                            <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)}></div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="px-4 space-y-3.5 relative z-0">
+                    {displayStyles.length === 0 ? (
+                      <div className="py-10 text-center text-[12px] text-neutral-400">当前筛选下无款式数据</div>
+                    ) : (
+                      displayStyles.map((style) => (
+                        <div key={style.id} onClick={() => { setSelectedRdStyle(style); setImageIndex(0); setPage('rd_style'); }} className="bg-white rounded-2xl p-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-neutral-200/60 cursor-pointer active:scale-[0.98] transition-transform flex items-start gap-3.5">
+                          <img src={style.images[0]} alt="" className={`w-20 h-24 rounded-[12px] object-cover border border-neutral-100 shrink-0 ${style.status === '已删除' ? 'grayscale-[60%] opacity-70' : ''}`} />
+                          <div className="flex-1 min-w-0 py-0.5">
+                            <div className="flex items-center justify-between mb-1">
+                              <h3 className={`text-[15px] font-bold truncate pr-2 ${style.status === '已删除' ? 'text-neutral-500 line-through' : 'text-neutral-900'}`}>{style.code}</h3>
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded border shrink-0 ${getStatusStyles(style.status)}`}>{style.status}</span>
+                            </div>
+                            <p className="text-[11px] text-neutral-500 mb-2 truncate">{style.name}</p>
+
+                            <div className="flex items-center gap-1.5 mb-2 text-[10px] font-medium">
+                              <span className="bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">{style.brand}</span>
+                              <span className="bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">{style.category}</span>
+                            </div>
+
+                            <div className="flex items-center gap-1.5 text-[10px] text-neutral-500 mt-1">
+                              <div className="w-4 h-4 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-[8px] text-neutral-600 font-bold">{style.designer.avatar}</div>
+                              <span className="truncate">{style.designer.name} · {style.timeline[style.timeline.length-1]?.action}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
               )}
             </div>
+
           </div>
+          <BottomNav currentTab={currentTab} setCurrentTab={setCurrentTab} />
         </div>
       </div>
     );
   }
 
-  // ==========================================
-  // 3. 研发进度：单款详情页 (时间轴)
-  // ==========================================
   if (page === "rd_style" && selectedRdStyle) {
     const style = selectedRdStyle;
     return (
-      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
-        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
-          <div className="px-5 pt-4 pb-12 bg-neutral-50 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="sticky top-0 z-20 bg-neutral-50/80 backdrop-blur-md pb-3 pt-2 flex items-start justify-between">
-              <button onClick={goBackToRdList} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5">
-                <span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回
-              </button>
-              <span className={`text-xs px-2.5 py-1.5 rounded-full border font-medium mt-1 ${getRdStatusBadgeColor(style.status)}`}>{style.status}</span>
-            </div>
-
-            <div className="mt-2 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 relative">
-              <div className="relative" onTouchStart={onTouchStartSlider} onTouchMove={onTouchMoveSlider} onTouchEnd={() => onTouchEndSlider(style.images.length)}>
-                <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-neutral-100 border border-neutral-200 relative">
+      <div className="flex items-center justify-center min-h-screen bg-neutral-200 font-sans sm:p-6">
+        <div className="w-full sm:max-w-[414px] h-[100dvh] sm:h-[850px] bg-neutral-50 sm:rounded-[40px] sm:shadow-2xl sm:border-[8px] sm:border-white overflow-hidden relative flex flex-col">
+          <div className="bg-white/90 backdrop-blur-md px-4 py-3 flex items-center justify-between sticky top-0 z-30 border-b border-neutral-200 shrink-0 min-h-[48px]">
+            <button onClick={() => setPage("home")} className="flex items-center -ml-2 text-neutral-500 hover:text-neutral-700 active:opacity-60 transition-all">
+              <ChevronLeft className="w-6 h-6" />
+              <span className="text-[14px] ml-[-2px] font-medium">返回</span>
+            </button>
+            <span className={`text-[11px] px-2.5 py-1 rounded-md font-bold border ${getStatusStyles(style.status)}`}>{style.status}</span>
+          </div>
+          <div className="flex-1 overflow-y-auto pb-12 px-5 pt-4 hide-scrollbar">
+            <div className="bg-white rounded-3xl shadow-sm p-4 relative border border-neutral-200/60 animate-pop-in">
+              <div className="relative" onTouchStart={(e) => { setTouchEnd(null); setTouchStart(e.targetTouches[0].clientX); }} onTouchMove={(e) => setTouchEnd(e.targetTouches[0].clientX)} onTouchEnd={() => onTouchEndSlider(style.images.length)}>
+                <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100 relative border border-neutral-100">
                   <img src={style.images[imageIndex]} alt="" className="h-full w-full object-cover transition-opacity duration-300" />
                 </div>
-
-                {/* 左右切换箭头 */}
-                {imageIndex > 0 && (
-                  <button
-                    onClick={() => setImageIndex((prev) => Math.max(0, prev - 1))}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-95"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-700"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                  </button>
-                )}
-                {imageIndex < style.images.length - 1 && (
-                  <button
-                    onClick={() => setImageIndex((prev) => Math.min(style.images.length - 1, prev + 1))}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-95"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-700"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  </button>
-                )}
-
                 <div className="absolute bottom-4 left-0 w-full flex justify-center gap-2 px-4 pointer-events-none">
                   {style.images.map((_, idx) => (
-                    <div key={idx} className={`h-2 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 ${idx === imageIndex ? "w-6 bg-white" : "w-2 bg-white/60"}`} />
+                    <div key={idx} className={`h-1.5 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 ${idx === imageIndex ? "w-6 bg-white" : "w-2 bg-white/60"}`} />
                   ))}
                 </div>
               </div>
             </div>
-
-            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5">
-              <h2 className="text-xl font-bold text-neutral-900 tracking-tight">{style.name}</h2>
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-neutral-600">
-                <p><span className="text-neutral-400 mr-2">款号</span>{style.code}</p>
-                <p><span className="text-neutral-400 mr-2">品类</span>{style.category}</p>
-                <p><span className="text-neutral-400 mr-2">波段</span>{style.wave}</p>
+            <div className="mt-4 bg-white rounded-3xl shadow-sm p-5 border border-neutral-200/60 animate-slide-in">
+              <h2 className="text-[18px] font-bold text-neutral-900 tracking-tight">{style.name}</h2>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[12px] text-neutral-500">
+                <p><span className="text-neutral-400 mr-1.5">款号</span>{style.code}</p>
+                <p><span className="text-neutral-400 mr-1.5">品类</span>{style.category}</p>
+                <p><span className="text-neutral-400 mr-1.5">波段</span>{style.wave}</p>
               </div>
             </div>
-
-            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 flex items-center gap-4">
-              <img src={style.designer.avatar} alt="Avatar" className="w-14 h-14 rounded-full object-cover shadow-sm bg-neutral-100" />
+            <div className="mt-4 bg-white rounded-3xl shadow-sm p-4 flex items-center gap-4 border border-neutral-200/60 animate-slide-in">
+              <div className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center font-bold text-[16px] text-neutral-600 shrink-0">{style.designer.avatar}</div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-base font-semibold text-neutral-900">{style.designer.name}</h3>
-                  <span className="text-[10px] bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">{style.designer.brand}</span>
+                  <h3 className="text-[15px] font-bold text-neutral-900">{style.designer.name}</h3>
+                  <span className="text-[10px] bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded-md">{style.designer.brand}</span>
                 </div>
-                <p className="text-sm text-neutral-500">{style.designer.position}</p>
+                <p className="text-[11px] text-neutral-500 font-medium">{style.designer.position}</p>
               </div>
             </div>
-
             {style.timeline && style.timeline.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-sm font-bold text-neutral-900 mb-4 px-1">动态记录</h3>
-                <div className="relative border-l-2 border-neutral-200 ml-3 pb-2 space-y-6">
+              <div className="mt-6 animate-slide-in">
+                <h3 className="text-[14px] font-bold text-neutral-900 mb-4 px-1">动态记录</h3>
+                <div className="relative border-l-[1.5px] border-neutral-200 ml-3 pb-2 space-y-6">
                   {style.timeline.map((record) => {
                     const isDesigner = record.role === 'designer';
                     return (
                       <div key={record.id} className="relative pl-6">
-                        <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-4 border-white shadow-sm flex items-center justify-center ${isDesigner ? 'bg-violet-500' : 'bg-amber-500'}`} />
+                        <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-4 border-neutral-50 shadow-sm flex items-center justify-center ${isDesigner ? 'bg-blue-500' : 'bg-amber-500'}`} />
                         <div className="flex items-center justify-between mb-1.5">
                           <div className="flex items-center gap-1.5">
-                            <span className="text-sm font-bold text-neutral-900">{record.name}</span>
-                            <span className="text-[13px] text-neutral-500">{record.action}</span>
+                            <span className="text-[13px] font-bold text-neutral-900">{record.name}</span>
+                            <span className="text-[11px] text-neutral-500">{record.action}</span>
                           </div>
-                          <span className="text-[11px] text-neutral-400 font-medium">{record.date}</span>
+                          <span className="text-[10px] text-neutral-400 font-medium">{record.date}</span>
                         </div>
-                        <div className={`rounded-2xl p-3 border shadow-sm ${isDesigner ? 'bg-white border-neutral-100' : 'bg-amber-50/50 border-amber-100'}`}>
-                          {record.text && (
-                            <p className={`text-[13px] leading-relaxed ${isDesigner ? 'text-neutral-700' : 'text-amber-900'}`}>{record.text}</p>
-                          )}
+                        <div className={`rounded-[16px] p-3 shadow-sm border ${isDesigner ? 'bg-white border-neutral-200' : 'bg-amber-50/50 border-amber-100'}`}>
+                          {record.text && <p className={`text-[12px] leading-relaxed ${isDesigner ? 'text-neutral-700' : 'text-amber-800'}`}>{record.text}</p>}
                           {record.images && record.images.length > 0 && (
-                            <div className={`flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden pb-1 ${record.text ? 'mt-2' : ''}`}>
+                            <div className={`flex gap-2 overflow-x-auto hide-scrollbar pb-1 ${record.text ? 'mt-2' : ''}`}>
                               {record.images.map((img, i) => (
-                                <img key={i} src={img} alt="附件" className="h-20 w-auto object-cover rounded-xl border border-neutral-200 shrink-0 shadow-sm" />
+                                <img key={i} src={img} alt="附件" className="h-16 w-auto object-cover rounded-xl border border-neutral-200 shrink-0" />
                               ))}
                             </div>
                           )}
@@ -670,307 +599,487 @@ export default function App() {
       </div>
     );
   }
+  return null;
+};
 
-  // ==========================================
-  // 4. 评审报告：项目款式列表
-  // ==========================================
-  if (page === "project") {
-    const sortedReportData = [...reportData].sort((a, b) => scoreSortOrder === 'desc' ? b.stats["全部"].avg - a.stats["全部"].avg : a.stats["全部"].avg - b.stats["全部"].avg);
-    return (
-      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans">
-        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200">
-          <div className="px-5 pt-4 pb-6 bg-gradient-to-b from-violet-50 to-white min-h-screen">
-            <div className="mb-3">
-              <button onClick={goBackToHome} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors"><span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回</button>
-            </div>
-            <div className="mb-6 flex items-end justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">2026 夏季首批评款</h1>
-                <p className="text-sm text-neutral-500 mt-2">共 6 款 · 128 人参与评分</p>
-              </div>
-              <button onClick={() => setScoreSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')} className="flex items-center justify-center w-[34px] h-[34px] bg-white border border-neutral-200 shadow-sm rounded-full transition-colors shrink-0 hover:bg-neutral-50 active:bg-neutral-100 text-neutral-600">
-                {scoreSortOrder === 'desc' ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5h10"></path><path d="M11 9h7"></path><path d="M11 13h4"></path><path d="M4 5v14"></path><path d="m7 16-3 3-3-3"></path></svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 15h10"></path><path d="M11 11h7"></path><path d="M11 7h4"></path><path d="M4 19V5"></path><path d="m1 8 3-3 3 3"></path></svg>
-                )}
-              </button>
-            </div>
-            <div className="space-y-4">
-              {sortedReportData.map((style) => {
-                const originalIndex = reportData.findIndex(r => r.id === style.id);
-                const rank = style.ranks["全部"];
-                return (
-                  <button key={style.id} onClick={() => openStyleReport(originalIndex)} className={`w-full bg-white rounded-3xl p-5 shadow-sm border text-left relative overflow-hidden flex items-start gap-4 hover:bg-neutral-50 transition-colors ${style.rejected ? 'border-red-100 bg-red-50/30' : 'border-neutral-100'}`}>
-                    <div className={`absolute top-0 left-0 w-11 h-11 rounded-br-2xl flex items-center justify-center text-sm font-bold text-white z-10 ${rank === 1 ? "bg-amber-400" : rank === 2 ? "bg-slate-300" : rank === 3 ? "bg-orange-300" : "bg-neutral-200 text-neutral-500"}`}>{rank}</div>
-                    <div className="relative shrink-0 mt-1">
-                      <img src={style.images[0]} alt="" className={`w-28 h-32 rounded-2xl object-cover border border-neutral-100 shadow-sm ${style.rejected ? 'grayscale-[40%]' : ''}`} />
-                    </div>
-                    <div className="flex-1 min-w-0 pt-1">
-                      <h3 className={`text-lg font-bold truncate ${style.rejected ? 'text-neutral-500 line-through decoration-neutral-300' : 'text-neutral-900'}`}>{style.code}</h3>
-                      
-                      {(style.rejected || style.suggestion || style.strokesDataUrl) && (
-                        <div className="mt-1 flex flex-wrap gap-1.5">
-                          {style.rejected && <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-600 border border-red-200 text-[10px] font-bold">不合格</span>}
-                          {(style.suggestion || style.strokesDataUrl) && (
-                            <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-100 text-[10px] font-medium">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> 已评论
-                            </span>
-                          )}
-                        </div>
-                      )}
-                      
-                      <div className={`flex items-baseline gap-2 ${style.rejected || style.suggestion || style.strokesDataUrl ? 'mt-1.5' : 'mt-2'}`}>
-                        <span className={`text-2xl font-black tracking-tight ${style.rejected ? 'text-neutral-400' : 'text-violet-600'}`}>{style.stats["全部"].avg.toFixed(1)}<span className="text-xs font-normal text-neutral-500 ml-0.5">分</span></span>
-                        <span className="text-xs text-neutral-400">{style.stats["全部"].raters}人评分</span>
-                      </div>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {Object.entries(style.ranks).filter(([region]) => region !== "全部").map(([region, rank]) => (
-                          <span key={region} className="px-2 py-1 text-xs rounded bg-neutral-100 text-neutral-600 font-medium whitespace-nowrap">{region}第{rank}</span>
-                        ))}
-                      </div>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {style.designerTags.slice(0, 2).map((tag, i) => (
-                          <span key={i} className="px-2 py-1 text-xs rounded border border-neutral-200 text-neutral-500 whitespace-nowrap bg-white">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+// ==========================================
+// [模块 B] 效能评定相关数据与组件
+// ==========================================
+
+const DESIGNERS = [
+  { id: 'd1', name: '张梓轩', brand: 'Urban Core', department: '女装设计一部', tenure: '3年', position: '资深设计师', avatar: '张', stats: { submitted: 42, modifying: 8, approved: 28, deleted: 6, target: 40 } },
+  { id: 'd2', name: '李梦琪', brand: 'Urban Core', department: '女装设计二部', tenure: '1.5年', position: '设计师', avatar: '李', stats: { submitted: 55, modifying: 15, approved: 12, deleted: 28, target: 40 } },
+  { id: 'd6', name: '刘一帆', brand: 'Urban Core', department: '女装设计一部', tenure: '1年', position: '设计师', avatar: '刘', stats: { submitted: 35, modifying: 5, approved: 18, deleted: 12, target: 40 } },
+  { id: 'd7', name: '陈雪', brand: 'Urban Core', department: '女装设计二部', tenure: '2.5年', position: '资深设计师', avatar: '陈', stats: { submitted: 48, modifying: 10, approved: 22, deleted: 16, target: 40 } },
+  { id: 'd8', name: '吴宇', brand: 'Urban Core', department: '核心企划组', tenure: '3年', position: '主设计师', avatar: '吴', stats: { submitted: 25, modifying: 2, approved: 15, deleted: 8, target: 30 } },
+  { id: 'd3', name: '王一鸣', brand: 'Minimalist', department: '核心企划组', tenure: '4年', position: '主设计师', avatar: '王', stats: { submitted: 30, modifying: 3, approved: 25, deleted: 2, target: 30 } },
+  { id: 'd4', name: '赵佳', brand: 'Minimalist', department: '核心企划组', tenure: '8个月', position: '设计师', avatar: '赵', stats: { submitted: 20, modifying: 5, approved: 8, deleted: 7, target: 30 } },
+  { id: 'd9', name: '郑宇航', brand: 'Minimalist', department: '男装设计组', tenure: '2年', position: '资深设计师', avatar: '郑', stats: { submitted: 32, modifying: 4, approved: 18, deleted: 10, target: 30 } },
+  { id: 'd10', name: '周晓', brand: 'Minimalist', department: '配饰设计组', tenure: '1年', position: '设计师', avatar: '周', stats: { submitted: 28, modifying: 6, approved: 14, deleted: 8, target: 30 } },
+  { id: 'd5', name: '陈思宇', brand: 'Active Gear', department: '运动服饰组', tenure: '2年', position: '资深设计师', avatar: '陈', stats: { submitted: 38, modifying: 10, approved: 20, deleted: 8, target: 35 } }
+];
+
+const PERIOD_INFO = {
+  '2026 秋二波段': { multiplier: 1, start: '2026.07.01', end: '2026.08.31', weeks: 9 },
+  '2026 秋一波段': { multiplier: 0.85, start: '2026.05.01', end: '2026.06.30', weeks: 9 },
+  '2026 夏波段': { multiplier: 1.2, start: '2026.03.01', end: '2026.04.30', weeks: 9 },
+};
+
+const SORT_OPTIONS = [
+  { label: '完成进度', value: 'progress' },
+  { label: '定稿数量', value: 'approved' },
+  { label: '提审数量', value: 'submitted' }
+];
+
+const getRankStyle = (index) => {
+  if (index === 0) return { color: 'text-white', bg: 'bg-gradient-to-br from-red-500 to-red-600 shadow-md shadow-red-200/60', border: 'border-transparent' };
+  if (index === 1) return { color: 'text-white', bg: 'bg-gradient-to-br from-orange-400 to-orange-500 shadow-md shadow-orange-200/60', border: 'border-transparent' };
+  if (index === 2) return { color: 'text-white', bg: 'bg-gradient-to-br from-amber-400 to-yellow-500 shadow-md shadow-amber-200/60', border: 'border-transparent' };
+  return { color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' };
+};
+
+const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
+  const uniqueBrands = Array.from(new Set(DESIGNERS.map(d => d.brand)));
+  const [selectedBrand, setSelectedBrand] = useState(uniqueBrands[0]);
+
+  const [globalPeriod, setGlobalPeriod] = useState('2026 秋二波段');
+  const [sortField, setSortField] = useState('progress');
+  const [sortOrder, setSortOrder] = useState('desc');
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [galleryTab, setGalleryTab] = useState('all');
+
+  const scopedDesigners = useMemo(() => {
+    let list = DESIGNERS.filter(d => d.brand === selectedBrand);
+    const multiplier = PERIOD_INFO[globalPeriod]?.multiplier || 1;
+    return list.map(d => {
+      const adjustedSub = Math.round(d.stats.submitted * multiplier);
+      const adjustedMod = Math.round(d.stats.modifying * multiplier);
+      const adjustedApp = Math.round(d.stats.approved * multiplier);
+      const adjustedDel = Math.round(d.stats.deleted * multiplier);
+      const target = d.stats.target;
+      return {
+        ...d,
+        stats: {
+          ...d.stats, submitted: adjustedSub, modifying: adjustedMod, approved: adjustedApp, deleted: adjustedDel,
+          progress: target === 0 ? 0 : Math.round((adjustedApp / target) * 100),
+        }
+      };
+    });
+  }, [selectedBrand, globalPeriod]);
+
+  const dashboardStats = useMemo(() => {
+    let totalSub = 0, totalApp = 0, totalTarget = 0;
+    scopedDesigners.forEach(d => { totalSub += d.stats.submitted; totalApp += d.stats.approved; totalTarget += d.stats.target; });
+    const teamProgress = totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100);
+    let timeProgress = 100;
+    if (globalPeriod === '2026 秋二波段') timeProgress = 75;
+    return { totalSub, totalApp, totalTarget, teamProgress, timeProgress };
+  }, [scopedDesigners, globalPeriod]);
+
+  const sortedDesigners = useMemo(() => {
+    return [...scopedDesigners].sort((a, b) => {
+      let valA = a.stats[sortField]; let valB = b.stats[sortField];
+      return sortOrder === 'desc' ? valB - valA : valA - valB;
+    });
+  }, [scopedDesigners, sortField, sortOrder]);
+
+  const rankedByApproved = useMemo(() => {
+    const totalApp = dashboardStats.totalApp;
+    return [...scopedDesigners].sort((a, b) => b.stats.approved - a.stats.approved).map(d => ({
+      ...d,
+      contributionRatio: totalApp > 0 ? Math.round((d.stats.approved / totalApp) * 100) : 0
+    }));
+  }, [scopedDesigners, dashboardStats.totalApp]);
+
+  const rankedBySubmitted = useMemo(() => {
+    const totalSub = dashboardStats.totalSub;
+    return [...scopedDesigners].sort((a, b) => b.stats.submitted - a.stats.submitted).map(d => ({
+      ...d,
+      submitRatio: totalSub > 0 ? Math.round((d.stats.submitted / totalSub) * 100) : 0
+    }));
+  }, [scopedDesigners, dashboardStats.totalSub]);
+
+  const getSortFieldLabel = () => SORT_OPTIONS.find(o => o.value === sortField)?.label || '排序';
+
+  const isCompletedPeriod = globalPeriod !== '2026 秋二波段';
+
+  const renderMainContent = () => (
+    <div className="flex-1 overflow-y-auto relative z-10 pb-20 hide-scrollbar bg-white">
+
+      <div className="bg-white px-5 pt-14 pb-4 relative z-40">
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-[26px] font-black text-gray-900 tracking-tight">研发效能看板</h1>
+        </div>
+        <div className="flex items-center">
+          <span className="text-[12px] text-gray-500 font-medium mr-2 whitespace-nowrap">选择品牌：</span>
+          <PillSelect variant="primary" value={selectedBrand} options={uniqueBrands} onChange={setSelectedBrand} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="brandFilterEff" />
         </div>
       </div>
-    );
-  }
 
-  // ==========================================
-  // 5. 评审报告：单款评审详情页 (含画笔涂鸦及所有统计)
-  // ==========================================
-  if (page === "style") {
-    const availableRegions = Object.keys(currentStyle.stats);
-    const currentStats = currentStyle.stats[selectedRegion];
-    const filteredComments = selectedRegion === "全部" 
-      ? currentStyle.comments 
-      : currentStyle.comments.filter(c => c.region === selectedRegion);
+      <div className="bg-[#F5F5F7] rounded-t-[32px] min-h-full pt-1 pb-10 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] border-t border-neutral-100/50">
 
-    return (
-      <div className="min-h-screen bg-neutral-50 flex justify-center p-4 font-sans relative">
-        <div className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-200 relative flex flex-col h-[85vh] min-h-[700px]">
-          <div className="px-5 pt-4 pb-28 bg-neutral-50 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="sticky top-0 z-20 bg-neutral-50/80 backdrop-blur-md pb-3 pt-2 flex items-start justify-between">
-              <button onClick={goBackToProject} className="inline-flex items-center justify-center h-[34px] px-3.5 bg-white border border-neutral-200 shadow-sm rounded-full text-[13px] font-medium text-neutral-600 hover:bg-neutral-50 active:bg-neutral-100 transition-colors mt-0.5"><span className="mr-1 text-base leading-none relative -top-[1px]">←</span> 返回</button>
-              <div className="text-right">
-                <div className="text-sm font-medium text-neutral-900">总排名 第 {currentStyle.ranks["全部"]} 名</div>
-                <div className="flex flex-wrap items-center gap-1.5 mt-1 justify-end max-w-[160px]">
-                  {Object.entries(currentStyle.ranks).filter(([region]) => region !== "全部").map(([region, rank]) => (
-                    <span key={region} className="text-xs text-neutral-500 leading-none">{region}第{rank}</span>
-                  ))}
+        <div className="sticky top-0 z-30 bg-[#F5F5F7]/85 backdrop-blur-xl px-5 py-3 flex items-center justify-between border-b border-gray-200/50 rounded-t-[32px]">
+          <div className="flex items-center gap-2">
+            <div className="w-1 h-4 bg-gradient-to-b from-[#8B9DFE] to-[#7DE0EF] rounded-full"></div>
+            <h2 className="text-[16px] font-bold text-gray-900 tracking-tight whitespace-nowrap">团队整体效能</h2>
+          </div>
+          <PillSelect variant="secondary" value={globalPeriod} options={Object.keys(PERIOD_INFO)} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodMainEff" />
+        </div>
+
+        <div className="px-5 pt-4 pb-2">
+          <div className="bg-white p-4 sm:p-5 rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] border border-gray-100">
+
+            <div className={`flex items-center justify-between px-1 ${!isCompletedPeriod ? 'mb-5' : 'mb-1'}`}>
+              <div className="flex flex-col items-center flex-1">
+                <span className="text-[11px] text-gray-500 font-medium mb-1 whitespace-nowrap flex items-center gap-1">
+                  <Target className="w-3 h-3 text-gray-400" /> 开发款数
+                </span>
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-[24px] font-bold text-gray-900">{dashboardStats.totalTarget}</span>
+                  <span className="text-[10px] text-gray-400">款</span>
+                </div>
+              </div>
+              <div className="w-px h-8 bg-gray-200/60"></div>
+              <div className="flex flex-col items-center flex-1">
+                <span className="text-[11px] text-gray-500 font-medium mb-1 whitespace-nowrap">
+                  {isCompletedPeriod ? '提审总数' : '已提审'}
+                </span>
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-[24px] font-bold text-gray-900">{dashboardStats.totalSub}</span>
+                  <span className="text-[10px] text-gray-400">款</span>
+                </div>
+              </div>
+              <div className="w-px h-8 bg-gray-200/60"></div>
+              <div className="flex flex-col items-center flex-1">
+                <span className="text-[11px] text-gray-500 font-medium mb-1 whitespace-nowrap">
+                  {isCompletedPeriod ? '定稿总数' : '已定稿'}
+                </span>
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-[24px] font-bold text-[#5B73E8]">{dashboardStats.totalApp}</span>
+                  <span className="text-[10px] text-[#5B73E8]/70 font-medium">款</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-2 bg-white rounded-3xl border border-neutral-100 shadow-sm p-4 relative">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg font-semibold text-neutral-900">{currentStyle.code}</h2>
-                {currentStyle.rejected && <span className="px-2 py-1 rounded-md bg-red-50 text-red-600 border border-red-100 text-xs font-bold">已标为不合格</span>}
-              </div>
-              <div className="relative" onTouchStart={onTouchStartSlider} onTouchMove={onTouchMoveSlider} onTouchEnd={() => onTouchEndSlider(currentStyle.images.length)}>
-                <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-neutral-100 border border-neutral-200 relative">
-                  <img src={currentStyle.images[imageIndex]} alt="" className={`h-full w-full object-cover transition-opacity duration-300 ${currentStyle.rejected ? 'grayscale-[30%]' : ''}`} />
-                  {imageIndex === 0 && strokesDataUrl && <img src={strokesDataUrl} alt="涂抹" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />}
-                </div>
-                <div className="absolute bottom-4 left-0 w-full flex justify-center gap-2 px-4 pointer-events-none">
-                  {currentStyle.images.map((_, idx) => (
-                    <div key={idx} className={`h-2 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 ${idx === imageIndex ? "w-6 bg-white" : "w-2 bg-white/60"}`} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden scroll-smooth">
-              {availableRegions.map(region => (
-                <button
-                  key={region}
-                  onClick={() => setSelectedRegion(region)}
-                  className={`px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap transition-colors border ${
-                    selectedRegion === region ? "bg-violet-600 text-white border-violet-600 shadow-sm" : "bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50"
-                  }`}
-                >
-                  {region}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-3 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5 transition-all">
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-5">
+            {!isCompletedPeriod ? (
+              <div className="bg-[#F5F5F7] p-4 rounded-[16px] space-y-4 border border-gray-100/50">
                 <div>
-                  <p className="text-sm text-neutral-500 mb-1">{selectedRegion === "全部" ? "综合" : selectedRegion}平均分</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-neutral-900">{currentStats.avg.toFixed(1)}</span>
-                    <span className="text-sm text-neutral-500">/ 5.0</span>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <span className="text-[11px] font-medium text-gray-500 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-gray-400"/>波段时间进度</span>
+                    <span className="text-[13px] font-bold text-gray-700">{dashboardStats.timeProgress}%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-slate-300 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#85B5FF] rounded-full transition-all duration-500" style={{ width: `${dashboardStats.timeProgress}%` }}></div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm text-neutral-500 mb-1">参与评分</p>
-                  <p className="text-2xl font-semibold text-neutral-900">{currentStats.raters}<span className="text-sm text-neutral-500 font-normal"> 人</span></p>
+                <div>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <span className="text-[11px] font-medium text-gray-500 flex items-center gap-1.5"><BarChart2 className="w-3.5 h-3.5 text-[#8B9DFE]"/>定稿完成进度</span>
+                    <span className={`text-[13px] font-bold text-gray-900`}>{dashboardStats.teamProgress}%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.teamProgress, 100)}%` }}></div>
+                  </div>
                 </div>
               </div>
-              <div className="pt-5 space-y-2.5">
-                {[5, 4, 3, 2, 1].map(star => <ScoreBar key={star} star={star} count={currentStats.dist[star]} total={currentStats.raters} />)}
-              </div>
-            </div>
-
-            {(currentStyle.suggestion || currentStyle.strokesDataUrl) && (
-              <div className="mt-4 bg-sky-50 rounded-3xl border border-sky-100 shadow-sm p-5 relative overflow-hidden">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-base font-semibold text-sky-900 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> 我的改款建议
-                  </h3>
-                  <button onClick={() => setShowSuggestModal(true)} className="text-xs text-sky-600 font-medium bg-white px-3 py-1.5 rounded-full shadow-sm border border-sky-100 hover:bg-sky-100 transition-colors">修改</button>
+            ) : (
+              <div className="bg-[#F5F5F7] p-4 rounded-[16px] space-y-3.5 border border-gray-100/50 mt-4">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-[12px] font-semibold text-gray-700 flex items-center gap-1.5">
+                     <CheckCircle2 className="w-4 h-4 text-[#34C759]" /> 波段已完结
+                  </span>
+                  <span className="text-[13px] font-bold text-gray-900">最终达成率 {dashboardStats.teamProgress}%</span>
                 </div>
-                <div className="flex gap-3 items-start">
-                  {currentStyle.strokesDataUrl && (
-                    <div className="w-16 h-20 shrink-0 rounded-2xl overflow-hidden bg-white border border-sky-200 relative shadow-sm">
-                      <img src={currentStyle.images[0]} alt="底图" className="absolute inset-0 w-full h-full object-cover opacity-30" />
-                      <img src={currentStyle.strokesDataUrl} alt="涂抹" className="absolute inset-0 w-full h-full object-cover" />
-                    </div>
-                  )}
-                  {currentStyle.suggestion ? (
-                    <p className="text-sm text-sky-800 leading-relaxed flex-1 mt-1">{currentStyle.suggestion}</p>
-                  ) : (
-                    <p className="text-sm text-sky-600/80 leading-relaxed flex-1 mt-1 italic">(仅包含图片标记)</p>
-                  )}
+                <div className="h-1.5 w-full bg-gray-200/80 rounded-full overflow-hidden">
+                  <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.teamProgress, 100)}%` }}></div>
                 </div>
               </div>
             )}
-
-            <div className="mt-4 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-3xl border border-violet-100 shadow-sm p-5 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl">✨</div>
-              <h3 className="text-base font-semibold text-violet-900 flex items-center gap-2">综合智能提炼</h3>
-              <p className="mt-3 text-sm text-violet-800 leading-relaxed font-medium">"{currentStyle.aiSummary}"</p>
-            </div>
-
-            <div className="mt-4 bg-white rounded-3xl border border-neutral-100 shadow-sm p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base font-semibold text-neutral-900">{selectedRegion === "全部" ? "精选门店评价" : `${selectedRegion}门店评价`}</h3>
-                <span className="text-sm text-neutral-400">{filteredComments.length}条</span>
-              </div>
-              <div className="space-y-4">
-                {filteredComments.length > 0 ? (
-                  filteredComments.map((comment, idx) => (
-                    <div key={idx} className="border-b border-neutral-50 last:border-0 pb-4 last:pb-0">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-neutral-900">{comment.store}</span>
-                          <span className="text-xs text-neutral-400">{comment.name}</span>
-                        </div>
-                        <div className="flex items-center bg-amber-50 px-2 py-0.5 rounded text-xs font-bold text-amber-600">★ {comment.score}</div>
-                      </div>
-                      <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{comment.text}</p>
-                    </div>
-                  ))
-                ) : (
-                  <div className="py-6 text-center text-sm text-neutral-400">该地区暂无精选评价</div>
-                )}
-              </div>
-            </div>
           </div>
-
-          {/* 底部操作栏 */}
-          <div className="absolute bottom-0 left-0 right-0 bg-white/85 backdrop-blur-xl border-t border-neutral-200 p-4 pb-6 flex gap-3 z-30">
-            <button 
-              onClick={() => !currentStyle.rejected && setShowRejectModal(true)}
-              disabled={currentStyle.rejected}
-              className={`w-14 h-12 shrink-0 flex items-center justify-center rounded-2xl border transition-colors ${currentStyle.rejected ? 'bg-red-50 border-red-100 text-red-500 opacity-50 cursor-not-allowed' : 'bg-red-50/60 border-red-100 text-red-400 hover:bg-red-100 active:bg-red-200 shadow-sm'}`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-            </button>
-            <button 
-              onClick={() => setShowSuggestModal(true)}
-              className={`flex-1 h-12 rounded-2xl font-medium text-sm flex items-center justify-center gap-2 shadow-sm transition-colors ${currentStyle.suggestion || currentStyle.strokesDataUrl ? 'bg-sky-50 text-sky-600 border border-sky-100 hover:bg-sky-100' : 'bg-violet-500 text-white hover:bg-violet-600 shadow-sm'}`}
-            >
-              {currentStyle.suggestion || currentStyle.strokesDataUrl ? (
-                <><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> 修改建议</>
-              ) : (
-                <><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg> 输入改款建议</>
-              )}
-            </button>
-          </div>
-
-          {/* 填写建议弹窗 */}
-          {showSuggestModal && (
-            <>
-              <div className="absolute inset-0 bg-black/10 z-40 rounded-3xl transition-opacity" onClick={() => setShowSuggestModal(false)} />
-              <div className="absolute bottom-[92px] left-4 right-4 bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-neutral-200 p-4 z-50">
-                <div className="flex items-center justify-between mb-3"><h3 className="text-sm font-semibold text-neutral-900">填写改款建议</h3></div>
-                <div className="flex gap-3 mb-3">
-                  <div onClick={() => setShowDrawingPad(true)} className="relative w-24 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-100 cursor-pointer group border border-neutral-200 shadow-sm">
-                    <img src={currentStyle.images[0]} alt="缩略图" className="w-full h-full object-cover" />
-                    {strokesDataUrl && <img src={strokesDataUrl} alt="涂抹痕迹" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />}
-                    <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white mb-1"><path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="m14 2-8 8"></path></svg>
-                      <span className="text-[10px] text-white font-medium">点击标记</span>
-                    </div>
-                  </div>
-                  <textarea autoFocus value={suggestionText} onChange={(e) => setSuggestionText(e.target.value)} placeholder="可点击左侧图片涂抹标记，或在此输入文字建议..." className="flex-1 h-32 bg-neutral-100/50 rounded-2xl p-3 text-sm text-neutral-800 outline-none resize-none border border-neutral-200 focus:border-violet-400 focus:bg-white transition-all placeholder:text-neutral-400" />
-                </div>
-                <div className="flex justify-end gap-3">
-                  <button onClick={() => setShowSuggestModal(false)} className="px-5 py-2.5 text-sm font-medium text-neutral-600 bg-neutral-100 hover:bg-neutral-200 rounded-xl transition-colors">取消</button>
-                  <button onClick={handleConfirmSuggestion} disabled={!suggestionText.trim() && !strokesDataUrl} className="px-5 py-2.5 text-sm font-medium text-white bg-violet-500 hover:bg-violet-600 rounded-xl shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">保存</button>
-                </div>
-              </div>
-            </>
-          )}
         </div>
 
-        {/* 独立画板 */}
-        {showDrawingPad && (
-          <div className="fixed inset-0 z-[60] bg-neutral-900 flex flex-col items-center justify-between pb-6">
-            <div className="flex-1 w-full flex items-center justify-center p-4">
-              <div className="relative w-full max-w-sm aspect-[4/5] bg-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
-                <img src={currentStyle.images[0]} alt="背景图" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-                <canvas ref={canvasRef} width={800} height={1000} onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing} onTouchStart={startDrawing} onTouchMove={draw} onTouchEnd={stopDrawing} onTouchCancel={stopDrawing} className="absolute inset-0 w-full h-full touch-none cursor-crosshair z-10" />
-              </div>
-            </div>
-            <div className="w-full h-24 bg-neutral-900 border-t border-neutral-800 flex items-center justify-between px-6 pb-4">
-              <button onClick={cancelDrawing} className="w-12 h-12 rounded-full bg-neutral-800 text-neutral-400 flex items-center justify-center hover:bg-neutral-700 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
-              <div className="flex gap-3 bg-neutral-800 p-2 rounded-full">
-                {BRUSH_COLORS.map(color => (
-                  <button key={color} onClick={() => setBrushColor(color)} className={`w-8 h-8 rounded-full border-2 transition-transform ${brushColor === color ? 'scale-110 border-white shadow-md' : 'border-transparent opacity-80'}`} style={{ backgroundColor: color }} />
-                ))}
-              </div>
-              <button onClick={saveDrawing} className="w-12 h-12 rounded-full bg-violet-600 text-white flex items-center justify-center hover:bg-violet-500 transition-colors shadow-lg shadow-violet-900/50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              </button>
-            </div>
-          </div>
-        )}
+        {!isCompletedPeriod ? (
+          <>
+            <div className="px-5 pt-8 flex items-center justify-between mb-4 relative z-20">
+              <h2 className="text-[17px] font-bold text-gray-900 tracking-tight whitespace-nowrap">个人效能</h2>
 
-        {/* 确认不合格弹窗 */}
-        {showRejectModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm">
-            <div className="w-full max-w-xs bg-white rounded-3xl overflow-hidden shadow-2xl transform transition-all">
-              <div className="p-6 text-center">
-                <div className="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <div className="flex items-center bg-white border border-gray-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-full h-[28px]">
+                <div className="relative h-full">
+                  <button onClick={() => setActiveMenu(activeMenu === 'sort' ? null : 'sort')} className="flex items-center gap-1 h-full pl-3 pr-2.5 rounded-l-full text-[11px] font-semibold text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors whitespace-nowrap">
+                    <span className="text-gray-400 font-normal">排序</span><span>{getSortFieldLabel()}</span><ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${activeMenu === 'sort' ? 'rotate-180' : ''}`} />
+                  </button>
+                  {activeMenu === 'sort' && (
+                    <>
+                      <div className="absolute top-[calc(100%+6px)] right-0 min-w-[120px] bg-white/95 backdrop-blur-3xl rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-gray-100 z-50 overflow-hidden py-1 animate-pop-in">
+                        {SORT_OPTIONS.map(opt => (
+                          <div key={opt.value} onClick={() => { setSortField(opt.value); setActiveMenu(null); }} className={`px-3 py-2 text-[12px] flex items-center justify-between cursor-pointer ${sortField === opt.value ? 'bg-[#85B5FF]/10 text-[#3B82F6] font-bold' : 'hover:bg-gray-50 text-gray-600 font-medium'}`}>{opt.label}</div>
+                        ))}
+                      </div>
+                      <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)}></div>
+                    </>
+                  )}
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">确认不合格？</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">该款式审核结果将标记为不合格，并同步给所有相关人员。</p>
-              </div>
-              <div className="flex border-t border-neutral-100 bg-neutral-50">
-                <button onClick={() => setShowRejectModal(false)} className="flex-1 py-4 text-sm font-medium text-neutral-600 border-r border-neutral-100 hover:bg-neutral-100 transition-colors">取消</button>
-                <button onClick={handleConfirmReject} className="flex-1 py-4 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors">确认</button>
+                <div className="w-px h-3.5 bg-gray-200"></div>
+                <button onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')} className="flex items-center justify-center h-full pl-2.5 pr-3 rounded-r-full text-gray-500 hover:bg-gray-50 hover:text-gray-700 active:bg-gray-100 transition-colors">
+                  {sortOrder === 'desc' ? <ArrowDownWideNarrow className="w-3.5 h-3.5" /> : <ArrowUpNarrowWide className="w-3.5 h-3.5" />}
+                </button>
               </div>
             </div>
-          </div>
+
+            <div className="px-4 space-y-3.5 relative z-0">
+              {sortedDesigners.length === 0 ? (
+                 <div className="py-10 text-center text-[12px] text-gray-400">该品牌下暂无设计师数据</div>
+              ) : (
+                sortedDesigners.map((designer) => (
+                  <div key={designer.id} onClick={() => { setSelectedUser(designer); setGalleryTab('all'); }} className="bg-white rounded-[20px] p-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] cursor-pointer active:scale-[0.98] transition-transform flex items-center justify-between">
+                    <div className="flex items-center gap-3 w-full">
+                      <div className="w-11 h-11 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[16px] shrink-0">{designer.avatar}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="font-bold text-[15px] text-gray-900 truncate pr-2">{designer.name}</div>
+                          <div className="flex items-baseline gap-1"><span className="text-[10px] text-gray-400 font-medium">完成进度</span><span className="text-[15px] font-bold text-[#5B73E8]">{designer.stats.progress}%</span></div>
+                        </div>
+                        <div className="flex items-center gap-1.5 mb-2 text-[11px] text-gray-500 font-medium"><span className="bg-[#F5F5F7] px-1.5 py-0.5 rounded text-gray-600">{designer.brand}</span><span>{designer.position}</span></div>
+                        <div className="h-1 w-full bg-[#F0F4FF] rounded-full mb-2 overflow-hidden"><div className={`h-full ${brandGradient} transition-all duration-500 ease-out`} style={{ width: `${Math.min(designer.stats.progress, 100)}%` }}></div></div>
+                        <div className="flex justify-between items-center text-[11px]">
+                          <div className="text-gray-500">提审 <span className="font-bold text-gray-900 ml-0.5">{designer.stats.submitted}</span></div>
+                          <div className="text-gray-500">定稿 <span className="font-bold text-gray-900 ml-0.5">{designer.stats.approved}</span></div>
+                          <div className="text-gray-500">目标 <span className="font-bold text-gray-900 ml-0.5">{designer.stats.target}</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="px-5 pt-10 pb-5 flex items-center justify-between relative z-20">
+              <h2 className="text-[18px] font-bold text-gray-900 tracking-tight whitespace-nowrap">效能总结报告</h2>
+            </div>
+
+            <div className="px-4 space-y-3 relative z-0 mb-8 mt-1">
+              <h3 className="text-[14px] font-bold text-gray-800 ml-1 mb-4 flex items-center gap-1.5">卓越贡献榜 <span className="text-[10px] font-normal text-gray-400 ml-1">按定稿款数排名</span></h3>
+              {rankedByApproved.map((designer, index) => {
+                const rank = getRankStyle(index);
+                return (
+                  <div key={designer.id} onClick={() => { setSelectedUser(designer); setGalleryTab('approved'); }} className="bg-white rounded-[20px] p-3 shadow-[0_2px_12px_rgba(0,0,0,0.02)] cursor-pointer active:scale-[0.98] transition-transform flex items-center justify-between border border-gray-50">
+                    <div className="flex items-center gap-3 w-full">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 text-[14px] border ${rank.bg} ${rank.border} ${rank.color}`}>
+                         {index + 1}
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[14px] shrink-0">{designer.avatar}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-bold text-[14px] text-gray-900 truncate">{designer.name}</div>
+                        <div className="text-[10px] text-gray-500 mt-0.5">{designer.department}</div>
+                      </div>
+                      <div className="text-right pr-2 flex flex-col items-end">
+                        <div className="text-[18px] font-bold text-[#5B73E8] leading-none mb-1.5">{designer.stats.approved}<span className="text-[10px] font-normal text-gray-400 ml-0.5">款</span></div>
+                        <div className="text-[10px] text-[#5B73E8] bg-[#EBF0FF] px-1.5 py-0.5 rounded font-medium">贡献占比 {designer.contributionRatio}%</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="px-4 space-y-3 relative z-0 mb-4">
+              <h3 className="text-[14px] font-bold text-gray-800 ml-1 mb-4 flex items-center gap-1.5">勤劳小蜜蜂 <span className="text-[10px] font-normal text-gray-400 ml-1">按提审款数排名</span></h3>
+              {rankedBySubmitted.map((designer, index) => {
+                const rank = getRankStyle(index);
+                return (
+                  <div key={designer.id} onClick={() => { setSelectedUser(designer); setGalleryTab('all'); }} className="bg-white rounded-[20px] p-3 shadow-[0_2px_12px_rgba(0,0,0,0.02)] cursor-pointer active:scale-[0.98] transition-transform flex items-center justify-between border border-gray-50">
+                    <div className="flex items-center gap-3 w-full">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 text-[14px] border ${rank.bg} ${rank.border} ${rank.color}`}>
+                         {index + 1}
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[14px] shrink-0">{designer.avatar}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-bold text-[14px] text-gray-900 truncate">{designer.name}</div>
+                        <div className="text-[10px] text-gray-500 mt-0.5">{designer.department}</div>
+                      </div>
+                      <div className="text-right pr-2 flex flex-col items-end">
+                        <div className="text-[18px] font-bold text-gray-900 leading-none mb-1.5">{designer.stats.submitted}<span className="text-[10px] font-normal text-gray-400 ml-0.5">款</span></div>
+                        <div className="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded font-medium">产出占比 {designer.submitRatio}%</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
-    );
-  }
+    </div>
+  );
 
-  return null;
+  const renderDetail = () => {
+    if (!selectedUser) return null;
+    const mockGallery = {
+      approved: Array.from({length: selectedUser.stats.approved}).map((_, i) => `A${i}`),
+      modifying: Array.from({length: selectedUser.stats.modifying}).map((_, i) => `M${i}`),
+      deleted: Array.from({length: selectedUser.stats.deleted}).map((_, i) => `D${i}`),
+    };
+    const currentGallery = galleryTab === 'all' ? [...mockGallery.approved, ...mockGallery.modifying, ...mockGallery.deleted] : mockGallery[galleryTab];
+
+    const periodData = PERIOD_INFO[globalPeriod];
+    const sub = selectedUser.stats.submitted;
+
+    let remaining = sub;
+    const rawChartData = [];
+    for (let i = 0; i < periodData.weeks; i++) {
+        if (i === periodData.weeks - 1) {
+            rawChartData.push({ week: `W${i+1}`, value: remaining });
+        } else {
+            const seed = selectedUser.name.charCodeAt(0) + i * 5;
+            const noise = (seed % 10) / 10;
+            let val = Math.floor((sub / periodData.weeks) * (0.4 + noise));
+            if (val > remaining) val = remaining;
+            rawChartData.push({ week: `W${i+1}`, value: val });
+            remaining -= val;
+        }
+    }
+    const maxChartVal = Math.max(...rawChartData.map(d => d.value)) || 1;
+    const chartData = rawChartData.map(d => ({
+        ...d,
+        heightPercent: Math.max((d.value / maxChartVal) * 100, 5)
+    }));
+
+    return (
+      <div className="absolute inset-0 bg-[#F5F5F7] z-50 flex flex-col h-full overflow-hidden slide-in font-sans">
+        <div className="bg-white/80 backdrop-blur-xl px-4 py-3 flex items-center sticky top-0 z-30 border-b border-gray-200/50 shrink-0 min-h-[48px]">
+          <button onClick={() => setSelectedUser(null)} className="flex items-center -ml-2 text-gray-500 hover:text-gray-700 active:opacity-60 transition-all">
+            <ChevronLeft className="w-6 h-6" /><span className="text-[14px] ml-[-2px]">返回</span>
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto pb-8 relative space-y-4 pt-4 px-4 hide-scrollbar">
+
+          <div className="bg-white p-5 rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] relative overflow-hidden">
+            <div className="flex items-center gap-4 relative z-10">
+               <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-white text-gray-600 flex items-center justify-center font-bold text-[24px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] relative shrink-0">{selectedUser.avatar}</div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-[18px] font-bold text-gray-900 tracking-tight mb-0.5">{selectedUser.name}</h2>
+                  <div className="text-[12px] text-gray-500 mb-2 font-medium flex items-center gap-1.5 truncate">
+                    <span>{selectedUser.department}</span><span className="text-gray-300 font-bold">·</span><span>{selectedUser.position}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F5F7] text-gray-600">{selectedUser.brand}</span>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F5F7] text-gray-600">在职 {selectedUser.tenure}</span>
+                  </div>
+                </div>
+            </div>
+            <div className={`absolute -right-8 -top-8 w-32 h-32 opacity-10 rounded-full blur-2xl ${brandGradient}`}></div>
+          </div>
+
+          <div className="flex items-center justify-between px-1 pt-1 pb-1">
+            <h3 className="text-[15px] font-bold text-gray-900 tracking-tight">周期内表现</h3>
+            <PillSelect variant="secondary" value={globalPeriod} options={Object.keys(PERIOD_INFO)} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodDetailEff" />
+          </div>
+
+          <div className="bg-white p-4 rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
+            <h3 className="text-[13px] font-bold text-gray-800 mb-4 flex items-center gap-1.5"><TrendingUp className="w-4 h-4 text-[#8B9DFE]" />产出与进度趋势</h3>
+            <div className="flex items-center bg-[#F5F5F7] rounded-[16px] p-4 mb-5">
+              <div className="flex-1 text-center border-r border-gray-200/60 last:border-0"><div className="text-[10px] text-gray-500 mb-1 font-medium">提审数量</div><div className="text-[20px] font-bold text-gray-900 leading-none">{selectedUser.stats.submitted}</div></div>
+              <div className="flex-1 text-center border-r border-gray-200/60 last:border-0"><div className="text-[10px] text-gray-500 mb-1 font-medium">定稿数量</div><div className="text-[20px] font-bold text-[#5B73E8] leading-none">{selectedUser.stats.approved}</div></div>
+              <div className="flex-1 text-center border-r border-gray-200/60 last:border-0"><div className="text-[10px] text-gray-500 mb-1 font-medium">完成进度</div><div className="text-[20px] font-bold text-gray-900 leading-none">{selectedUser.stats.progress}%</div></div>
+            </div>
+
+            <div>
+              <div className="flex items-start justify-between mb-4 font-medium">
+                 <div><div className="text-[11px] font-bold text-gray-700 mb-0.5">提审频率分布 (自然周)</div><div className="text-[10px] text-gray-400">波段研发周期：{periodData.start} - {periodData.end}</div></div>
+                 <span className="flex items-center gap-1 text-[10px] text-gray-400 mt-0.5"><div className={`w-2.5 h-2.5 rounded-sm ${brandGradient}`}></div>提审数</span>
+              </div>
+              <div className="relative w-full">
+                <div className="absolute top-0 left-0 right-0 bottom-[24px] z-0 pointer-events-none">
+                  <div className="absolute top-[15%] w-full border-t border-gray-100 border-dashed"></div>
+                  <div className="absolute top-[55%] w-full border-t border-gray-100 border-dashed"></div>
+                  <div className="absolute bottom-0 w-full border-t border-gray-100 border-solid"></div>
+                </div>
+                <div className="overflow-x-auto hide-scrollbar w-full relative z-10">
+                  <div className="flex items-end gap-5 min-w-max px-3 pb-1 h-[120px]">
+                    {chartData.map((d, i) => (
+                      <div key={i} className="flex flex-col items-center group w-7 shrink-0">
+                        <span className="text-[10px] font-bold text-gray-600 mb-1">{d.value}</span>
+                        <div className="w-full bg-[#F0F4FF] rounded-t-md relative overflow-hidden flex flex-col justify-end h-[70px]">
+                          <div className={`w-full ${brandGradient} transition-all duration-500 ease-out`} style={{ height: `${d.heightPercent}%` }}></div>
+                        </div>
+                        <div className="h-[24px] flex items-end justify-center w-full"><span className="text-[9px] text-gray-400 font-medium">{d.week}</span></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] overflow-hidden">
+             <div className="p-4 pb-0"><h3 className="text-[13px] font-bold text-gray-800 flex items-center gap-1.5"><LayoutGrid className="w-4 h-4 text-[#8B9DFE]" />产出看版</h3></div>
+             <div className="p-4 pb-2">
+               <div className="flex bg-[#F5F5F7] p-1 rounded-lg">
+                  {['all', 'modifying', 'approved', 'deleted'].map(tab => (
+                    <button key={tab} onClick={() => setGalleryTab(tab)} className={`flex-1 text-center py-1.5 text-[11px] font-medium rounded-md transition-all whitespace-nowrap ${galleryTab === tab ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'}`}>
+                      {tab === 'all' ? `提审 (${selectedUser.stats.submitted})` : tab === 'modifying' ? `修改 (${selectedUser.stats.modifying})` : tab === 'approved' ? `定稿 (${selectedUser.stats.approved})` : `删除 (${selectedUser.stats.deleted})`}
+                    </button>
+                  ))}
+               </div>
+             </div>
+             <div className="p-4 pt-2 bg-white min-h-[200px]">
+                <div className="grid grid-cols-3 gap-2">
+                  {currentGallery && currentGallery.length > 0 ? (
+                    currentGallery.map((item, idx) => (
+                      <div key={idx} className={`aspect-[3/4] rounded-lg relative overflow-hidden group border ${item.startsWith('D') ? 'bg-gray-100 border-gray-200 grayscale opacity-60' : 'bg-[#F5F5F7] border-gray-100'}`}>
+                        <div className="absolute inset-0 flex items-center justify-center"><span className="text-gray-400 text-[10px] font-medium">作品</span></div>
+                        <div className="absolute top-1.5 right-1.5 bg-white/80 backdrop-blur-md rounded-full p-0.5 shadow-sm">
+                          {item.startsWith('A') ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : item.startsWith('M') ? <Clock className="w-3.5 h-3.5 text-amber-500" /> : <XCircle className="w-3.5 h-3.5 text-[#FF3B30]" />}
+                        </div>
+                      </div>
+                    ))
+                  ) : (<div className="col-span-3 py-10 text-center text-[12px] text-gray-400">暂无数据</div>)}
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-[#E5E5EA] font-sans sm:p-6">
+      <div className="w-full sm:max-w-[414px] h-[100dvh] sm:h-[850px] bg-white sm:rounded-[40px] sm:shadow-[0_20px_50px_rgba(0,0,0,0.1)] sm:border-[8px] sm:border-white overflow-hidden relative flex flex-col">
+        {renderMainContent()}
+        {renderDetail()}
+        <BottomNav currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      </div>
+    </div>
+  );
+};
+
+export default function App() {
+  const [currentTab, setCurrentTab] = useState("progress");
+
+  return (
+    <>
+      {currentTab === 'progress' ? (
+        <ProgressDashboard currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      ) : (
+        <EfficiencyDashboard currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      )}
+      <style>{`
+        .slide-in { animation: slideIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .animate-pop-in { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; transform-origin: top right; }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(-5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { width: 2px; height: 2px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 24px); }
+      `}</style>
+    </>
+  );
 }
