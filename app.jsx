@@ -116,6 +116,13 @@ const BottomNav = ({ currentTab, setCurrentTab }) => (
   </div>
 );
 
+const Avatar = ({ src, className, textClassName }) => {
+  if (src && /^https?:\/\//.test(src)) {
+    return <img src={src} alt="" className={`object-cover ${className}`} />;
+  }
+  return <div className={className}><span className={textClassName}>{src}</span></div>;
+};
+
 // ==========================================
 // [模块 A] 研发进度相关数据与新增多选组件
 // ==========================================
@@ -128,29 +135,11 @@ const demoThumbs = [
   "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80",
 ];
 
-const rdStylesData = [
-  { id: 101, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-001", name: "法式复古收腰连衣裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[0], demoThumbs[1]], timeline: [{ id: "t1", date: "10月12日 10:30", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "初版提交，侧边隐形拉链设计，强调收腰比例。", images: [demoThumbs[0]] }, { id: "t2", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "版型通过，准许转入大货企划环节。", images: [] }] },
-  { id: 105, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-SK-002", name: "法式高腰百褶半裙", category: "半身裙", status: "修改中", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月14日 09:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "百褶裙初版，使用雪纺面料。", images: [demoThumbs[2]] }, { id: "t2", date: "10月15日 14:00", role: "supervisor", name: "王总监", action: "退回修改", text: "褶皱不够硬挺，建议更换面料克重。", images: [] }] },
-  { id: 106, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-BL-003", name: "醋酸缎面通勤衬衫", category: "衬衫", status: "已提交", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月22日 11:30", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "高阶通勤款，手感极佳。", images: [demoThumbs[4], demoThumbs[5]] }] },
-  { id: 107, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-CT-004", name: "亚麻阔版西装外套", category: "外套", status: "已删除", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[1], demoThumbs[2]], timeline: [{ id: "t1", date: "10月10日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "初版样衣。", images: [demoThumbs[1]] }, { id: "t2", date: "10月12日 16:00", role: "supervisor", name: "王总监", action: "废弃该款", text: "成本核算超标，且容易起皱，直接砍掉。", images: [] }] },
-  { id: 108, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-005", name: "V领碎花茶歇裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[3], demoThumbs[4]], timeline: [{ id: "t1", date: "10月15日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "度假风。", images: [] }, { id: "t2", date: "10月16日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "花型很好，直接过。", images: [] }] },
-  { id: 109, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-TR-006", name: "天丝垂坠阔腿裤", category: "裤装", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[5], demoThumbs[0]], timeline: [{ id: "t1", date: "10月16日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "垂坠感很好。", images: [] }, { id: "t2", date: "10月17日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "版型优秀。", images: [] }] },
-  { id: 110, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-JK-007", name: "轻薄透气肌理小香风", category: "外套", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[0], demoThumbs[1]], timeline: [{ id: "t1", date: "10月18日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "夏季薄款小香。", images: [] }, { id: "t2", date: "10月19日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "可以加入主推。", images: [] }] },
-  { id: 111, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-SH-008", name: "法式方领泡泡袖上衣", category: "上衣", status: "已通过", designer: { brand: "Imuse 主线", position: "资深女装设计师", name: "林芷欣", avatar: "林" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月19日 10:00", role: "designer", name: "林芷欣", action: "上传了初版设计稿", text: "复古显瘦。", images: [] }, { id: "t2", date: "10月20日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "通过。", images: [] }] },
-  { id: 112, wave: "2026 夏季首批", brand: "Imuse 主线", code: "IM-SU26-DR-009", name: "假两件拼接吊带裙", category: "连衣裙", status: "已通过", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月20日 10:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "层次感强。", images: [] }, { id: "t2", date: "10月21日 15:30", role: "supervisor", name: "王总监", action: "通过了审核", text: "OK。", images: [] }] },
-
-  // --- Imuse 支线数据 ---
-  { id: 102, wave: "2026 夏季首批", brand: "Imuse 支线", code: "IM-SU26-TP-012", name: "无缝肌理感针织短袖", category: "上衣", status: "修改中", designer: { brand: "Imuse 支线", position: "针织品类设计师", name: "张雨杰", avatar: "张" }, images: [demoThumbs[2], demoThumbs[3]], timeline: [{ id: "t1", date: "10月18日 11:00", role: "designer", name: "张雨杰", action: "上传了初版设计稿", text: "第一版样衣提交，选用新型肌理纱线，弹性很好。", images: [demoThumbs[2], demoThumbs[3]] }, { id: "t2", date: "10月19日 16:20", role: "supervisor", name: "刘主管", action: "退回修改", text: "领口弧度不够自然，需要再微调版型。", images: [] }] },
-  { id: 104, wave: "轻运动补充", brand: "Imuse 支线", code: "IM-SU26-PT-022", name: "弹力空气感运动裤", category: "裤装", status: "已删除", designer: { brand: "Imuse 支线", position: "下装设计师", name: "王心怡", avatar: "王" }, images: [demoThumbs[5], demoThumbs[1]], timeline: [{ id: "t1", date: "10月15日 09:00", role: "designer", name: "王心怡", action: "上传了初版设计稿", text: "", images: [demoThumbs[5]] }, { id: "t2", date: "10月25日 10:30", role: "supervisor", name: "刘主管", action: "废弃该款", text: "面料缩水率不达标，供应商无法解决，决定直接删减该SKU。", images: [] }] },
-  { id: 103, wave: "轻运动补充", brand: "Imuse 主线", code: "IM-SU26-WT-005", name: "防晒超轻薄风衣", category: "外套", status: "已提交", designer: { brand: "Imuse 主线", position: "主理设计师", name: "陈子豪", avatar: "陈" }, images: [demoThumbs[4], demoThumbs[5]], timeline: [{ id: "t1", date: "10月22日 18:00", role: "designer", name: "陈子豪", action: "上传了初版设计稿", text: "采用了新型抗UV防晒面料，测试版样衣，增强了背部透气孔设计。", images: [demoThumbs[4], demoThumbs[5]] }] },
-];
+const rdStylesData = window.__RD_DATA__ || [];
 
 const CATEGORIES = ["上衣", "外套", "下装", "连衣裙", "配饰"];
 const MULTI_WAVE_DATA = {
-  waves: {
-    "2026 夏季首批": { gap: -7, days: 41, status: "safe", items: { "上衣": -2, "外套": -1, "下装": -3, "连衣裙": 0, "配饰": -1 } },
-    "轻运动补充": { gap: -14, days: 31, status: "risk", items: { "上衣": -5, "外套": -2, "下装": -4, "连衣裙": -2, "配饰": -1 } },
-  }
+  waves: window.__WAVE_SUMMARY__ || {}
 };
 
 const PillSelect = ({ value, options, onChange, activeMenu, setActiveMenu, menuId, variant }) => {
@@ -322,7 +311,7 @@ const PredictionList = ({ selectedWaves }) => (
 const getStatusStyles = (status) => {
   switch (status) {
     case '已通过': return 'bg-emerald-50 text-emerald-600 border-emerald-100';
-    case '修改中': return 'bg-amber-50 text-amber-600 border-amber-100';
+    case '待审批': return 'bg-amber-50 text-amber-600 border-amber-100';
     case '已删除': return 'bg-neutral-100 text-neutral-500 border-neutral-200';
     case '已提交':
     default: return 'bg-[#EBF0FF] text-[#5B73E8] border-[#D6E0FF]';
@@ -357,14 +346,16 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
   const filteredRdStyles = rdStylesData.filter(s => s.brand === brandFilter && s.wave === singleWaveFilter);
   const displayStyles = filteredRdStyles.filter(s => rdListFilter === "全部状态" || s.status === rdListFilter);
 
+  const waveSummary = window.__WAVE_SUMMARY__ || {};
   const dashboardStats = useMemo(() => {
-    let target = singleWaveFilter === "2026 夏季首批" ? 8 : 4;
+    const summary = waveSummary[singleWaveFilter] || {};
+    let target = summary.target || 0;
     const submitted = filteredRdStyles.filter(s => s.status !== '已删除').length;
     const approved = filteredRdStyles.filter(s => s.status === "已通过").length;
     const progress = target === 0 ? 0 : Math.round((approved / target) * 100);
-    const timeProgress = singleWaveFilter === '2026 夏季首批' ? 85 : 45;
+    const timeProgress = typeof summary.timeProgress === 'number' ? summary.timeProgress : 75;
     return { target, submitted, approved, progress, timeProgress };
-  }, [filteredRdStyles, singleWaveFilter]);
+  }, [filteredRdStyles, singleWaveFilter, waveSummary]);
 
   const onTouchEndSlider = (totalImages) => {
     if (!touchStart || !touchEnd) return;
@@ -467,7 +458,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
                         {activeMenu === 'rdFilter' && (
                           <>
                             <div className="absolute top-[calc(100%+6px)] right-0 min-w-[130px] bg-white rounded-2xl shadow-xl border border-neutral-100 z-50 overflow-hidden py-1.5 animate-pop-in">
-                              {["全部状态", "已提交", "已通过", "修改中", "已删除"].map(opt => (
+                              {["全部状态", "已提交", "已通过", "待审批", "已删除"].map(opt => (
                                 <div key={opt} onClick={() => { setRdListFilter(opt); setActiveMenu(null); }} className={`px-4 py-2.5 text-[13px] flex items-center justify-between cursor-pointer transition-colors ${rdListFilter === opt ? 'bg-[#EBF0FF] text-[#5B73E8] font-bold' : 'hover:bg-neutral-50 text-neutral-700 font-medium'}`}>
                                   {opt} {rdListFilter === opt && <Check className="w-3.5 h-3.5 text-[#5B73E8]" />}
                                 </div>
@@ -500,7 +491,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
                             </div>
 
                             <div className="flex items-center gap-1.5 text-[10px] text-neutral-500 mt-1">
-                              <div className="w-4 h-4 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-[8px] text-neutral-600 font-bold">{style.designer.avatar}</div>
+                              <Avatar src={style.designer.avatar} className="w-4 h-4 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center" textClassName="text-[8px] text-neutral-600 font-bold" />
                               <span className="truncate">{style.designer.name} · {style.timeline[style.timeline.length-1]?.action}</span>
                             </div>
                           </div>
@@ -553,7 +544,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
               </div>
             </div>
             <div className="mt-4 bg-white rounded-3xl shadow-sm p-4 flex items-center gap-4 border border-neutral-200/60 animate-slide-in">
-              <div className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center font-bold text-[16px] text-neutral-600 shrink-0">{style.designer.avatar}</div>
+              <Avatar src={style.designer.avatar} className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center shrink-0" textClassName="font-bold text-[16px] text-neutral-600" />
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="text-[15px] font-bold text-neutral-900">{style.designer.name}</h3>
@@ -606,24 +597,9 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
 // [模块 B] 效能评定相关数据与组件
 // ==========================================
 
-const DESIGNERS = [
-  { id: 'd1', name: '张梓轩', brand: 'Urban Core', department: '女装设计一部', tenure: '3年', position: '资深设计师', avatar: '张', stats: { submitted: 42, modifying: 8, approved: 28, deleted: 6, target: 40 } },
-  { id: 'd2', name: '李梦琪', brand: 'Urban Core', department: '女装设计二部', tenure: '1.5年', position: '设计师', avatar: '李', stats: { submitted: 55, modifying: 15, approved: 12, deleted: 28, target: 40 } },
-  { id: 'd6', name: '刘一帆', brand: 'Urban Core', department: '女装设计一部', tenure: '1年', position: '设计师', avatar: '刘', stats: { submitted: 35, modifying: 5, approved: 18, deleted: 12, target: 40 } },
-  { id: 'd7', name: '陈雪', brand: 'Urban Core', department: '女装设计二部', tenure: '2.5年', position: '资深设计师', avatar: '陈', stats: { submitted: 48, modifying: 10, approved: 22, deleted: 16, target: 40 } },
-  { id: 'd8', name: '吴宇', brand: 'Urban Core', department: '核心企划组', tenure: '3年', position: '主设计师', avatar: '吴', stats: { submitted: 25, modifying: 2, approved: 15, deleted: 8, target: 30 } },
-  { id: 'd3', name: '王一鸣', brand: 'Minimalist', department: '核心企划组', tenure: '4年', position: '主设计师', avatar: '王', stats: { submitted: 30, modifying: 3, approved: 25, deleted: 2, target: 30 } },
-  { id: 'd4', name: '赵佳', brand: 'Minimalist', department: '核心企划组', tenure: '8个月', position: '设计师', avatar: '赵', stats: { submitted: 20, modifying: 5, approved: 8, deleted: 7, target: 30 } },
-  { id: 'd9', name: '郑宇航', brand: 'Minimalist', department: '男装设计组', tenure: '2年', position: '资深设计师', avatar: '郑', stats: { submitted: 32, modifying: 4, approved: 18, deleted: 10, target: 30 } },
-  { id: 'd10', name: '周晓', brand: 'Minimalist', department: '配饰设计组', tenure: '1年', position: '设计师', avatar: '周', stats: { submitted: 28, modifying: 6, approved: 14, deleted: 8, target: 30 } },
-  { id: 'd5', name: '陈思宇', brand: 'Active Gear', department: '运动服饰组', tenure: '2年', position: '资深设计师', avatar: '陈', stats: { submitted: 38, modifying: 10, approved: 20, deleted: 8, target: 35 } }
-];
-
-const PERIOD_INFO = {
-  '2026 秋二波段': { multiplier: 1, start: '2026.07.01', end: '2026.08.31', weeks: 9 },
-  '2026 秋一波段': { multiplier: 0.85, start: '2026.05.01', end: '2026.06.30', weeks: 9 },
-  '2026 夏波段': { multiplier: 1.2, start: '2026.03.01', end: '2026.04.30', weeks: 9 },
-};
+const EFF_DESIGNERS = window.__EFF_DESIGNERS__ || [];
+const EFF_STATS = window.__EFF_STATS__ || {};
+const EFF_PERIODS = window.__EFF_PERIODS__ || {};
 
 const SORT_OPTIONS = [
   { label: '完成进度', value: 'progress' },
@@ -639,43 +615,62 @@ const getRankStyle = (index) => {
 };
 
 const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
-  const uniqueBrands = Array.from(new Set(DESIGNERS.map(d => d.brand)));
+  const uniqueBrands = Array.from(new Set(EFF_DESIGNERS.map(d => d.brand)));
   const [selectedBrand, setSelectedBrand] = useState(uniqueBrands[0]);
 
-  const [globalPeriod, setGlobalPeriod] = useState('2026 秋二波段');
+  const [globalPeriod, setGlobalPeriod] = useState(Object.keys(EFF_PERIODS)[0] || '');
   const [sortField, setSortField] = useState('progress');
   const [sortOrder, setSortOrder] = useState('desc');
   const [activeMenu, setActiveMenu] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [galleryTab, setGalleryTab] = useState('all');
 
+  const RD_DATA = window.__RD_DATA__ || [];
+
+  const brandWaves = useMemo(() => {
+    const waves = [];
+    const seen = new Set();
+    RD_DATA.forEach(item => {
+      if (item.brand === selectedBrand && item.wave && !seen.has(item.wave)) {
+        seen.add(item.wave);
+        waves.push(item.wave);
+      }
+    });
+    return waves;
+  }, [selectedBrand, RD_DATA]);
+
+  useEffect(() => {
+    if (brandWaves.length > 0 && !brandWaves.includes(globalPeriod)) {
+      setGlobalPeriod(brandWaves[0]);
+    }
+  }, [brandWaves, globalPeriod]);
+
   const scopedDesigners = useMemo(() => {
-    let list = DESIGNERS.filter(d => d.brand === selectedBrand);
-    const multiplier = PERIOD_INFO[globalPeriod]?.multiplier || 1;
+    let list = EFF_DESIGNERS.filter(d => d.brand === selectedBrand);
     return list.map(d => {
-      const adjustedSub = Math.round(d.stats.submitted * multiplier);
-      const adjustedMod = Math.round(d.stats.modifying * multiplier);
-      const adjustedApp = Math.round(d.stats.approved * multiplier);
-      const adjustedDel = Math.round(d.stats.deleted * multiplier);
-      const target = d.stats.target;
+      const statKey = `${d.id}:${globalPeriod}`;
+      const stat = EFF_STATS[statKey] || { target: 0, submitted: 0, modifying: 0, approved: 0, deleted: 0 };
+      const target = stat.target;
       return {
         ...d,
         stats: {
-          ...d.stats, submitted: adjustedSub, modifying: adjustedMod, approved: adjustedApp, deleted: adjustedDel,
-          progress: target === 0 ? 0 : Math.round((adjustedApp / target) * 100),
+          ...stat,
+          progress: target === 0 ? 0 : Math.round((stat.approved / target) * 100),
         }
       };
     });
   }, [selectedBrand, globalPeriod]);
 
+  const WAVE_SUMMARY = window.__WAVE_SUMMARY__ || {};
+
   const dashboardStats = useMemo(() => {
     let totalSub = 0, totalApp = 0, totalTarget = 0;
     scopedDesigners.forEach(d => { totalSub += d.stats.submitted; totalApp += d.stats.approved; totalTarget += d.stats.target; });
     const teamProgress = totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100);
-    let timeProgress = 100;
-    if (globalPeriod === '2026 秋二波段') timeProgress = 75;
+    const ws = WAVE_SUMMARY[globalPeriod];
+    const timeProgress = ws && typeof ws.timeProgress === 'number' ? ws.timeProgress : 100;
     return { totalSub, totalApp, totalTarget, teamProgress, timeProgress };
-  }, [scopedDesigners, globalPeriod]);
+  }, [scopedDesigners, globalPeriod, WAVE_SUMMARY]);
 
   const sortedDesigners = useMemo(() => {
     return [...scopedDesigners].sort((a, b) => {
@@ -702,7 +697,15 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
 
   const getSortFieldLabel = () => SORT_OPTIONS.find(o => o.value === sortField)?.label || '排序';
 
-  const isCompletedPeriod = globalPeriod !== '2026 秋二波段';
+  const isCompletedPeriod = useMemo(() => {
+    const ws = WAVE_SUMMARY[globalPeriod];
+    if (ws && typeof ws.timeProgress === 'number') return ws.timeProgress >= 100;
+    const period = EFF_PERIODS[globalPeriod];
+    if (!period || !period.end) return false;
+    const base = new Date('2026-06-01');
+    const end = new Date(period.end.replace(/\./g, '-'));
+    return base > end;
+  }, [globalPeriod, WAVE_SUMMARY]);
 
   const renderMainContent = () => (
     <div className="flex-1 overflow-y-auto relative z-10 pb-20 hide-scrollbar bg-white">
@@ -724,7 +727,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
             <div className="w-1 h-4 bg-gradient-to-b from-[#8B9DFE] to-[#7DE0EF] rounded-full"></div>
             <h2 className="text-[16px] font-bold text-gray-900 tracking-tight whitespace-nowrap">团队整体效能</h2>
           </div>
-          <PillSelect variant="secondary" value={globalPeriod} options={Object.keys(PERIOD_INFO)} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodMainEff" />
+          <PillSelect variant="secondary" value={globalPeriod} options={brandWaves} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodMainEff" />
         </div>
 
         <div className="px-5 pt-4 pb-2">
@@ -834,7 +837,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                 sortedDesigners.map((designer) => (
                   <div key={designer.id} onClick={() => { setSelectedUser(designer); setGalleryTab('all'); }} className="bg-white rounded-[20px] p-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] cursor-pointer active:scale-[0.98] transition-transform flex items-center justify-between">
                     <div className="flex items-center gap-3 w-full">
-                      <div className="w-11 h-11 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[16px] shrink-0">{designer.avatar}</div>
+                      <Avatar src={designer.avatar} className="w-11 h-11 rounded-full bg-gray-100 border border-gray-200/60 flex items-center justify-center shrink-0" textClassName="font-bold text-[16px] text-gray-600" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <div className="font-bold text-[15px] text-gray-900 truncate pr-2">{designer.name}</div>
@@ -870,7 +873,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 text-[14px] border ${rank.bg} ${rank.border} ${rank.color}`}>
                          {index + 1}
                       </div>
-                      <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[14px] shrink-0">{designer.avatar}</div>
+                      <Avatar src={designer.avatar} className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 flex items-center justify-center shrink-0" textClassName="font-bold text-[14px] text-gray-600" />
                       <div className="flex-1 min-w-0">
                         <div className="font-bold text-[14px] text-gray-900 truncate">{designer.name}</div>
                         <div className="text-[10px] text-gray-500 mt-0.5">{designer.department}</div>
@@ -895,7 +898,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 text-[14px] border ${rank.bg} ${rank.border} ${rank.color}`}>
                          {index + 1}
                       </div>
-                      <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 text-gray-600 flex items-center justify-center font-bold text-[14px] shrink-0">{designer.avatar}</div>
+                      <Avatar src={designer.avatar} className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200/60 flex items-center justify-center shrink-0" textClassName="font-bold text-[14px] text-gray-600" />
                       <div className="flex-1 min-w-0">
                         <div className="font-bold text-[14px] text-gray-900 truncate">{designer.name}</div>
                         <div className="text-[10px] text-gray-500 mt-0.5">{designer.department}</div>
@@ -924,7 +927,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
     };
     const currentGallery = galleryTab === 'all' ? [...mockGallery.approved, ...mockGallery.modifying, ...mockGallery.deleted] : mockGallery[galleryTab];
 
-    const periodData = PERIOD_INFO[globalPeriod];
+    const periodData = EFF_PERIODS[globalPeriod] || { weeks: 9, start: '', end: '' };
     const sub = selectedUser.stats.submitted;
 
     let remaining = sub;
@@ -959,7 +962,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
 
           <div className="bg-white p-5 rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] relative overflow-hidden">
             <div className="flex items-center gap-4 relative z-10">
-               <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-white text-gray-600 flex items-center justify-center font-bold text-[24px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] relative shrink-0">{selectedUser.avatar}</div>
+               <Avatar src={selectedUser.avatar} className="w-16 h-16 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.08)] relative shrink-0" textClassName="font-bold text-[24px] text-gray-600" />
                 <div className="flex-1 min-w-0">
                   <h2 className="text-[18px] font-bold text-gray-900 tracking-tight mb-0.5">{selectedUser.name}</h2>
                   <div className="text-[12px] text-gray-500 mb-2 font-medium flex items-center gap-1.5 truncate">
@@ -976,7 +979,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
 
           <div className="flex items-center justify-between px-1 pt-1 pb-1">
             <h3 className="text-[15px] font-bold text-gray-900 tracking-tight">周期内表现</h3>
-            <PillSelect variant="secondary" value={globalPeriod} options={Object.keys(PERIOD_INFO)} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodDetailEff" />
+            <PillSelect variant="secondary" value={globalPeriod} options={brandWaves} onChange={setGlobalPeriod} activeMenu={activeMenu} setActiveMenu={setActiveMenu} menuId="periodDetailEff" />
           </div>
 
           <div className="bg-white p-4 rounded-[24px] shadow-[0_2px_16px_rgba(0,0,0,0.03)]">

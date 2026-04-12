@@ -25,6 +25,17 @@
       };
 
       async function boot() {
+        let rdPayload = {};
+        try {
+          const rdResp = await fetch("./rd_data.json");
+          if (rdResp.ok) rdPayload = await rdResp.json();
+        } catch (e) { console.error(e); }
+        window.__RD_DATA__ = rdPayload.rdStylesData || [];
+        window.__WAVE_SUMMARY__ = rdPayload.waveSummary || {};
+        window.__EFF_PERIODS__ = rdPayload.efficiencyPeriods || {};
+        window.__EFF_DESIGNERS__ = rdPayload.efficiencyDesigners || [];
+        window.__EFF_STATS__ = rdPayload.efficiencyStats || {};
+
         const response = await fetch("./app.jsx");
         if (!response.ok) {
           throw new Error("无法读取 app.jsx");
