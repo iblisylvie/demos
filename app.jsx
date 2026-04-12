@@ -920,12 +920,17 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
 
   const renderDetail = () => {
     if (!selectedUser) return null;
-    const mockGallery = {
-      approved: Array.from({length: selectedUser.stats.approved}).map((_, i) => `A${i}`),
-      modifying: Array.from({length: selectedUser.stats.modifying}).map((_, i) => `M${i}`),
-      deleted: Array.from({length: selectedUser.stats.deleted}).map((_, i) => `D${i}`),
+    const userStyles = RD_DATA.filter(
+      s => s.wave === globalPeriod && s.designer && (s.designer.id === selectedUser.id || s.designer.name === selectedUser.name)
+    );
+    const hasPending = userStyles.some(s => s.status === '待审批');
+    const galleryItems = {
+      all: hasPending ? userStyles.filter(s => s.status === '待审批') : userStyles.filter(s => s.status !== '已删除'),
+      modifying: userStyles.filter(s => s.status === '已提交'),
+      approved: userStyles.filter(s => s.status === '已通过'),
+      deleted: userStyles.filter(s => s.status === '已删除'),
     };
-    const currentGallery = galleryTab === 'all' ? [...mockGallery.approved, ...mockGallery.modifying, ...mockGallery.deleted] : mockGallery[galleryTab];
+    const currentGallery = galleryTab === 'all' ? galleryItems.all : galleryItems[galleryTab];
 
     const periodData = EFF_PERIODS[globalPeriod] || { weeks: 9, start: '', end: '' };
     const sub = selectedUser.stats.submitted;
@@ -1024,7 +1029,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                <div className="flex bg-[#F5F5F7] p-1 rounded-lg">
                   {['all', 'modifying', 'approved', 'deleted'].map(tab => (
                     <button key={tab} onClick={() => setGalleryTab(tab)} className={`flex-1 text-center py-1.5 text-[11px] font-medium rounded-md transition-all whitespace-nowrap ${galleryTab === tab ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'}`}>
-                      {tab === 'all' ? `提审 (${selectedUser.stats.submitted})` : tab === 'modifying' ? `修改 (${selectedUser.stats.modifying})` : tab === 'approved' ? `定稿 (${selectedUser.stats.approved})` : `删除 (${selectedUser.stats.deleted})`}
+                      {tab === 'all' ? `提审 (${galleryItems.all.length})` : tab === 'modifying' ? `修改 (${galleryItems.modifying.length})` : tab === 'approved' ? `定稿 (${galleryItems.approved.length})` : `删除 (${galleryItems.deleted.length})`}
                     </button>
                   ))}
                </div>
@@ -1033,10 +1038,14 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                 <div className="grid grid-cols-3 gap-2">
                   {currentGallery && currentGallery.length > 0 ? (
                     currentGallery.map((item, idx) => (
-                      <div key={idx} className={`aspect-[3/4] rounded-lg relative overflow-hidden group border ${item.startsWith('D') ? 'bg-gray-100 border-gray-200 grayscale opacity-60' : 'bg-[#F5F5F7] border-gray-100'}`}>
-                        <div className="absolute inset-0 flex items-center justify-center"><span className="text-gray-400 text-[10px] font-medium">作品</span></div>
+                      <div key={idx} className={`aspect-[3/4] rounded-lg relative overflow-hidden group border ${galleryTab === 'deleted' ? 'bg-gray-100 border-gray-200 grayscale opacity-60' : 'bg-[#F5F5F7] border-gray-100'}`}>
+                        {item.images && item.images[0] ? (
+                          <img src={item.images[0]} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center"><span className="text-gray-400 text-[10px] font-medium">作品</span></div>
+                        )}
                         <div className="absolute top-1.5 right-1.5 bg-white/80 backdrop-blur-md rounded-full p-0.5 shadow-sm">
-                          {item.startsWith('A') ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : item.startsWith('M') ? <Clock className="w-3.5 h-3.5 text-amber-500" /> : <XCircle className="w-3.5 h-3.5 text-[#FF3B30]" />}
+                          {galleryTab === 'all' ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : galleryTab === 'modifying' ? <Clock className="w-3.5 h-3.5 text-amber-500" /> : galleryTab === 'approved' ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : <XCircle className="w-3.5 h-3.5 text-gray-400" />}
                         </div>
                       </div>
                     ))
