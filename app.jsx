@@ -323,7 +323,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
   const uniqueBrands = Array.from(new Set(rdStylesData.map(s => s.brand)));
   const [brandFilter, setBrandFilter] = useState(uniqueBrands[0]);
 
-  const initialWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === uniqueBrands[0]).map(s => s.wave)));
+  const initialWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === uniqueBrands[0]).map(s => s.wave))).sort();
   const [waveFilters, setWaveFilters] = useState([initialWaves[0]]);
   const isMultiWave = waveFilters.length > 1;
   const singleWaveFilter = waveFilters[0] || initialWaves[0];
@@ -335,11 +335,11 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
-  const availableWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brandFilter).map(s => s.wave)));
+  const availableWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brandFilter).map(s => s.wave))).sort();
 
   const handleBrandChange = (brand) => {
     setBrandFilter(brand);
-    const newWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brand).map(s => s.wave)));
+    const newWaves = Array.from(new Set(rdStylesData.filter(s => s.brand === brand).map(s => s.wave))).sort();
     setWaveFilters([newWaves[0]]);
   };
 
@@ -348,6 +348,15 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
 
   const waveSummary = window.__WAVE_SUMMARY__ || {};
   const dashboardStats = useMemo(() => {
+    const fixed = FIXED_DATA.waveProgress && FIXED_DATA.waveProgress[singleWaveFilter];
+    if (fixed) {
+      const target = fixed.planCount || 0;
+      const submitted = fixed.draftCount;
+      const approved = fixed.approvedCount;
+      const timeProgress = typeof fixed.timeProgress === 'number' ? Math.round(fixed.timeProgress * 100) : 75;
+      const progress = typeof fixed.completionProgress === 'number' ? Math.round(fixed.completionProgress * 100) : (target === 0 ? 0 : Math.round((approved / target) * 100));
+      return { target, submitted, approved, progress, timeProgress };
+    }
     const summary = waveSummary[singleWaveFilter] || {};
     let target = summary.target || 0;
     const submitted = filteredRdStyles.filter(s => s.status !== '已删除').length;
@@ -600,6 +609,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
 const EFF_DESIGNERS = window.__EFF_DESIGNERS__ || [];
 const EFF_STATS = window.__EFF_STATS__ || {};
 const EFF_PERIODS = window.__EFF_PERIODS__ || {};
+const FIXED_DATA = window.__FIXED_DATA__ || {};
 
 const SORT_OPTIONS = [
   { label: '完成进度', value: 'progress' },
@@ -636,7 +646,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
         waves.push(item.wave);
       }
     });
-    return waves;
+    return waves.sort();
   }, [selectedBrand, RD_DATA]);
 
   useEffect(() => {
@@ -648,6 +658,19 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
   const scopedDesigners = useMemo(() => {
     let list = EFF_DESIGNERS.filter(d => d.brand === selectedBrand);
     return list.map(d => {
+      const fixedDesigner = FIXED_DATA.designerStats && FIXED_DATA.designerStats[d.name];
+      if (fixedDesigner) {
+        const target = fixedDesigner.target || 0;
+        const submitted = fixedDesigner.submitted || 0;
+        const approved = fixedDesigner.approved || 0;
+        return {
+          ...d,
+          stats: {
+            target, submitted, approved, modifying: 0, deleted: 0,
+            progress: target === 0 ? 0 : Math.round((approved / target) * 100),
+          }
+        };
+      }
       const statKey = `${d.id}:${globalPeriod}`;
       const stat = EFF_STATS[statKey] || { target: 0, submitted: 0, modifying: 0, approved: 0, deleted: 0 };
       const target = stat.target;
@@ -664,6 +687,15 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
   const WAVE_SUMMARY = window.__WAVE_SUMMARY__ || {};
 
   const dashboardStats = useMemo(() => {
+    const fixed = FIXED_DATA.teamEfficiency && FIXED_DATA.teamEfficiency[globalPeriod];
+    if (fixed) {
+      const totalTarget = fixed.devCount || 0;
+      const totalSub = fixed.submittedCount || 0;
+      const totalApp = fixed.approvedCount || 0;
+      const teamProgress = typeof fixed.completionProgress === 'number' ? Math.round(fixed.completionProgress * 100) : (totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100));
+      const timeProgress = typeof fixed.timeProgress === 'number' ? Math.round(fixed.timeProgress * 100) : 100;
+      return { totalSub, totalApp, totalTarget, teamProgress, timeProgress };
+    }
     let totalSub = 0, totalApp = 0, totalTarget = 0;
     scopedDesigners.forEach(d => { totalSub += d.stats.submitted; totalApp += d.stats.approved; totalTarget += d.stats.target; });
     const teamProgress = totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100);
@@ -933,22 +965,17 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
     const currentGallery = galleryTab === 'all' ? galleryItems.all : galleryItems[galleryTab];
 
     const periodData = EFF_PERIODS[globalPeriod] || { weeks: 9, start: '', end: '' };
-    const sub = selectedUser.stats.submitted;
 
-    let remaining = sub;
-    const rawChartData = [];
-    for (let i = 0; i < periodData.weeks; i++) {
-        if (i === periodData.weeks - 1) {
-            rawChartData.push({ week: `W${i+1}`, value: remaining });
-        } else {
-            const seed = selectedUser.name.charCodeAt(0) + i * 5;
-            const noise = (seed % 10) / 10;
-            let val = Math.floor((sub / periodData.weeks) * (0.4 + noise));
-            if (val > remaining) val = remaining;
-            rawChartData.push({ week: `W${i+1}`, value: val });
-            remaining -= val;
-        }
-    }
+    const weekCounts = {};
+    for (let i = 1; i <= periodData.weeks; i++) weekCounts[`W${i}`] = 0;
+    userStyles.forEach(s => {
+      if (['已提交','已通过','待审批'].includes(s.status)) {
+        const m = String(s.statusChangeTime || 'W1').match(/W(\d+)/i);
+        const w = m ? Math.min(Math.max(parseInt(m[1], 10), 1), periodData.weeks) : 1;
+        weekCounts[`W${w}`]++;
+      }
+    });
+    const rawChartData = Object.entries(weekCounts).map(([week, value]) => ({ week, value }));
     const maxChartVal = Math.max(...rawChartData.map(d => d.value)) || 1;
     const chartData = rawChartData.map(d => ({
         ...d,
@@ -975,7 +1002,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                   </div>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F5F7] text-gray-600">{selectedUser.brand}</span>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F5F7] text-gray-600">在职 {selectedUser.tenure}</span>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F5F7] text-gray-600">在职{selectedUser.tenure}</span>
                   </div>
                 </div>
             </div>

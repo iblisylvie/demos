@@ -1,7 +1,7 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
 
-const workbook = xlsx.readFile('./研发进度款式数据v4.xlsx');
+const workbook = xlsx.readFile('./研发进度款式数据v5.xlsx');
 
 function getCellText(cell) {
   if (!cell) return '';
@@ -26,6 +26,20 @@ function readSheetRows(sheet, skipSample = true) {
     }
     if (skipSample && row.some(cell => cell.includes('样例数据'))) continue;
     if (row[0]) rows.push(row);
+  }
+  return rows;
+}
+
+function readFixedSheetRows(sheet) {
+  const range = xlsx.utils.decode_range(sheet['!ref']);
+  const rows = [];
+  for (let R = 0; R <= range.e.r; ++R) {
+    const row = [];
+    for (let C = 0; C <= range.e.c; ++C) {
+      const cell = sheet[xlsx.utils.encode_cell({ r: R, c: C })];
+      row.push(getCellText(cell));
+    }
+    rows.push(row);
   }
   return rows;
 }
@@ -85,7 +99,12 @@ designerRows.forEach((row) => {
   const position = row[2];
   const name = row[3];
   const avatar = row[4] || (name ? name[0] : '');
-  if (id) designerMap[id] = { id, brand, position, name, avatar };
+  const department = row[5] || '';
+  let lengthOfService = row[6] != null ? String(row[6]) : '';
+  if (lengthOfService && /^\d+(\.\d+)?$/.test(lengthOfService)) {
+    lengthOfService += '年';
+  }
+  if (id) designerMap[id] = { id, brand, position, name, avatar, department, lengthOfService };
 });
 
 const demoThumbs = [
@@ -133,9 +152,10 @@ const rdStylesData = mainRows.map((row, idx) => {
   const category = String(row[4] || '').trim();
   let status = String(row[5] || '').trim();
   if (status === '待审批') status = '已提交';
-  const designerId = String(row[6] || '').trim();
-  const rawImages = String(row[7] || '').trim();
-  const rawTimeline = String(row[8] || '').trim();
+  const statusChangeTime = String(row[6] || '').trim();
+  const designerId = String(row[7] || '').trim();
+  const rawImages = String(row[8] || '').trim();
+  const rawTimeline = String(row[9] || '').trim();
 
   const d = designerMap[designerId] || { id: designerId, brand, position: '设计师', name: '未知', avatar: '未' };
   const imagesArr = rawImages ? rawImages.split(',').map(s => s.trim()).filter(Boolean) : [];
@@ -178,7 +198,8 @@ const rdStylesData = mainRows.map((row, idx) => {
     name,
     category,
     status,
-    designer: { brand: d.brand, position: d.position, name: d.name, avatar: d.avatar },
+    statusChangeTime,
+    designer: { id: d.id, brand: d.brand, position: d.position, name: d.name, avatar: d.avatar },
     images,
     timeline
   };
@@ -237,7 +258,6 @@ if (workbook.SheetNames.includes('waveTargets')) {
       items[cat] = approvedCat - targets[cat];
     });
 
-    // 基于固定日期 2026.4.12 计算 days 和 timeProgress
     let days = 0;
     let timeProgress = 0;
     if (start && end) {
@@ -264,7 +284,82 @@ if (workbook.SheetNames.includes('waveTargets')) {
 }
 
 // ----------------------
-// 4. 效能评定 - 自动生成
+// 4. 读取固定数据 sheet
+// ----------------------
+const fixedWaveProgress = {};
+const fixedTeamEfficiency = {};
+const fixedDesignerStats = {};
+const fixedDesignerBrandMap = {};
+
+if (workbook.SheetNames.includes('固定数据')) {
+  const fixedRows = readFixedSheetRows(workbook.Sheets['固定数据']);
+
+  // 研发进度页面：行 4-11（0-based 索引）
+  for (let r = 4; r <= 11 && r < fixedRows.length; r++) {
+    const row = fixedRows[r];
+    const wave = String(row[2] || '').trim();
+    if (!wave) continue;
+    const timeProgress = typeof row[6] === 'number' ? row[6] : (parseFloat(row[6]) || 0);
+    const planCount = Number(row[3]) || 0;
+    const draftCount = Number(row[4]) || 0;
+    let completionProgress = typeof row[7] === 'number' ? row[7] : (parseFloat(row[7]) || 0);
+    if (!completionProgress && planCount && timeProgress) {
+      completionProgress = draftCount / (planCount / timeProgress);
+    }
+    fixedWaveProgress[wave] = {
+      planCount,
+      draftCount,
+      approvedCount: Number(row[5]) || 0,
+      timeProgress,
+      completionProgress,
+    };
+  }
+
+  // 效能评定团队：行 16-23
+  for (let r = 16; r <= 23 && r < fixedRows.length; r++) {
+    const row = fixedRows[r];
+    const wave = String(row[2] || '').trim();
+    if (!wave) continue;
+    fixedTeamEfficiency[wave] = {
+      devCount: Number(row[3]) || 0,
+      submittedCount: Number(row[4]) || 0,
+      approvedCount: Number(row[5]) || 0,
+      timeProgress: typeof row[6] === 'number' ? row[6] : (parseFloat(row[6]) || 0),
+      completionProgress: typeof row[7] === 'number' ? row[7] : (parseFloat(row[7]) || 0),
+    };
+  }
+
+  // 设计师固定数据：行 26-29
+  for (let r = 26; r <= 29 && r < fixedRows.length; r++) {
+    const row = fixedRows[r];
+    const name = String(row[2] || '').trim();
+    if (!name) continue;
+    fixedDesignerStats[name] = {
+      submitted: Number(row[3]) || 0,
+      approved: Number(row[4]) || 0,
+      target: Number(row[5]) || 0,
+    };
+  }
+
+  // 推断新增设计师品牌（基于固定数据 sheet 的行上下文）
+  let currentBrandHint = '';
+  for (let r = 25; r < fixedRows.length; r++) {
+    const row = fixedRows[r];
+    const hint = String(row[1] || '').trim();
+    const name = String(row[2] || '').trim();
+    if (hint.toLowerCase().includes('imuselle')) {
+      currentBrandHint = 'imuselle';
+    } else if (hint.toLowerCase().includes('imu')) {
+      currentBrandHint = 'i.Mu';
+    }
+    if (name && fixedDesignerStats[name]) {
+      fixedDesignerBrandMap[name] = currentBrandHint;
+    }
+  }
+}
+
+// ----------------------
+// 5. 效能评定 - 自动生成
 //    数据源：designer sheet + designerTargets（如有）+ 主表自动统计
 // ----------------------
 const efficiencyPeriods = {};
@@ -284,7 +379,6 @@ if (workbook.SheetNames.includes('designerTargets')) {
     const designerId = String(row[0] || '').trim();
     const wave = String(row[1] || '').trim();
     let target = Number(row[2]) || 0;
-    // 若 target 为空（可能是公式且未缓存），自动从 waveTargets 总件数补齐
     if (!target && waveSummary[wave]) {
       target = waveSummary[wave].target || 0;
     }
@@ -296,7 +390,7 @@ if (workbook.SheetNames.includes('designerTargets')) {
 const autoEffStats = {};
 mainRows.forEach((row) => {
   const wave = String(row[0] || '').trim();
-  const designerId = String(row[6] || '').trim();
+  const designerId = String(row[7] || '').trim();
   let status = String(row[5] || '').trim();
   if (status === '待审批') status = '已提交';
   if (!designerId) return;
@@ -329,10 +423,25 @@ activeDesignerIds.forEach((id) => {
     id: d.id,
     name: d.name,
     brand: d.brand,
-    department: '设计部',
+    department: d.department || '设计部',
     position: d.position,
-    tenure: '',
+    tenure: d.lengthOfService || '',
     avatar: d.avatar,
+  });
+});
+
+// 补充固定数据中的新增设计师
+Object.entries(fixedDesignerStats).forEach(([name, stats]) => {
+  if (efficiencyDesigners.some(d => d.name === name)) return;
+  const inferredBrand = fixedDesignerBrandMap[name] || '';
+  efficiencyDesigners.push({
+    id: `fixed_${name}`,
+    name,
+    brand: inferredBrand,
+    department: '',
+    position: '设计师',
+    tenure: '',
+    avatar: name[0] || '',
   });
 });
 
@@ -340,7 +449,7 @@ activeDesignerIds.forEach((id) => {
 const efficiencyStats = autoEffStats;
 
 // ----------------------
-// 5. 输出
+// 6. 输出
 // ----------------------
 fs.writeFileSync('./rd_data.json', JSON.stringify({
   rdStylesData,
@@ -348,5 +457,11 @@ fs.writeFileSync('./rd_data.json', JSON.stringify({
   efficiencyPeriods,
   efficiencyDesigners,
   efficiencyStats,
+  fixedData: {
+    waveProgress: fixedWaveProgress,
+    teamEfficiency: fixedTeamEfficiency,
+    designerStats: fixedDesignerStats,
+    designerBrandMap: fixedDesignerBrandMap,
+  },
 }, null, 2));
 console.log(`Generated rd_data.json with ${rdStylesData.length} styles, ${Object.keys(waveSummary).length} waves, ${Object.keys(efficiencyPeriods).length} periods, ${efficiencyDesigners.length} designers.`);

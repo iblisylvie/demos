@@ -35,6 +35,7 @@
         window.__EFF_PERIODS__ = rdPayload.efficiencyPeriods || {};
         window.__EFF_DESIGNERS__ = rdPayload.efficiencyDesigners || [];
         window.__EFF_STATS__ = rdPayload.efficiencyStats || {};
+        window.__FIXED_DATA__ = rdPayload.fixedData || {};
 
         const response = await fetch("./app.jsx");
         if (!response.ok) {

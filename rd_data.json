@@ -4,11 +4,13 @@
       "id": 101,
       "wave": "27SS_imu_2C波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-TS-003",
+      "code": "IMU-27SS-TS001",
       "name": "不对称造型褶裥T恤",
       "category": "T恤",
       "status": "已提交",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -20,7 +22,7 @@
       "timeline": [
         {
           "id": "timeline0011",
-          "date": "5月15日 10:30",
+          "date": "4月8日 10:30",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -31,7 +33,7 @@
         },
         {
           "id": "timeline0012",
-          "date": "5月15日 14:15",
+          "date": "4月8日 14:15",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "退回修改",
@@ -40,7 +42,7 @@
         },
         {
           "id": "timeline0013",
-          "date": "5月16日 09:20",
+          "date": "4月9日 09:20",
           "role": "designer",
           "name": "时冉",
           "action": "上传修改后的设计稿",
@@ -56,11 +58,13 @@
       "id": 102,
       "wave": "27SS_imu_2C波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-TS-007",
+      "code": "IMU-27SS-TS002",
       "name": "不对称拼接百褶T恤",
       "category": "T恤",
       "status": "已提交",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -72,7 +76,7 @@
       "timeline": [
         {
           "id": "timeline0021",
-          "date": "5月16日 14:15",
+          "date": "4月9日 14:15",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -87,11 +91,13 @@
       "id": 103,
       "wave": "27SS_imu_2C波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-TS-003",
+      "code": "IMU-27SS-TS003",
       "name": "解构扭结抽带T恤",
       "category": "T恤",
       "status": "已删除",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -103,7 +109,7 @@
       "timeline": [
         {
           "id": "timeline0031",
-          "date": "5月17日 11:00",
+          "date": "4月10日 11:00",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -114,7 +120,7 @@
         },
         {
           "id": "timeline0032",
-          "date": "5月18日 09:00",
+          "date": "4月11日 09:00",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "删除款式",
@@ -127,11 +133,13 @@
       "id": 104,
       "wave": "27SS_imu_2C波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-TS-007",
+      "code": "IMU-27SS-TS004",
       "name": "假两件错位门襟T恤",
       "category": "T恤",
       "status": "已提交",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -143,7 +151,7 @@
       "timeline": [
         {
           "id": "timeline0041",
-          "date": "5月17日 14:20",
+          "date": "4月10日 14:20",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -158,11 +166,13 @@
       "id": 105,
       "wave": "27SS_elle_2C波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-TS-003",
+      "code": "ELLE-27SS-TS005",
       "name": "异材质飘带造型T恤",
       "category": "T恤",
       "status": "已删除",
+      "statusChangeTime": "W1",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -174,7 +184,7 @@
       "timeline": [
         {
           "id": "timeline0051",
-          "date": "5月18日 10:00",
+          "date": "4月11日 10:00",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -185,7 +195,7 @@
         },
         {
           "id": "timeline0052",
-          "date": "5月18日 16:30",
+          "date": "4月11日 16:30",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
@@ -194,7 +204,7 @@
         },
         {
           "id": "timeline0053",
-          "date": "5月19日 10:00",
+          "date": "4月12日 10:00",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "删除款式",
@@ -207,11 +217,13 @@
       "id": 106,
       "wave": "27SS_elle_2C波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-TS-007",
+      "code": "ELLE-27SS-TS006",
       "name": "镂空露肩褶裥T恤",
       "category": "T恤",
       "status": "已通过",
+      "statusChangeTime": "W1",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -223,7 +235,7 @@
       "timeline": [
         {
           "id": "timeline0061",
-          "date": "5月19日 11:30",
+          "date": "4月12日 11:30",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -234,7 +246,7 @@
         },
         {
           "id": "timeline0062",
-          "date": "5月19日 16:40",
+          "date": "4月12日 16:40",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
@@ -247,11 +259,13 @@
       "id": 107,
       "wave": "27SS_imu_2D波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SR-004",
+      "code": "IMU-27SS-SR001",
       "name": "褶皱抽带衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W1",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -263,7 +277,7 @@
       "timeline": [
         {
           "id": "timeline0071",
-          "date": "5月22日 10:30",
+          "date": "4月15日 10:30",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -278,11 +292,13 @@
       "id": 108,
       "wave": "27SS_imu_2D波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SR-008",
+      "code": "IMU-27SS-SR002",
       "name": "不对称披肩系带衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -294,7 +310,7 @@
       "timeline": [
         {
           "id": "timeline0081",
-          "date": "5月22日 14:10",
+          "date": "4月15日 14:10",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -309,11 +325,13 @@
       "id": 109,
       "wave": "27SS_imu_2D波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SR-004",
+      "code": "IMU-27SS-SR003",
       "name": "解构镂空抽带衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -325,7 +343,7 @@
       "timeline": [
         {
           "id": "timeline0091",
-          "date": "5月23日 09:20",
+          "date": "4月16日 09:20",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -340,11 +358,13 @@
       "id": 110,
       "wave": "27SS_imu_2D波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SR-008",
+      "code": "IMU-27SS-SR004",
       "name": "假两件百褶拼接衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -356,7 +376,7 @@
       "timeline": [
         {
           "id": "timeline0101",
-          "date": "5月23日 11:05",
+          "date": "4月16日 11:05",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -371,11 +391,13 @@
       "id": 111,
       "wave": "27SS_elle_2D波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-SR-004",
+      "code": "ELLE-27SS-SR005",
       "name": "错位门襟造型衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer004",
         "brand": "imuselle",
         "position": "女装设计师",
         "name": "Aria",
@@ -387,7 +409,7 @@
       "timeline": [
         {
           "id": "timeline0111",
-          "date": "5月24日 10:00",
+          "date": "4月17日 10:00",
           "role": "designer",
           "name": "Aria",
           "action": "上传了初版设计稿",
@@ -402,11 +424,13 @@
       "id": 112,
       "wave": "27SS_elle_2D波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-SR-008",
+      "code": "ELLE-27SS-SR006",
       "name": "异材质绑带褶皱衬衫",
       "category": "衬衫",
       "status": "已提交",
+      "statusChangeTime": "W5",
       "designer": {
+        "id": "designer004",
         "brand": "imuselle",
         "position": "女装设计师",
         "name": "Aria",
@@ -418,7 +442,7 @@
       "timeline": [
         {
           "id": "timeline0121",
-          "date": "5月24日 13:45",
+          "date": "4月17日 13:45",
           "role": "designer",
           "name": "Aria",
           "action": "上传了初版设计稿",
@@ -433,11 +457,13 @@
       "id": 113,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-DR-001",
+      "code": "IMU-27SS-DR001",
       "name": "解构褶皱短袖连衣裙",
       "category": "连衣裙",
       "status": "已提交",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -449,7 +475,7 @@
       "timeline": [
         {
           "id": "timeline0131",
-          "date": "5月1日 10:15",
+          "date": "3月25日 10:15",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -464,11 +490,13 @@
       "id": 114,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-DR-005",
+      "code": "IMU-27SS-DR002",
       "name": "解构拼接百褶连衣裙",
       "category": "连衣裙",
       "status": "已提交",
+      "statusChangeTime": "W4",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -480,7 +508,7 @@
       "timeline": [
         {
           "id": "timeline0141",
-          "date": "5月1日 14:30",
+          "date": "3月25日 14:30",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -495,11 +523,13 @@
       "id": 115,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-DR-001",
+      "code": "IMU-27SS-DR003",
       "name": "不对称开衩抽绳连衣裙",
       "category": "连衣裙",
       "status": "已提交",
+      "statusChangeTime": "W4",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -511,7 +541,7 @@
       "timeline": [
         {
           "id": "timeline0151",
-          "date": "5月2日 09:50",
+          "date": "3月26日 09:50",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -522,7 +552,7 @@
         },
         {
           "id": "timeline0152",
-          "date": "5月2日 15:20",
+          "date": "3月26日 15:20",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "退回修改",
@@ -531,7 +561,7 @@
         },
         {
           "id": "timeline0153",
-          "date": "5月3日 10:00",
+          "date": "3月27日 10:00",
           "role": "designer",
           "name": "时冉",
           "action": "上传修改后的设计稿",
@@ -546,11 +576,13 @@
       "id": 116,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-DR-005",
+      "code": "IMU-27SS-DR004",
       "name": "错位扣造型褶皱连衣裙",
       "category": "连衣裙",
       "status": "已提交",
+      "statusChangeTime": "W4",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -562,7 +594,7 @@
       "timeline": [
         {
           "id": "timeline0161",
-          "date": "5月2日 11:10",
+          "date": "3月26日 11:10",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -577,11 +609,13 @@
       "id": 117,
       "wave": "27SS_elle_2A波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-DR-001",
+      "code": "ELLE-27SS-DR005",
       "name": "异材质拼接飘带连衣裙",
       "category": "连衣裙",
       "status": "已通过",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -593,7 +627,7 @@
       "timeline": [
         {
           "id": "timeline0171",
-          "date": "5月3日 10:30",
+          "date": "3月27日 10:30",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -604,7 +638,7 @@
         },
         {
           "id": "timeline0172",
-          "date": "5月3日 16:00",
+          "date": "3月27日 16:00",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
@@ -617,11 +651,13 @@
       "id": 118,
       "wave": "27SS_elle_2A波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-DR-005",
+      "code": "ELLE-27SS-DR006",
       "name": "假两件扭结系带连衣裙",
       "category": "连衣裙",
       "status": "已通过",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -633,7 +669,7 @@
       "timeline": [
         {
           "id": "timeline0181",
-          "date": "5月4日 09:30",
+          "date": "3月28日 09:30",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -644,7 +680,7 @@
         },
         {
           "id": "timeline0182",
-          "date": "5月4日 14:15",
+          "date": "3月28日 14:15",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
@@ -657,11 +693,13 @@
       "id": 119,
       "wave": "27SS_imu_2B波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SU-002",
+      "code": "IMU-27SS-SU001",
       "name": "不对称大小领系带西服",
       "category": "西装",
       "status": "已提交",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -673,7 +711,7 @@
       "timeline": [
         {
           "id": "timeline0191",
-          "date": "5月8日 10:00",
+          "date": "4月1日 10:00",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -688,11 +726,13 @@
       "id": 120,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SU-006",
+      "code": "IMU-27SS-SU002",
       "name": "解构露背绑带西服",
       "category": "西装",
       "status": "已提交",
+      "statusChangeTime": "W4",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -704,7 +744,7 @@
       "timeline": [
         {
           "id": "timeline0201",
-          "date": "5月4日 13:20",
+          "date": "3月28日 13:20",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -719,11 +759,13 @@
       "id": 121,
       "wave": "27SS_imu_2B波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SU-002",
+      "code": "IMU-27SS-SU003",
       "name": "不对称下摆抽褶西服",
       "category": "西装",
       "status": "已提交",
+      "statusChangeTime": "W4",
       "designer": {
+        "id": "designer003",
         "brand": "i.Mu",
         "position": "女装设计师",
         "name": "K.J.",
@@ -735,7 +777,7 @@
       "timeline": [
         {
           "id": "timeline0211",
-          "date": "5月9日 10:45",
+          "date": "4月2日 10:45",
           "role": "designer",
           "name": "K.J.",
           "action": "上传了初版设计稿",
@@ -750,11 +792,13 @@
       "id": 122,
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
-      "code": "IMU-27SS-SU-006",
+      "code": "IMU-27SS-SU004",
       "name": "错位翻领假两件西服",
       "category": "西装",
       "status": "已提交",
+      "statusChangeTime": "W5",
       "designer": {
+        "id": "designer001",
         "brand": "i.Mu",
         "position": "资深女装设计师",
         "name": "时冉",
@@ -766,7 +810,7 @@
       "timeline": [
         {
           "id": "timeline0221",
-          "date": "5月5日 15:10",
+          "date": "3月29日 15:10",
           "role": "designer",
           "name": "时冉",
           "action": "上传了初版设计稿",
@@ -775,7 +819,7 @@
         },
         {
           "id": "timeline0222",
-          "date": "5月6日 10:00",
+          "date": "3月30日 10:00",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "退回修改",
@@ -784,7 +828,7 @@
         },
         {
           "id": "timeline0223",
-          "date": "5月6日 14:30",
+          "date": "3月30日 14:30",
           "role": "designer",
           "name": "时冉",
           "action": "上传修改后的设计稿",
@@ -799,11 +843,13 @@
       "id": 123,
       "wave": "27SS_elle_2B波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-SU-002",
+      "code": "ELLE-27SS-SU005",
       "name": "拼接百褶收腰西服",
       "category": "西装",
       "status": "已通过",
+      "statusChangeTime": "W2",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -815,7 +861,7 @@
       "timeline": [
         {
           "id": "timeline0231",
-          "date": "5月10日 09:30",
+          "date": "4月3日 09:30",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -826,7 +872,7 @@
         },
         {
           "id": "timeline0232",
-          "date": "5月10日 16:45",
+          "date": "4月3日 16:45",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
@@ -839,11 +885,13 @@
       "id": 124,
       "wave": "27SS_elle_2A波段",
       "brand": "imuselle",
-      "code": "ELLE-27SS-SU-006",
+      "code": "ELLE-27SS-SU006",
       "name": "镂空造型系带西服",
       "category": "西装",
       "status": "已通过",
+      "statusChangeTime": "W3",
       "designer": {
+        "id": "designer002",
         "brand": "imuselle",
         "position": "资深女装设计师",
         "name": "林悬",
@@ -855,7 +903,7 @@
       "timeline": [
         {
           "id": "timeline0241",
-          "date": "5月6日 11:00",
+          "date": "3月30日 11:00",
           "role": "designer",
           "name": "林悬",
           "action": "上传了初版设计稿",
@@ -866,12 +914,769 @@
         },
         {
           "id": "timeline0242",
-          "date": "5月6日 17:15",
+          "date": "3月30日 17:15",
           "role": "supervisor",
           "name": "总监Tyla",
           "action": "审核通过",
           "text": "版型可以，通过。",
           "images": []
+        }
+      ]
+    },
+    {
+      "id": 125,
+      "wave": "27SS_elle_2A波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-sr007",
+      "name": "立体廓形短款工装衬衫",
+      "category": "衬衫",
+      "status": "已提交",
+      "statusChangeTime": "W3",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr007.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0251",
+          "date": "4月8日 10:30",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "大廓形结构组合设计。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr007.jpg"
+          ]
+        },
+        {
+          "id": "timeline0252",
+          "date": "4月8日 14:15",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "退回修改",
+          "text": "肩部不够硬挺，需要增加肩部立体感。",
+          "images": []
+        },
+        {
+          "id": "timeline0253",
+          "date": "4月9日 09:20",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传修改后的设计稿",
+          "text": "已修改为本季主线高支棉面料材质。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr007.jpg",
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr007plus.jpg",
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr007plus2.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 126,
+      "wave": "27SS_elle_2A波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-sr008",
+      "name": "解构主义条纹落肩廓形长袖衬衫",
+      "category": "衬衫",
+      "status": "已提交",
+      "statusChangeTime": "W4",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr008.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0261",
+          "date": "4月9日 14:15",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "不对称拼接工艺。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr008.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 127,
+      "wave": "27SS_elle_2A波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-ts007",
+      "name": "条纹解构主义廓形长袖T恤",
+      "category": "T恤",
+      "status": "已提交",
+      "statusChangeTime": "W4",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts007.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0271",
+          "date": "4月10日 11:00",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "解构扭结抽带细节。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts007.jpg",
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts007plus.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "wave": "27SS_elle_2A波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-ts008",
+      "name": "涂鸦印花皮革短袖T恤",
+      "category": "T恤",
+      "status": "已提交",
+      "statusChangeTime": "W4",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts008.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0281",
+          "date": "4月10日 14:20",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "假两件错位门襟设计。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts008.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 129,
+      "wave": "27SS_elle_2A波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-pt001",
+      "name": "原色单宁高腰阔腿长裤",
+      "category": "裤装",
+      "status": "已删除",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt001.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0291",
+          "date": "4月11日 10:00",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "异材质飘带造型。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt001.jpg"
+          ]
+        },
+        {
+          "id": "timeline0292",
+          "date": "4月11日 16:30",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "审核通过",
+          "text": "飘带比例不错，直接打版。",
+          "images": []
+        },
+        {
+          "id": "timeline0293",
+          "date": "4月12日 10:00",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "删除款式",
+          "text": "波段款式规划调整，取消该款。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 130,
+      "wave": "27SS_elle_2B波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-ts009",
+      "name": "影像印花解构主义廓形无袖T恤",
+      "category": "T恤",
+      "status": "已提交",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts009.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0301",
+          "date": "4月12日 11:30",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "镂空露肩褶裥。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts009.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 131,
+      "wave": "27SS_elle_2B波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-sr009",
+      "name": "解构主义斗篷式拼接长款衬衫",
+      "category": "衬衫",
+      "status": "已删除",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr009.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0311",
+          "date": "4月15日 10:30",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr009.jpg"
+          ]
+        },
+        {
+          "id": "timeline0312",
+          "date": "4月15日 16:00",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "删除款式",
+          "text": "波段款式规划调整，取消该款。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 132,
+      "wave": "27SS_elle_2B波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-pt002",
+      "name": "廓形褶裥高腰阔腿长裤",
+      "category": "裤装",
+      "status": "已提交",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt002.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0321",
+          "date": "4月15日 14:10",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "不对称披肩系带。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt002.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 133,
+      "wave": "27SS_elle_2C波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-su007",
+      "name": "解构主义立体阔摆双排扣西装外套",
+      "category": "西装",
+      "status": "已提交",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer002",
+        "brand": "imuselle",
+        "position": "资深女装设计师",
+        "name": "林悬",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_su007.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0331",
+          "date": "4月16日 09:20",
+          "role": "designer",
+          "name": "林悬",
+          "action": "上传了初版设计稿",
+          "text": "解构主义立体阔摆双排扣西装外套",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_su007.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 134,
+      "wave": "27SS_elle_2D波段",
+      "brand": "imuselle",
+      "code": "ELLE-27SS-dr007",
+      "name": "撞色滚边层次感廓形无袖连衣裙",
+      "category": "连衣裙",
+      "status": "已提交",
+      "statusChangeTime": "W7",
+      "designer": {
+        "id": "designer004",
+        "brand": "imuselle",
+        "position": "女装设计师",
+        "name": "Aria",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer004.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr007.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0341",
+          "date": "4月16日 11:05",
+          "role": "designer",
+          "name": "Aria",
+          "action": "上传了初版设计稿",
+          "text": "撞色滚边、层次感廓形、无袖",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr007.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 135,
+      "wave": "27SS_imu_2A波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-ts010",
+      "name": "假两件叠搭透视网纱修身长袖T恤",
+      "category": "T恤",
+      "status": "已提交",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0351",
+          "date": "4月17日 10:00",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "假两件叠搭、透视网纱",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010.jpg",
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010plus.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 136,
+      "wave": "27SS_imu_2A波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-sr010",
+      "name": "解构主义落肩廓形长袖衬衫",
+      "category": "衬衫",
+      "status": "已提交",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr010.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0361",
+          "date": "4月17日 13:45",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr010.jpg",
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr010plus.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 137,
+      "wave": "27SS_imu_2A波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-ts011",
+      "name": "天蓝色廓形一字领短袖上衣",
+      "category": "T恤",
+      "status": "已通过",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts011.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0371",
+          "date": "3月25日 10:15",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts011.jpg"
+          ]
+        },
+        {
+          "id": "timeline0372",
+          "date": "3月25日 16:30",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "审核通过",
+          "text": "设计很到位，已通过。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 138,
+      "wave": "27SS_imu_2A波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-sr011",
+      "name": "立体大廓形短款解构衬衫",
+      "category": "衬衫",
+      "status": "已通过",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr011.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0381",
+          "date": "3月25日 14:30",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "立体大廓形、解构",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_sr011.jpg"
+          ]
+        },
+        {
+          "id": "timeline0382",
+          "date": "3月25日 17:15",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "审核通过",
+          "text": "版型可以，已通过。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 139,
+      "wave": "27SS_imu_2A波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-pt003",
+      "name": "原色挺括高腰阔腿长裤",
+      "category": "裤装",
+      "status": "已删除",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt003.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0391",
+          "date": "3月26日 09:50",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "不对称开衩抽绳。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt003.jpg"
+          ]
+        },
+        {
+          "id": "timeline0392",
+          "date": "3月26日 15:20",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "退回修改",
+          "text": "下摆往下调3cm。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 140,
+      "wave": "27SS_imu_2B波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-ts012",
+      "name": "标语印花落肩无袖T恤",
+      "category": "T恤",
+      "status": "已提交",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer003",
+        "brand": "i.Mu",
+        "position": "女装设计师",
+        "name": "K.J.",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer003.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts012.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0401",
+          "date": "3月26日 11:10",
+          "role": "designer",
+          "name": "K.J.",
+          "action": "上传了初版设计稿",
+          "text": "标语印花落肩无袖T恤",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts012.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 141,
+      "wave": "27SS_imu_2C波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-dr008",
+      "name": "黑色廓形连帽连衣裙",
+      "category": "连衣裙",
+      "status": "已提交",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr008.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0411",
+          "date": "3月27日 10:30",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "黑色廓形连帽连衣裙",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr008.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 142,
+      "wave": "27SS_imu_2C波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-su008",
+      "name": "解构主义无袖廓形西装",
+      "category": "西装",
+      "status": "已通过",
+      "statusChangeTime": "W7",
+      "designer": {
+        "id": "designer001",
+        "brand": "i.Mu",
+        "position": "资深女装设计师",
+        "name": "时冉",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_su008.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0421",
+          "date": "3月28日 09:30",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传了初版设计稿",
+          "text": "解构主义无袖廓形西装",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_su008.jpg"
+          ]
+        },
+        {
+          "id": "timeline0422",
+          "date": "3月28日 14:15",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "审核通过",
+          "text": "OK，已通过。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 143,
+      "wave": "27SS_imu_2D波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-dr009",
+      "name": "解构主义工装风百褶无袖连衣裙",
+      "category": "连衣裙",
+      "status": "已通过",
+      "statusChangeTime": "W5",
+      "designer": {
+        "id": "designer003",
+        "brand": "i.Mu",
+        "position": "女装设计师",
+        "name": "K.J.",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer003.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr009.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0431",
+          "date": "4月1日 10:00",
+          "role": "designer",
+          "name": "K.J.",
+          "action": "上传了初版设计稿",
+          "text": "解构主义工装风百褶无袖连衣裙",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr009.jpg"
+          ]
+        },
+        {
+          "id": "timeline0432",
+          "date": "4月1日 16:45",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "审核通过",
+          "text": "褶皱层次很好，已通过。",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 144,
+      "wave": "27SS_imu_2D波段",
+      "brand": "i.Mu",
+      "code": "IMU-27SS-pt004",
+      "name": "工装风大口袋微喇长裤",
+      "category": "裤装",
+      "status": "已提交",
+      "statusChangeTime": "W6",
+      "designer": {
+        "id": "designer003",
+        "brand": "i.Mu",
+        "position": "女装设计师",
+        "name": "K.J.",
+        "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer003.jpg"
+      },
+      "images": [
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt004.jpg"
+      ],
+      "timeline": [
+        {
+          "id": "timeline0441",
+          "date": "3月28日 13:20",
+          "role": "designer",
+          "name": "K.J.",
+          "action": "上传了初版设计稿",
+          "text": "工装风大口袋微喇长裤",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt004.jpg"
+          ]
         }
       ]
     }
@@ -889,7 +1694,7 @@
         "配饰": -2
       },
       "target": 16,
-      "submitted": 3,
+      "submitted": 7,
       "approved": 3,
       "start": "2027.02.01",
       "end": "2027.02.07",
@@ -907,7 +1712,7 @@
         "配饰": -1
       },
       "target": 14,
-      "submitted": 1,
+      "submitted": 3,
       "approved": 1,
       "start": "2027.02.08",
       "end": "2027.02.14",
@@ -925,7 +1730,7 @@
         "配饰": -2
       },
       "target": 16,
-      "submitted": 1,
+      "submitted": 2,
       "approved": 1,
       "start": "2027.02.15",
       "end": "2027.02.21",
@@ -934,7 +1739,7 @@
     "27SS_elle_2D波段": {
       "gap": -14,
       "days": 272,
-      "status": "进度安全",
+      "status": "风险预警",
       "items": {
         "上衣": -6,
         "外套": -1,
@@ -943,26 +1748,26 @@
         "配饰": -1
       },
       "target": 14,
-      "submitted": 2,
+      "submitted": 3,
       "approved": 0,
       "start": "2027.02.22",
       "end": "2027.02.28",
       "timeProgress": 0
     },
     "27SS_imu_2A波段": {
-      "gap": -15,
+      "gap": -13,
       "days": 251,
-      "status": "风险预警",
+      "status": "进度安全",
       "items": {
-        "上衣": -6,
+        "上衣": -4,
         "外套": -3,
         "下装": -4,
         "连衣裙": -1,
         "配饰": -1
       },
       "target": 15,
-      "submitted": 6,
-      "approved": 0,
+      "submitted": 10,
+      "approved": 2,
       "start": "2027.02.01",
       "end": "2027.02.07",
       "timeProgress": 0
@@ -979,44 +1784,44 @@
         "配饰": -2
       },
       "target": 15,
-      "submitted": 2,
+      "submitted": 3,
       "approved": 0,
       "start": "2027.02.08",
       "end": "2027.02.14",
       "timeProgress": 0
     },
     "27SS_imu_2C波段": {
-      "gap": -14,
+      "gap": -13,
       "days": 265,
       "status": "进度安全",
       "items": {
         "上衣": -6,
-        "外套": -1,
+        "外套": 0,
         "下装": -4,
         "连衣裙": -2,
         "配饰": -1
       },
       "target": 14,
-      "submitted": 3,
-      "approved": 0,
+      "submitted": 5,
+      "approved": 1,
       "start": "2027.02.15",
       "end": "2027.02.21",
       "timeProgress": 0
     },
     "27SS_imu_2D波段": {
-      "gap": -15,
+      "gap": -14,
       "days": 272,
       "status": "进度安全",
       "items": {
         "上衣": -5,
         "外套": -1,
         "下装": -3,
-        "连衣裙": -4,
+        "连衣裙": -3,
         "配饰": -2
       },
       "target": 15,
-      "submitted": 4,
-      "approved": 0,
+      "submitted": 6,
+      "approved": 1,
       "start": "2027.02.22",
       "end": "2027.02.28",
       "timeProgress": 0
@@ -1069,95 +1874,241 @@
       "id": "designer001",
       "name": "时冉",
       "brand": "i.Mu",
-      "department": "设计部",
+      "department": "i.Mu女装设计部",
       "position": "资深女装设计师",
-      "tenure": "",
+      "tenure": "3年",
       "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
     },
     {
       "id": "designer002",
       "name": "林悬",
       "brand": "imuselle",
-      "department": "设计部",
+      "department": "imuselle女装设计部",
       "position": "资深女装设计师",
-      "tenure": "",
+      "tenure": "3年",
       "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
     },
     {
       "id": "designer003",
       "name": "K.J.",
       "brand": "i.Mu",
-      "department": "设计部",
+      "department": "i.Mu女装设计部",
       "position": "女装设计师",
-      "tenure": "",
+      "tenure": "2年",
       "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer003.jpg"
     },
     {
       "id": "designer004",
       "name": "Aria",
       "brand": "imuselle",
-      "department": "设计部",
+      "department": "imuselle女装设计部",
       "position": "女装设计师",
-      "tenure": "",
+      "tenure": "1年",
       "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer004.jpg"
     }
   ],
   "efficiencyStats": {
     "designer001:27SS_imu_2C波段": {
       "target": 14,
-      "submitted": 3,
-      "modifying": 3,
-      "approved": 0,
+      "submitted": 5,
+      "modifying": 4,
+      "approved": 1,
       "deleted": 1
     },
     "designer002:27SS_elle_2C波段": {
       "target": 16,
-      "submitted": 1,
-      "modifying": 0,
+      "submitted": 2,
+      "modifying": 1,
       "approved": 1,
       "deleted": 1
     },
     "designer003:27SS_imu_2D波段": {
       "target": 15,
-      "submitted": 4,
-      "modifying": 4,
-      "approved": 0,
+      "submitted": 6,
+      "modifying": 5,
+      "approved": 1,
       "deleted": 0
     },
     "designer004:27SS_elle_2D波段": {
       "target": 14,
-      "submitted": 2,
-      "modifying": 2,
+      "submitted": 3,
+      "modifying": 3,
       "approved": 0,
       "deleted": 0
     },
     "designer001:27SS_imu_2A波段": {
       "target": 15,
-      "submitted": 6,
-      "modifying": 6,
-      "approved": 0,
-      "deleted": 0
+      "submitted": 10,
+      "modifying": 8,
+      "approved": 2,
+      "deleted": 1
     },
     "designer002:27SS_elle_2A波段": {
       "target": 16,
-      "submitted": 3,
-      "modifying": 0,
+      "submitted": 7,
+      "modifying": 4,
       "approved": 3,
-      "deleted": 0
+      "deleted": 1
     },
     "designer003:27SS_imu_2B波段": {
       "target": 15,
-      "submitted": 2,
-      "modifying": 2,
+      "submitted": 3,
+      "modifying": 3,
       "approved": 0,
       "deleted": 0
     },
     "designer002:27SS_elle_2B波段": {
       "target": 14,
-      "submitted": 1,
-      "modifying": 0,
+      "submitted": 3,
+      "modifying": 2,
       "approved": 1,
-      "deleted": 0
+      "deleted": 1
+    }
+  },
+  "fixedData": {
+    "waveProgress": {
+      "27SS_elle_2A波段": {
+        "planCount": 16,
+        "draftCount": 11,
+        "approvedCount": 6,
+        "timeProgress": 0.7,
+        "completionProgress": 0.48125
+      },
+      "27SS_elle_2B波段": {
+        "planCount": 14,
+        "draftCount": 7,
+        "approvedCount": 4,
+        "timeProgress": 0.66,
+        "completionProgress": 0.33
+      },
+      "27SS_elle_2C波段": {
+        "planCount": 16,
+        "draftCount": 6,
+        "approvedCount": 4,
+        "timeProgress": 0.48,
+        "completionProgress": 0.18
+      },
+      "27SS_elle_2D波段": {
+        "planCount": 14,
+        "draftCount": 6,
+        "approvedCount": 3,
+        "timeProgress": 0.3,
+        "completionProgress": 0.12857142857142856
+      },
+      "27SS_imu_2A波段": {
+        "planCount": 15,
+        "draftCount": 14,
+        "approvedCount": 5,
+        "timeProgress": 0.7,
+        "completionProgress": 0.6533333333333333
+      },
+      "27SS_imu_2B波段": {
+        "planCount": 15,
+        "draftCount": 6,
+        "approvedCount": 3,
+        "timeProgress": 0.66,
+        "completionProgress": 0.264
+      },
+      "27SS_imu_2C波段": {
+        "planCount": 14,
+        "draftCount": 9,
+        "approvedCount": 4,
+        "timeProgress": 0.48,
+        "completionProgress": 0.30857142857142855
+      },
+      "27SS_imu_2D波段": {
+        "planCount": 15,
+        "draftCount": 9,
+        "approvedCount": 4,
+        "timeProgress": 0.3,
+        "completionProgress": 0.18
+      }
+    },
+    "teamEfficiency": {
+      "27SS_elle_2A波段": {
+        "devCount": 16,
+        "submittedCount": 20,
+        "approvedCount": 16,
+        "timeProgress": 0.7,
+        "completionProgress": 1
+      },
+      "27SS_elle_2B波段": {
+        "devCount": 14,
+        "submittedCount": 13,
+        "approvedCount": 12,
+        "timeProgress": 0.66,
+        "completionProgress": 0.6128571428571429
+      },
+      "27SS_elle_2C波段": {
+        "devCount": 16,
+        "submittedCount": 6,
+        "approvedCount": 4,
+        "timeProgress": 0.48,
+        "completionProgress": 0.18
+      },
+      "27SS_elle_2D波段": {
+        "devCount": 14,
+        "submittedCount": 6,
+        "approvedCount": 3,
+        "timeProgress": 0.3,
+        "completionProgress": 0.12857142857142856
+      },
+      "27SS_imu_2A波段": {
+        "devCount": 15,
+        "submittedCount": 18,
+        "approvedCount": 12,
+        "timeProgress": 0.7,
+        "completionProgress": 0.84
+      },
+      "27SS_imu_2B波段": {
+        "devCount": 15,
+        "submittedCount": 13,
+        "approvedCount": 10,
+        "timeProgress": 0.66,
+        "completionProgress": 0.5720000000000001
+      },
+      "27SS_imu_2C波段": {
+        "devCount": 14,
+        "submittedCount": 10,
+        "approvedCount": 8,
+        "timeProgress": 0.48,
+        "completionProgress": 0.34285714285714286
+      },
+      "27SS_imu_2D波段": {
+        "devCount": 15,
+        "submittedCount": 9,
+        "approvedCount": 6,
+        "timeProgress": 0.3,
+        "completionProgress": 0.18
+      }
+    },
+    "designerStats": {
+      "时冉": {
+        "submitted": 28,
+        "approved": 20,
+        "target": 29
+      },
+      "林悬": {
+        "submitted": 39,
+        "approved": 32,
+        "target": 46
+      },
+      "K.J.": {
+        "submitted": 22,
+        "approved": 16,
+        "target": 30
+      },
+      "Aria": {
+        "submitted": 6,
+        "approved": 3,
+        "target": 14
+      }
+    },
+    "designerBrandMap": {
+      "时冉": "",
+      "林悬": "",
+      "K.J.": "",
+      "Aria": ""
     }
   }
 }
