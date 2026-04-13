@@ -447,7 +447,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
                         <div>
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-[11px] font-medium text-neutral-500 flex items-center gap-1.5"><BarChart2 className="w-3.5 h-3.5 text-[#5B73E8]"/>过审完成进度</span>
-                            <span className={`text-[13px] font-bold ${dashboardStats.progress < dashboardStats.timeProgress ? 'text-amber-600' : 'text-neutral-900'}`}>{dashboardStats.progress}%</span>
+                            <span className={`text-[13px] font-bold ${dashboardStats.progress < 30 ? 'text-amber-600' : 'text-neutral-900'}`}>{dashboardStats.progress}%</span>
                           </div>
                           <div className="h-1.5 w-full bg-neutral-200 rounded-full overflow-hidden">
                             <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.progress, 100)}%` }}></div>
