@@ -1502,6 +1502,26 @@
           "action": "退回修改",
           "text": "下摆往下调3cm。",
           "images": []
+        },
+        {
+          "id": "timeline0393",
+          "date": "3月27日 10:00",
+          "role": "designer",
+          "name": "时冉",
+          "action": "上传修改后的设计稿",
+          "text": "已调整下摆位置。",
+          "images": [
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_pt003.jpg"
+          ]
+        },
+        {
+          "id": "timeline0394",
+          "date": "3月27日 16:30",
+          "role": "supervisor",
+          "name": "总监Tyla",
+          "action": "删除款式",
+          "text": "规划调整，该款取消。",
+          "images": []
         }
       ]
     },

@@ -1,7 +1,7 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
 
-const workbook = xlsx.readFile('./研发进度款式数据v6.xlsx');
+const workbook = xlsx.readFile('./研发进度款式数据v7.xlsx');
 
 function getCellText(cell) {
   if (!cell) return '';
