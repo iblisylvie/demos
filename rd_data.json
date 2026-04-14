@@ -458,7 +458,7 @@
       "wave": "27SS_imu_2A波段",
       "brand": "i.Mu",
       "code": "IMU-27SS-DR001",
-      "name": "解构褶皱短袖连衣裙",
+      "name": "解构褶皱无袖连衣裙",
       "category": "连衣裙",
       "status": "已提交",
       "statusChangeTime": "W3",
@@ -470,7 +470,9 @@
         "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
       },
       "images": [
-        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr001.jpg"
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr001.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0012.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0013.jpg"
       ],
       "timeline": [
         {
@@ -503,7 +505,9 @@
         "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer001.jpg"
       },
       "images": [
-        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr002.jpg"
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr002.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0022.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0023.jpg"
       ],
       "timeline": [
         {
@@ -622,7 +626,9 @@
         "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
       },
       "images": [
-        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr005.jpg"
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr005.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_DR0052.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_DR0053.jpg"
       ],
       "timeline": [
         {
@@ -664,7 +670,9 @@
         "avatar": "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/designer002.jpg"
       },
       "images": [
-        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr006.jpg"
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0061.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0062.jpg",
+        "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr0063.jpg"
       ],
       "timeline": [
         {
@@ -675,7 +683,7 @@
           "action": "上传了初版设计稿",
           "text": "皮带不对称绑带连衣裙，增加蓬松感。",
           "images": [
-            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_dr006.jpg"
+            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80"
           ]
         },
         {
@@ -1332,7 +1340,7 @@
           "text": "假两件叠搭、透视网纱",
           "images": [
             "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010.jpg",
-            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010plus.jpg"
+            "https://yourdream-download.oss-cn-beijing.aliyuncs.com/temp/mandy/image_ts010plus.png"
           ]
         }
       ]
