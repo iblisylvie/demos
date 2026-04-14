@@ -360,7 +360,8 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
       const approved = fixed.approvedCount;
       const timeProgress = typeof fixed.timeProgress === 'number' ? Math.round(fixed.timeProgress * 100) : 75;
       const progress = typeof fixed.completionProgress === 'number' ? Math.round(fixed.completionProgress * 100) : (target === 0 ? 0 : Math.round((approved / target) * 100));
-      return { target, submitted, approved, progress, timeProgress };
+      const isRisk = Math.abs(progress - timeProgress) > 30 || timeProgress < 15;
+      return { target, submitted, approved, progress, timeProgress, isRisk };
     }
     const summary = waveSummary[singleWaveFilter] || {};
     let target = summary.target || 0;
@@ -368,7 +369,8 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
     const approved = filteredRdStyles.filter(s => s.status === "已通过").length;
     const progress = target === 0 ? 0 : Math.round((approved / target) * 100);
     const timeProgress = typeof summary.timeProgress === 'number' ? summary.timeProgress : 75;
-    return { target, submitted, approved, progress, timeProgress };
+    const isRisk = Math.abs(progress - timeProgress) > 30 || timeProgress < 15;
+    return { target, submitted, approved, progress, timeProgress, isRisk };
   }, [filteredRdStyles, singleWaveFilter, waveSummary]);
 
   const onTouchEndSlider = (totalImages) => {
@@ -452,7 +454,7 @@ const ProgressDashboard = ({ currentTab, setCurrentTab }) => {
                         <div>
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-[11px] font-medium text-neutral-500 flex items-center gap-1.5"><BarChart2 className="w-3.5 h-3.5 text-[#5B73E8]"/>过审完成进度</span>
-                            <span className={`text-[13px] font-bold ${dashboardStats.progress < 30 ? 'text-amber-600' : 'text-neutral-900'}`}>{dashboardStats.progress}%</span>
+                            <span className={`text-[13px] font-bold ${dashboardStats.isRisk ? 'text-amber-600' : 'text-neutral-900'}`}>{dashboardStats.progress}%</span>
                           </div>
                           <div className="h-1.5 w-full bg-neutral-200 rounded-full overflow-hidden">
                             <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.progress, 100)}%` }}></div>
@@ -719,14 +721,16 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
       const totalApp = fixed.approvedCount || 0;
       const teamProgress = typeof fixed.completionProgress === 'number' ? Math.round(fixed.completionProgress * 100) : (totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100));
       const timeProgress = typeof fixed.timeProgress === 'number' ? Math.round(fixed.timeProgress * 100) : 100;
-      return { totalSub, totalApp, totalTarget, teamProgress, timeProgress };
+      const isRisk = Math.abs(teamProgress - timeProgress) > 30 || timeProgress < 15;
+      return { totalSub, totalApp, totalTarget, teamProgress, timeProgress, isRisk };
     }
     let totalSub = 0, totalApp = 0, totalTarget = 0;
     scopedDesigners.forEach(d => { totalSub += d.stats.submitted; totalApp += d.stats.approved; totalTarget += d.stats.target; });
     const teamProgress = totalTarget === 0 ? 0 : Math.round((totalApp / totalTarget) * 100);
     const ws = WAVE_SUMMARY[globalPeriod];
     const timeProgress = ws && typeof ws.timeProgress === 'number' ? ws.timeProgress : 100;
-    return { totalSub, totalApp, totalTarget, teamProgress, timeProgress };
+    const isRisk = Math.abs(teamProgress - timeProgress) > 30 || timeProgress < 15;
+    return { totalSub, totalApp, totalTarget, teamProgress, timeProgress, isRisk };
   }, [scopedDesigners, globalPeriod, WAVE_SUMMARY]);
 
   const sortedDesigners = useMemo(() => {
@@ -836,7 +840,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
                     <span className="text-[11px] font-medium text-gray-500 flex items-center gap-1.5"><BarChart2 className="w-3.5 h-3.5 text-[#8B9DFE]"/>定稿完成进度</span>
-                    <span className={`text-[13px] font-bold text-gray-900`}>{dashboardStats.teamProgress}%</span>
+                    <span className={`text-[13px] font-bold ${dashboardStats.isRisk ? 'text-amber-600' : 'text-gray-900'}`}>{dashboardStats.teamProgress}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.teamProgress, 100)}%` }}></div>
@@ -849,7 +853,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                   <span className="text-[12px] font-semibold text-gray-700 flex items-center gap-1.5">
                      <CheckCircle2 className="w-4 h-4 text-[#34C759]" /> 波段已完结
                   </span>
-                  <span className="text-[13px] font-bold text-gray-900">最终达成率 {dashboardStats.teamProgress}%</span>
+                  <span className={`text-[13px] font-bold ${dashboardStats.isRisk ? 'text-amber-600' : 'text-gray-900'}`}>最终达成率 {dashboardStats.teamProgress}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-gray-200/80 rounded-full overflow-hidden">
                   <div className={`h-full ${brandGradient} rounded-full transition-all duration-500`} style={{ width: `${Math.min(dashboardStats.teamProgress, 100)}%` }}></div>
