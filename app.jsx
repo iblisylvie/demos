@@ -1006,9 +1006,8 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
     const userStyles = RD_DATA.filter(
       s => s.wave === globalPeriod && s.designer && (s.designer.id === selectedUser.id || s.designer.name === selectedUser.name)
     );
-    const hasPending = userStyles.some(s => s.status === '待审批');
     const galleryItems = {
-      all: hasPending ? userStyles.filter(s => s.status === '待审批') : userStyles.filter(s => s.status !== '已删除'),
+      all: userStyles.filter(s => ['已提交', '已通过', '待审批'].includes(s.status)),
       modifying: userStyles.filter(s => s.status === '已提交'),
       approved: userStyles.filter(s => s.status === '已通过'),
       deleted: userStyles.filter(s => s.status === '已删除'),
@@ -1123,7 +1122,7 @@ const EfficiencyDashboard = ({ currentTab, setCurrentTab }) => {
                           <div className="absolute inset-0 flex items-center justify-center"><span className="text-gray-400 text-[10px] font-medium">作品</span></div>
                         )}
                         <div className="absolute top-1.5 right-1.5 bg-white/80 backdrop-blur-md rounded-full p-0.5 shadow-sm">
-                          {galleryTab === 'all' ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : galleryTab === 'modifying' ? <Clock className="w-3.5 h-3.5 text-amber-500" /> : galleryTab === 'approved' ? <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" /> : <XCircle className="w-3.5 h-3.5 text-gray-400" />}
+                          {item.status === '已提交' ? <Clock className="w-3.5 h-3.5 text-amber-500" /> : item.status === '已删除' ? <XCircle className="w-3.5 h-3.5 text-gray-400" /> : <CheckCircle2 className="w-3.5 h-3.5 text-[#34C759]" />}
                         </div>
                       </div>
                     ))
