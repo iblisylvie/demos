@@ -65,6 +65,11 @@ const AlertTriangle = ({ className }) => (
     <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" key="wmoenq" /><path d="M12 9v4" key="juzpu7" /><path d="M12 17h.01" key="p32p05" />
   </svg>
 );
+const AlertCircle = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" key="1mglay" /><line x1="12" x2="12" y1="8" y2="12" key="13bkgv" /><line x1="12" x2="12.01" y1="16" y2="16" key="1nuqt2" />
+  </svg>
+);
 const Clock = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="12" cy="12" r="10" key="1mglay" /><polyline points="12 6 12 12 16 14" key="68esgv" />
@@ -285,7 +290,23 @@ const PredictionList = ({ selectedWaves }) => (
     {selectedWaves.map(wave => {
       const info = MULTI_WAVE_DATA.waves[wave];
       if (!info) return null;
-      const isRisk = info.status === "risk";
+
+      const fixed = (typeof FIXED_DATA !== 'undefined' && FIXED_DATA.waveProgress) ? FIXED_DATA.waveProgress[wave] : null;
+      let timeProgress = 75;
+      let progress = 0;
+      if (fixed) {
+        timeProgress = typeof fixed.timeProgress === 'number' ? Math.round(fixed.timeProgress * 100) : 75;
+        const target = fixed.planCount || 0;
+        const approved = fixed.approvedCount || 0;
+        progress = typeof fixed.completionProgress === 'number' ? Math.round(fixed.completionProgress * 100) : (target === 0 ? 0 : Math.round((approved / target) * 100));
+      } else {
+        timeProgress = typeof info.timeProgress === 'number' ? info.timeProgress : 75;
+        const target = info.target || 0;
+        const approved = info.approved || 0;
+        progress = target === 0 ? 0 : Math.round((approved / target) * 100);
+      }
+      const isRisk = Math.abs(progress - timeProgress) > 30 || timeProgress < 15;
+
       return (
         <div key={wave} className="bg-white rounded-3xl p-5 border border-neutral-100 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
           <div className="flex justify-between items-center mb-4">
@@ -298,8 +319,9 @@ const PredictionList = ({ selectedWaves }) => (
             </span>
           </div>
           {isRisk ? (
-            <div className="bg-[#F8F9FF] p-3.5 rounded-xl border border-[#7289FF]/10">
-              <p className="text-[12px] text-[#7289FF] leading-snug">当前速度不足，预计产生 <span className="font-black underline decoration-2">{Math.abs(info.gap)} 款</span> 缺口。</p>
+            <div className="flex items-center gap-2 text-[#FF5C5C] bg-[#FFF2F2]/60 p-3.5 rounded-xl border border-dashed border-[#FF5C5C]/30">
+              <AlertCircle className="w-4 h-4" />
+              <span className="text-[12px] font-bold">进度滞后，预期交付可能延期</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50/50 p-3.5 rounded-xl border border-dashed border-emerald-200">
